@@ -28,7 +28,6 @@ public class Course {
 	private List<LecturerCanTeach> lecturerCanTeach = new ArrayList<>();
 	
 	
-	
 	@OneToMany(mappedBy="course")
 	private List<StudentClass> studentClass = new ArrayList<>();
 
@@ -61,6 +60,19 @@ public class Course {
 	}
 	
 	
+	public Course(String name, String description) {
+		super();
+		this.name = name;
+		this.description = description;
+	}
+	
+
+	public Course(String name, String description, List<LecturerCanTeach> lecturerCanTeach) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.lecturerCanTeach = lecturerCanTeach;
+	}
 
 	public long getId() {
 		return id;

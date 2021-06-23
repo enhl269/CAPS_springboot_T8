@@ -29,6 +29,15 @@ public class Lecturer extends User {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
+	public Lecturer(List<LecturerCanTeach> lecturerCanTeach) {
+		super();
+		this.lecturerCanTeach = lecturerCanTeach;
+	}
+
+
+
 	public Lecturer(User user)
 	{
 		super();
