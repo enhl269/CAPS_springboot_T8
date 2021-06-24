@@ -3,11 +3,9 @@ package sg.edu.iss.security.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -22,13 +20,15 @@ public class Student extends User {
 	
 	private int contactNumber;
 	
-	@OneToMany(mappedBy = "student")
+	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private List<Enrollment> enrollmentList = new ArrayList<>();
 
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 //	public Student(Long studentId, float cGPA, int contactNumber, List<Enrollment> enrollmentList) {
 //		super();
@@ -37,6 +37,14 @@ public class Student extends User {
 //		this.contactNumber = contactNumber;
 //		this.enrollmentList = enrollmentList;
 //	}
+
+	public Student(float cGPA, int contactNumber) {
+		super();
+		this.cGPA = cGPA;
+		this.contactNumber = contactNumber;
+	}
+
+
 
 	public Student(float cGPA, int contactNumber, List<Enrollment> enrollmentList) {
 		super();

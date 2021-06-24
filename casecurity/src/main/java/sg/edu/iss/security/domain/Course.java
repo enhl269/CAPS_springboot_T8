@@ -3,6 +3,7 @@ package sg.edu.iss.security.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,17 +33,27 @@ public class Course {
 		this.credits = credits;
 	}
 
-	@OneToMany(mappedBy="course")
+	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
 	private List<LecturerCanTeach> lecturerCanTeach = new ArrayList<>();
 	
 	
 	
-	@OneToMany(mappedBy="course")
+	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
 	private List<StudentClass> studentClass = new ArrayList<>();
 
 	public Course() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	public Course(String name, String description, String type, Double credits) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.type = type;
+		this.credits = credits;
 	}
 
 	public Course(long id, String name, String description, String type, List<LecturerCanTeach> lecturerCanTeach,

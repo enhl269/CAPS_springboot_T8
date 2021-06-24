@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class StudentClass {
 	@ManyToOne
 	private Course course;
 	
-	@OneToMany(mappedBy = "studentClass")
+	@OneToMany(mappedBy = "studentClass", cascade = CascadeType.ALL)
 	private List<Enrollment> enrollmentList = new ArrayList<>();
 	
 	@ManyToOne
@@ -53,6 +54,15 @@ public class StudentClass {
 		this.classSize = classSize;
 		this.course = course;
 		this.enrollmentList = enrollmentList;
+		this.lecturer = lecturer;
+	}
+	
+
+	public StudentClass(LocalDate startdate, int classSize, Course course, Lecturer lecturer) {
+		super();
+		this.startdate = startdate;
+		this.classSize = classSize;
+		this.course = course;
 		this.lecturer = lecturer;
 	}
 
