@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -22,7 +21,16 @@ public class Course {
 	
 	private String type;
 	
-	//need moduale credits 
+	private Double credits;
+	 
+
+	public Double getCredits() {
+		return credits;
+	}
+
+	public void setCredits(double credits) {
+		this.credits = credits;
+	}
 
 	@OneToMany(mappedBy="course")
 	private List<LecturerCanTeach> lecturerCanTeach = new ArrayList<>();
@@ -38,25 +46,25 @@ public class Course {
 	}
 
 	public Course(long id, String name, String description, String type, List<LecturerCanTeach> lecturerCanTeach,
-			List<StudentClass> studentClass) {
+			List<StudentClass> studentClass, Double credits) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.type = type;
 		this.lecturerCanTeach = lecturerCanTeach;
-
+		this.credits = credits;
 		this.studentClass = studentClass;
 	}
 
 	public Course(String name, String description, String type, List<LecturerCanTeach> lecturerCanTeach,
-			List<StudentClass> studentClass) {
+			List<StudentClass> studentClass, Double credits) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.type = type;
 		this.lecturerCanTeach = lecturerCanTeach;
-		
+		this.credits = credits;
 		this.studentClass = studentClass;
 	}
 	
