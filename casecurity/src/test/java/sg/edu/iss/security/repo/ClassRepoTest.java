@@ -132,7 +132,7 @@ public class ClassRepoTest {
 		Enrollment er = new Enrollment(50f,"Pass",s,sc);
 		erepo.save(er);
 		
-		Course cfind = crepo.findCourseByStudentId("google@gmail.com").get(0);
+		Course cfind = crepo.findCourseByStudentEmail("google@gmail.com").get(0);
 		assertNotNull(cfind);
 		
    }
