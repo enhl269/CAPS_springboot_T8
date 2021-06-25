@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Course {
@@ -23,14 +24,23 @@ public class Course {
 	private String type;
 	
 	private Double credits;
-	 
-
+	@Transient 
+	private float score;
+	
 	public Double getCredits() {
 		return credits;
 	}
 
 	public void setCredits(double credits) {
 		this.credits = credits;
+	}
+	@Transient
+	public void getScore(float score) {
+		this.score = score;
+	}
+	@Transient
+	public void setScore(float score) {
+		this.score = score;
 	}
 
 	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
@@ -145,6 +155,34 @@ public class Course {
 	public String toString() {
 		return "Course [name=" + name + ", description=" + description + ", type=" + type + ", lecturerCanTeach="
 				+ lecturerCanTeach + ", studentClass=" + studentClass + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Course other = (Course) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 	
 	
