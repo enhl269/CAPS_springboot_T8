@@ -43,7 +43,7 @@ public class LecturerController {
 	@ResponseBody
 	public List<StudentClassInfo> ListStudentClassByLecture(Model model, HttpSession session) {
 		//Long id = (Long) session.getAttribute("usession");
-		long id = 3;
+		long id = 7;
 		
 		List<StudentClass> scList = scservice.getStdClassByLecturer(id);
 		List<StudentClassInfo> sciList = new ArrayList<>(scList.size());
