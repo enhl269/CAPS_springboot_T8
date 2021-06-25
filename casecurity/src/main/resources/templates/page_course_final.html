@@ -48,9 +48,9 @@
 				
 				
 				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-					<a th:href="@{'/edit/' + ${course.id}}">Edit</a>			
+					<a th:href="@{'/courses/edit/' + ${course.id}}">Edit</a>			
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${course.id}}">Delete</a>
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/courses/delete/' + ${course.id}}">Delete</a>
 				</td>
 			</tr>
 		</tbody>

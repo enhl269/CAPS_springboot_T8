@@ -42,12 +42,12 @@ public class CourseController {
 		return "page_course_final";
 	}
 
-	@RequestMapping("/new")
+	@RequestMapping("/new_course")
 	public String showNewCourseForm(Model model) {
 		Course Course= new Course();
 		model.addAttribute("Course", Course);
 		
-		return "new_Course";
+		return "new_course";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -57,7 +57,7 @@ public class CourseController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/edit/{id}")
+	@RequestMapping(value = "/courses/edit/{id}", method = RequestMethod.PUT)
 	public ModelAndView showEditCourseForm(@PathVariable(name = "id") Long id) {
 		ModelAndView mav = new ModelAndView("edit_course");
 		
@@ -65,13 +65,13 @@ public class CourseController {
 		mav.addObject("course", course);
 		
 		return mav;
-	}	
+	}
 	
 	@RequestMapping("/delete/{id}")
 	public String deleteCourset(@PathVariable(name = "id") Long id) {
 		service.delete(id);
 		
-		return "redirect:/";
+		return "redirect:/course";
 	}
 }
 

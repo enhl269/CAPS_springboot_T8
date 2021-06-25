@@ -1,5 +1,6 @@
 package sg.edu.iss.security.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class CourseService {
 //		return repo.findAll(null);
 //	}
 	
+	
 	public void save(Course Course) {
 		repo.save(Course);
 	}
@@ -41,6 +43,12 @@ public class CourseService {
 	public Course get(Long id) {
 		return repo.findById(id).get();
 	}
+	
+	/*
+	 * public void update(Long id, Course course) { for(int i = 0; i<
+	 * courses.size(); i++) { Course c = courses.get(i); if(c.getId() == id) {
+	 * courses.set(i, course); return; } } }
+	 */
 	
 	public void delete(Long id) {
 		repo.deleteById(id);

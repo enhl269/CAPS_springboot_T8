@@ -36,9 +36,6 @@ public class CasecurityApplication {
 	
 	@Autowired
 	private UserService us;
-		
-	@Autowired
-	private UserRepository urepo;
 	
 	@Autowired
 	private StudentRepository srepo;

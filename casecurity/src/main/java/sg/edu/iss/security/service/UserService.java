@@ -70,9 +70,23 @@ public class UserService {
 	public List<User> listAll() {
 		return userRepo.findAll();
 	}
+	
+	public void delete(Long id) {
+		userRepo.deleteById(id);
+	}
+	/*
+	 * public List<Student> listStudent() { return userRepo.findStudent(); }
+	 * 
+	 * 
+	 * public List<Lecturer> listLecturer() { return userRepo.findLecturer(); }
+	 */
 
 	public User get(Long id) {
 		return userRepo.findById(id).get();
+	}
+	
+	public User findByRole(String role) {
+		return userRepo.findByRoleType(role).get(0);
 	}
 	
 	public List<String> listRoles() {
