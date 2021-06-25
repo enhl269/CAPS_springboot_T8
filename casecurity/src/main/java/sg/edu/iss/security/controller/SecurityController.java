@@ -1,5 +1,8 @@
 package sg.edu.iss.security.controller;
 
+
+
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import sg.edu.iss.security.domain.Admin;
 import sg.edu.iss.security.domain.Role;
-import sg.edu.iss.security.domain.Student;
 import sg.edu.iss.security.domain.User;
+import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.UserService;
 
 @Controller
@@ -21,6 +24,9 @@ public class SecurityController {
 	
 	@Autowired
 	UserService us;
+	
+	@Autowired
+	UserRepository urepo;
 	
 
 	@GetMapping("/register")
@@ -34,6 +40,8 @@ public class SecurityController {
 		
 		
 		model.addAttribute("user", new User());
+		
+		
 		
 		return "signup_form";
 	}
@@ -50,9 +58,15 @@ public class SecurityController {
 	public String listUsers(Model model) {
 		List<User> listUsers = us.listAll();
 		model.addAttribute("listUsers", listUsers);
-		
 		return "users";
 	}
+	
+// example of using the getSessionUserId to get the current user id 	
+//	public String userSession(Model model, Principal p) {
+//		model.addAttribute("username", us.getSessionUserId(p));
+//		return "users";
+//	}
+	
 	
 
 }

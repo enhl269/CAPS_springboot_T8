@@ -1,5 +1,6 @@
 package sg.edu.iss.security.service;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,10 @@ public class UserService {
 	private <T extends User> void encodePassword(T user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);		
+	}
+	
+	public Long getSessionUserId(Principal p) {
+		return userRepo.findByEmail(p.getName()).getId();
 	}
 	
 
