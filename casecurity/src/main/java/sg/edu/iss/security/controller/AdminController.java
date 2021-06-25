@@ -60,7 +60,7 @@ public class AdminController {
 	public String showEditForm(Model model, @PathVariable("id") Long id) {
 		model.addAttribute("editUser", uService.get(id));
 		return "editUser_form";
-	}
+	}//
 
 	@GetMapping("/users/delete/{id}")
 	public String deleteUser(Model model, @PathVariable("id") Long id) {

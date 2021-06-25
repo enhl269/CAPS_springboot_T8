@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Create New Course</title>
+	<meta charset="ISO-8859-1">
+	<title>Edit Course</title>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div align="center">
@@ -22,14 +25,14 @@
 					<td>Type:</td>
 					<td><input type="text" th:field="*{type}" /></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td>StartDate:</td>
 					<td><input type="date" th:field="*{startDate}" /></td>
-				</tr>
-				<tr>
+				</tr> -->
+				<!-- <tr>
 					<td>AdminID:</td>
 					<td><input type="text" th:field="*{adminId}" /></td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td colspan="2"><button type="submit">Save</button></td>
 				</tr>

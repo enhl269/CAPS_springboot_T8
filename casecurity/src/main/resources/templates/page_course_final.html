@@ -19,7 +19,7 @@
 	
 	<h1>Course Manager</h1>
 	<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
-		<a href="new">Create New Course</a>
+		<a th:href="@{'/courses/create'}">Create New Course</a>
 	</div>
 	
 	<br/><br/>
