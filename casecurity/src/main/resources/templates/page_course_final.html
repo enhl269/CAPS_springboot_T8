@@ -30,8 +30,9 @@
 				<th>Name</th>
 				<th>Description</th>
 				<th>Type</th>
-				<th>StartDate</th>
-				<th>AdminID</th>
+				<th>Course Credits</th>
+			
+			
 				
 				<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Actions</th>				
 				
@@ -39,14 +40,13 @@
 		</thead>
 		<tbody>
 			<tr th:each="course : ${coursePage.content}">
-				<td th:text="${course.id}">Course ID</td>
-				<td th:text="${course.name}">Name</td>
-				<td th:text="${course.description}">Description</td>
-				<td th:text="${course.type}">Type</td>
-				<td th:text="${course.startDate}">StartDate</td>
-				<td th:text="${course.adminId}">AdminID</td>
-				
-				
+				<td th:text=${course.id}>Course Id</td>
+			<td th:text=${course.name}>Course Name</td>
+			<td th:text=${course.description}>Course Description</td>
+			<td th:text=${course.type}>Course Type</td>
+			<td th:text=${course.credits}>Course Credits</td>
+		
+			
 				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
 					<a th:href="@{'/edit/' + ${course.id}}">Edit</a>			
 					&nbsp;&nbsp;&nbsp;&nbsp;

@@ -1,66 +1,34 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Course Manager</title>
+<title>Course Listing</title>
 </head>
 <body>
-<div align="center">	
-	<div sec:authorize="isAuthenticated()">
-		Welcome <b><span sec:authentication="name">Username</span></b>
-		&nbsp;
-		<i><span sec:authentication="principal.authorities">Roles</span></i>
-	</div>
-		
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Logout" />
-	</form>
+	<h1>Course Listing</h1>
 	
-	<h1>Course Manager</h1>
-	<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
-		<a href="new">Create New Course</a>
-	</div>
-	
-	<br/><br/>
-	<table border="1" cellpadding="10">
-		<thead>
-			<tr>
-				<th>Course ID</th>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Type</th>
-				<th>StartDate</th>
-				<th>AdminID</th>
-				
-				<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Actions</th>				
-				
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="course : ${coursePage.content}">
-				<td th:text="${course.id}">Course ID</td>
-				<td th:text="${course.name}">Name</td>
-				<td th:text="${course.description}">Description</td>
-				<td th:text="${course.type}">Type</td>
-				<td th:text="${course.startDate}">StartDate</td>
-				<td th:text="${course.adminId}">AdminID</td>
-				
-				
-				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-					<a th:href="@{'/enroll/' + ${course.id}}">Enroll</a>			
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${course.id}}">Delete</a>
-				</td>
-			</tr>
-		</tbody>
+
+	<h2 th:if="${not #lists.isEmpty(Course)}">Course List</h2>
+	<table border="1" cellpadding="10" th:if="${not #lists.isEmpty(Course)}">
+		<tr>
+			<th>Course Id</th>
+			<th>Course Name</th>
+			<th>Course Description</th>
+			<th>Course Type</th>
+			<th>Course Credits</th>
+		</tr>
+		<tr th:each="course:${Course}">
+			<td th:text=${course.id}>Course Id</td>
+			<td th:text=${course.name}>Course Name</td>
+			<td th:text=${course.description}>Course Description</td>
+			<td th:text=${course.type}>Course Type</td>
+			<td th:text=${course.credits}>Course Credits</td>
+		</tr>
 	</table>
 
-		<a th:if="${coursePage.totalPages > 0}" class="pagination"
-		   th:each="pageNumber : ${pageNumbers}"
-		   th:href="@{/(size=${coursePage.size}, page=${pageNumber})}"
-		   th:text="${pageNumber}"
-		   th:class="${pageNumber==coursePage.number + 1} ? active"></a>
-</div>
+	 <br/>
 </body>
 </html>
+
+
