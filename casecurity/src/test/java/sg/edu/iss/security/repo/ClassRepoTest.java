@@ -136,5 +136,28 @@ public class ClassRepoTest {
 		assertNotNull(cfind);
 		
    }
+	
+	@Test
+	@Order(5)
+	public void createCourse1() {
+		
+		LocalDate dateStart = LocalDate.of(2019, 12, 31);
+		Student s = srepo.findStudentByEmail("google@gmail.com");
+		Lecturer l = lrepo.findLecturerByEmail("yahoo@gmail.com");	
+		Course c = crepo.getById(3L);
+		StudentClass sc = new StudentClass(dateStart, 30, c, l);
+		screpo.save(sc);
+		LecturerCanTeach LCT = new LecturerCanTeach(l, c);
+		lctrepo.save(LCT);
+		Enrollment er = new Enrollment(50f,"Pass",s,sc);
+		erepo.save(er);
+		
+		Course cfind = crepo.findCourseByStudentEmail("google@gmail.com").get(0);
+		assertNotNull(cfind);
+		
+   }
+	
+	
+	
 
 }

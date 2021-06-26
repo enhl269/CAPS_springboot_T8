@@ -1,50 +1,42 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Course Manager</title>
+<title>Course Listing</title>
 </head>
 <body>
-<div align="center">	
-	<div sec:authorize="isAuthenticated()">
+	<h1>Courses and Grades Listing</h1>
+	<div>
 		Welcome <b><span sec:authentication="name">Username</span></b>
 		&nbsp;
-		<i><span sec:authentication="principal.authorities">Roles</span></i>
+		CGPA <span th:text=${cgpa}>cgpa</span>
 	</div>
-		
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Logout" />
-	</form>
-	
-	<h1>Course Manager</h1>
-	
-	<br/><br/>
-	<table border="1" cellpadding="10">
-		<thead>
-			<tr>
-				<th>Course ID</th>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Type</th>
-				<th>StartDate</th>
-				<th>Score</th>		
-				
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="course : ${Course}">
-				<td th:text="${course.id}">Course ID</td>
-				<td th:text="${course.name}">Name</td>
-				<td th:text="${course.description}">Description</td>
-				<td th:text="${course.type}">Type</td>
-				<td th:text="${course.startDate}">StartDate</td>
-				<td th:text="${course.score}">Score</td>
-				
-			</tr>
-		</tbody>
+
+	<h2 th:if="${not #lists.isEmpty(Course)}">Course List</h2>
+	<table border="1" cellpadding="10" th:if="${not #lists.isEmpty(Course)}">
+		<tr>
+			<th>Course Id</th>
+			<th>Course Name</th>
+			<th>Course Description</th>
+			<th>Course Type</th>
+			<th>Course Credits</th>
+			<th>Course Score</th>
+			<th>Course Grade</th>
+		</tr>
+		<tr th:each="course:${Course}">
+			<td th:text=${course.id}>Course Id</td>
+			<td th:text=${course.name}>Course Name</td>
+			<td th:text=${course.description}>Course Description</td>
+			<td th:text=${course.type}>Course Type</td>
+			<td th:text=${course.credits}>Course Credits</td>
+			<td th:text=${course.score}>Course Score</td>
+			<td th:text=${course.grade}>Course Grade</td>
+		</tr>
 	</table>
 
-</div>
+	 <br/>
 </body>
 </html>
+
+

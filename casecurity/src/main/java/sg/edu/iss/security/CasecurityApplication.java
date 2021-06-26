@@ -24,8 +24,8 @@ import sg.edu.iss.security.repo.LecturerCanTeachRepository;
 import sg.edu.iss.security.repo.LecturerRepository;
 import sg.edu.iss.security.repo.StudentClassRepository;
 import sg.edu.iss.security.repo.StudentRepository;
-import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.UserService;
+
 
 
 @SpringBootApplication
@@ -169,5 +169,6 @@ public class CasecurityApplication {
 			erepo.save(er);
 		};
 	}
+
 
 }
