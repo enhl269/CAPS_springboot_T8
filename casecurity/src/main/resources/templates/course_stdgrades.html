@@ -6,8 +6,12 @@
 <title>Course Listing</title>
 </head>
 <body>
-	<h1>Course Listing</h1>
-	
+	<h1>Courses and Grades Listing</h1>
+	<div>
+		Welcome <b><span sec:authentication="name">Username</span></b>
+		&nbsp;
+		CGPA <span th:text=${cgpa}>cgpa</span>
+	</div>
 
 	<h2 th:if="${not #lists.isEmpty(Course)}">Course List</h2>
 	<table border="1" cellpadding="10" th:if="${not #lists.isEmpty(Course)}">

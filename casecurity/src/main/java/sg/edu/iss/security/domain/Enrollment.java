@@ -43,6 +43,13 @@ public class Enrollment {
 		this.student = student;
 		this.studentClass = studentClass;
 	}
+	
+	public Enrollment(String status, Student student, StudentClass studentClass) {
+		super();
+		this.status = status;
+		this.student = student;
+		this.studentClass = studentClass;
+	}
 
 	public long getId() {
 		return id;

@@ -6,7 +6,7 @@
 <title>Course Listing</title>
 </head>
 <body>
-	<h1>Course Listing</h1>
+	<h1>Course Listing for Classes not taken</h1>
 	
 
 	<h2 th:if="${not #lists.isEmpty(Course)}">Course List</h2>
@@ -24,6 +24,8 @@
 			<td th:text=${course.description}>Course Description</td>
 			<td th:text=${course.type}>Course Type</td>
 			<td th:text=${course.credits}>Course Credits</td>
+			<td><a href="EditFacility.html"
+				th:href="@{/enroll/}+${course.id}">Enroll</a></td>
 		</tr>
 	</table>
 

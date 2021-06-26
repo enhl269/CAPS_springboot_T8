@@ -51,24 +51,13 @@ public class StudentController {
 
 	//all courses taken and grades
 		@RequestMapping(value = "/stdnotcourses", method = RequestMethod.GET)
-		//@ResponseBody
 		public String listCourses(Model model, Principal p){
 			long id = urepo.findByEmail(p.getName()).getId();
 			
 			List<Course> allstdcourses = service.getAllCourse();
-			List<CourseViewModel> a = new ArrayList<>(allstdcourses.size());
 			List<Course> stdcourses = service.getCourseStudentTakes(id);
+			List<CourseViewModel> a = new ArrayList<>(allstdcourses.size());
 			List<CourseViewModel> b = new ArrayList<>(stdcourses.size());
-			for(int i=0;i< stdcourses.size();i++)
-			{
-				a.add(new CourseViewModel());
-				a.get(i).setId(stdcourses.get(i).getId());
-				a.get(i).setName(stdcourses.get(i).getName());
-				a.get(i).setDescription(stdcourses.get(i).getDescription());
-				a.get(i).setType(stdcourses.get(i).getType());
-				a.get(i).setCredits(stdcourses.get(i).getCredits());
-			}
-			
 			for(int i=0;i< stdcourses.size();i++)
 			{
 				b.add(new CourseViewModel());
@@ -79,74 +68,57 @@ public class StudentController {
 				b.get(i).setCredits(stdcourses.get(i).getCredits());
 			}
 			
-			List<CourseViewModel> Course = new ArrayList<>(b);
-			Course.removeAll(b);
+			for(int i=0;i< allstdcourses.size();i++)
+			{
+				a.add(new CourseViewModel());
+				a.get(i).setId(allstdcourses.get(i).getId());
+				a.get(i).setName(allstdcourses.get(i).getName());
+				a.get(i).setDescription(allstdcourses.get(i).getDescription());
+				a.get(i).setType(allstdcourses.get(i).getType());
+				a.get(i).setCredits(allstdcourses.get(i).getCredits());
+			}
 			
+			List<CourseViewModel> Course = new ArrayList<>(a);
+			
+			for(int i=0;i< Course.size();i++)
+			{
+				for(int j=0;j<b.size();j++)
+				{
+					if(Course.get(i).getId()==b.get(j).getId())
+					{
+						Course.remove(i);
+					}
+				}
+			}
 			model.addAttribute("Course",Course);
 			
 			return "coursesnottakenstd";
 		}
 	
-	//to create hidden enrollment
+	//to create and save hidden enrollment
 	@RequestMapping("/enroll/{course.id}")
+	@ResponseBody
 	public String showNewEnrollmentForm(Model model, Principal p, @PathVariable("course.id") Long cid) {
 		
 		long id = urepo.findByEmail(p.getName()).getId();
-		
-		List<Course> allstdcourses = service.getAllCourse();
-		List<CourseViewModel> a = new ArrayList<>(allstdcourses.size());
-		List<Course> stdcourses = service.getCourseStudentTakes(id);
-		List<CourseViewModel> b = new ArrayList<>(stdcourses.size());
-		for(int i=0;i< stdcourses.size();i++)
-		{
-			a.add(new CourseViewModel());
-			a.get(i).setId(stdcourses.get(i).getId());
-			a.get(i).setName(stdcourses.get(i).getName());
-			a.get(i).setDescription(stdcourses.get(i).getDescription());
-			a.get(i).setType(stdcourses.get(i).getType());
-			a.get(i).setCredits(stdcourses.get(i).getCredits());
-		}
-		
-		for(int i=0;i< stdcourses.size();i++)
-		{
-			b.add(new CourseViewModel());
-			b.get(i).setId(stdcourses.get(i).getId());
-			b.get(i).setName(stdcourses.get(i).getName());
-			b.get(i).setDescription(stdcourses.get(i).getDescription());
-			b.get(i).setType(stdcourses.get(i).getType());
-			b.get(i).setCredits(stdcourses.get(i).getCredits());
-		}
-		
-		List<CourseViewModel> Course = new ArrayList<>(b);
-		Course.removeAll(b);
-		
+
 		StudentClass sc = scservice.getStdClass(cid);
 		
 		String page = "";
+		Student s = stdservice.getStd(id);
 		
-		if(sc.getEnrollmentList().size()< sc.getClassSize())
-		{
-			Enrollment e= new Enrollment();
-			Student s = stdservice.getStd(id);
-			e.setStudent(s);
-			e.setStudentClass(sc);
-			model.addAttribute("Enrollment", e);
-			
-			page = "redirect:/saveenroll";
-			
-		} else {
-			page = "class_full";
-		}
-		return page;
-		
+		  if(sc.getEnrollmentList().size()< sc.getClassSize()) 
+		  { 
+			  Enrollment e= new Enrollment("Pending",s,sc);
+			  eservice.save(e);
+		  
+		  page = "You will receive an email acknowledging that you have enrolled in this course";
+		  
+		 } else { page = "class_full"; } 
+		  
+		  return page;
 	}
-	//to save hidden enrollment
-	@RequestMapping(value = "/saveenroll", method = RequestMethod.POST)
-	public String saveEnrollment(@ModelAttribute("Enrollment") Enrollment e) {
-		eservice.save(e);
 	
-		return "redirect:/email";
-	}
 	@RequestMapping(value = "/email", method = RequestMethod.POST)
 	public String sendEmail(Principal p,@ModelAttribute("Enrollment") Enrollment e) {
 		
@@ -167,6 +139,7 @@ public class StudentController {
 	
 	//all courses taken and grades
 	@RequestMapping(value = "/courseno", method = RequestMethod.GET)
+	
 	public String ListCourseByStudent(Model model,Principal p){
 		long id = urepo.findByEmail(p.getName()).getId();
 		List<Course> stdcourses = service.getCourseStudentTakes(id);
@@ -194,8 +167,10 @@ public class StudentController {
 			a.get(i).setPrelimScore(a.get(i).getScore());
 			sum += a.get(i).getCredits() * a.get(i).getPrelimScore();;
 		}
+		float x = sum/mc;
 		
 		model.addAttribute("Course",a);
+		model.addAttribute("cgpa",x);
 		
 		return "course_stdgrades";
 	}

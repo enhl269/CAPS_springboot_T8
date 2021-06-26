@@ -32,15 +32,16 @@ public class CasecurityApplication {
 	CommandLineRunner runner() {
 		return args -> { 
 			
-			List<LecturerCanTeach> lecturerCanTeach1 =new ArrayList<LecturerCanTeach>();
-			List<StudentClass> studentClass1 =new ArrayList<StudentClass>();
+			//List<LecturerCanTeach> lecturerCanTeach1 =new ArrayList<LecturerCanTeach>();
+			//List<StudentClass> studentClass1 =new ArrayList<StudentClass>();
 			
-			Course course2 = new Course("JPQL","Java Basics","Long", lecturerCanTeach1,studentClass1, null);
-			Course saved = crepo.save(course2);
+			//Course course2 = new Course("JPQL","Java Basics","Long", lecturerCanTeach1,studentClass1, null);
+			//Course saved = crepo.save(course2);
 			
-			Course course3 = new Course("JPA","Java Basics","Long", lecturerCanTeach1,studentClass1, null);
-			Course saved1 = crepo.save(course3);
+			//Course course3 = new Course("JPA","Java Basics","Long", lecturerCanTeach1,studentClass1, null);
+			//Course saved1 = crepo.save(course3);
 			
+	
 			/*
 			 * ParkingSpace ps = new ParkingSpace(1, "25 HMKT"); Employee emp = new
 			 * Employee("Dilbert", 1000); emp.setParkingSpace(ps); erepo.save(emp);
