@@ -28,6 +28,9 @@ import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.UserService;
 
 
+
+
+
 @SpringBootApplication
 public class CasecurityApplication {
 	
@@ -59,6 +62,7 @@ public class CasecurityApplication {
 		SpringApplication.run(CasecurityApplication.class, args);
 	}
 	
+
 	@Bean
 	CommandLineRunner runner() {
 		return args ->{
@@ -172,5 +176,6 @@ public class CasecurityApplication {
 			erepo.save(er);
 		};
 	}
+
 
 }

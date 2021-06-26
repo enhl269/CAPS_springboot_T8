@@ -24,8 +24,6 @@ public class Course {
 	private String type;
 	
 	private Double credits;
-	@Transient 
-	private float score;
 	
 	public Double getCredits() {
 		return credits;
@@ -34,15 +32,7 @@ public class Course {
 	public void setCredits(double credits) {
 		this.credits = credits;
 	}
-	@Transient
-	public void getScore(float score) {
-		this.score = score;
-	}
-	@Transient
-	public void setScore(float score) {
-		this.score = score;
-	}
-
+	
 	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
 	private List<LecturerCanTeach> lecturerCanTeach = new ArrayList<>();
 	
@@ -53,8 +43,6 @@ public class Course {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 	public Course(String name, String description, String type, Double credits) {
 		super();
