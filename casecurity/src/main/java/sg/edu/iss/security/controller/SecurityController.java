@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.security.domain.Role;
 import sg.edu.iss.security.domain.User;
@@ -77,8 +78,27 @@ public class SecurityController {
 //		return "login";
 //	}
 //	
-
-
-	
+	@GetMapping("/landing_page")
+	public String log(Model model, Principal p) {
+		String role= urepo.findByEmail(p.getName()).getRoles();
+		if(role.equalsIgnoreCase("STUDENT"))
+			return "redirect:/courseno";
+		else if(role.equalsIgnoreCase("LECTURER"))
+			return "redirect:/studentClassList";
+		else if(role.equalsIgnoreCase("ADMIN"))
+			return "redirect:/courses";
+		else
+			return "/index";
+	}
+//
+//	@GetMapping("/landing_page")
+//	@ResponseBody
+//	public String landing(Model model, Principal p) {
+//		
+//		
+//		
+//		String page = "You will receive an email acknowledging that you have enrolled in this course";
+//		return page;
+//	}	
 
 }
