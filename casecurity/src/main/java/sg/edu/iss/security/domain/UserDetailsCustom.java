@@ -23,9 +23,11 @@ public class UserDetailsCustom implements UserDetails {
         //Role roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
          
-        for (Role role : Role.values()) {
-            authorities.add(new SimpleGrantedAuthority(role.toString()));
-        }
+//        for (Role role : Role.values()) {
+//            authorities.add(new SimpleGrantedAuthority(role.toString()));
+//        }
+        
+        authorities.add(new SimpleGrantedAuthority(user.getRoles()));
          
         return authorities;
 	}

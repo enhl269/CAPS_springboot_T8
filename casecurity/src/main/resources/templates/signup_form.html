@@ -49,10 +49,13 @@
 			<div class="form-group row">
 				<label class="col-4 col-form-label">Roles: </label>
 				<div class="col-8">
+					<select name ="Role">
 					<th:block th:each="role: ${listRoles}">
-					<input type="checkbox" th:field="*{roles}" th:text = "${role}" th:value="${role}"class="m-2" />
+					<option th:field="*{roles}" th:text = "${role}" th:value="${role}"class="m-2"></option>
+					<!-- <input type="" th:field="*{roles}" th:text = "${role}" th:value="${role}"class="m-2" /> -->
 						<!-- th:text="${role.name}" th:value="${role.id}" --> 
 					</th:block>
+					</select>
 				</div>
 			
 			<div>
