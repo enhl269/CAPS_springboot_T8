@@ -97,6 +97,9 @@ public class UserService {
 		return userRepo.findByEmail(p.getName()).getId();
 	}
 	
+	public void delete(Long id) {
+		userRepo.deleteById(id);
+	}
 
 }
 
