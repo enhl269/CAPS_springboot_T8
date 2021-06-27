@@ -3,11 +3,13 @@ package sg.edu.iss.security.domain;
 import java.time.LocalDate;
 
 public class EnrollmentInfo {
-
+	
+	private long enrollmentId;
 	private String courseName;
 	private LocalDate startDate;
 	private Long studentId;
 	private String StudentName;
+	private float score;
 	
 	public EnrollmentInfo() {
 		super();
@@ -52,4 +54,22 @@ public class EnrollmentInfo {
 	public void setStudentName(String studentName) {
 		StudentName = studentName;
 	}
+
+	public long getEnrollmentId() {
+		return enrollmentId;
+	}
+
+	public void setEnrollmentId(long enrollmentId) {
+		this.enrollmentId = enrollmentId;
+	}
+
+	public float getScore() {
+		return score;
+	}
+
+	public void setScore(float score) {
+		this.score = score;
+	}
+	
+	
 }
