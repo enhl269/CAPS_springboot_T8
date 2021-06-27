@@ -1,27 +1,12 @@
 package sg.edu.iss.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import sg.edu.iss.security.repo.CourseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+import sg.edu.iss.security.repo.UserRepository;
 
 
 
@@ -36,7 +21,8 @@ public class CasecurityApplication {
 	}
 	
 	
-	
+	@Autowired
+	UserRepository urepo;
 
  
 	
@@ -62,6 +48,8 @@ public class CasecurityApplication {
 	@Bean
 	CommandLineRunner runner() {
 		return args -> { 
+			
+			System.out.println(urepo.findByEmail("yahoo@gmail.com").getId());
 			     
 		};
 	}

@@ -16,5 +16,10 @@ public interface StudentClassRepository extends PagingAndSortingRepository<Stude
 			+ "where c.id=:id")
 	public List<StudentClass> findStudentClassByCourseId(@Param("id") Long id);
 	
+	@Query("SELECT sc FROM StudentClass sc JOIN sc.lecturer l "
+			+ "where l.id=:id")
+	public List<StudentClass> findStudentClassByLecturerId(@Param("id") Long id);
+	
+	
 
 }
