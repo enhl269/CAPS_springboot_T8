@@ -12,6 +12,10 @@
 		&nbsp;
 		CGPA <span th:text=${cgpa}>cgpa</span>
 	</div>
+	
+	<div>
+	<a href ="/stdnotcourses">View Courses Not Taken or Enroll into New Class</a>
+	</div>
 
 	<h2 th:if="${not #lists.isEmpty(Course)}">Course List</h2>
 	<table border="1" cellpadding="10" th:if="${not #lists.isEmpty(Course)}">
