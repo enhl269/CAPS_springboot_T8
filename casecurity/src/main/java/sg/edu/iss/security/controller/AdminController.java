@@ -79,7 +79,6 @@ public class AdminController {
 
 	@GetMapping("/users/delete/{id}")
 	public String deleteUser(Model model, @PathVariable("id") Long id) {
-		User user = uService.get(id);
 		uService.delete(id);
 		return "redirect:/users";
 	}
@@ -113,7 +112,6 @@ public class AdminController {
 
 	@GetMapping("/courses/delete/{id}")
 	public String deleteCourse(Model model, @PathVariable("id") Long id) {
-		Course course = cService.get(id);
 		cService.delete(id);
 		return "redirect:/courses";
 	}
