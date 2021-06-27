@@ -54,24 +54,24 @@ public class CourseController {
 	public String saveCourse(@ModelAttribute("Course") Course Course) {
 		service.save(Course);
 		
-		return "redirect:/";
+		return "redirect:/courses";
 	}
 	
-	@RequestMapping("/edit/{id}")
-	public ModelAndView showEditCourseForm(@PathVariable(name = "id") Long id) {
-		ModelAndView mav = new ModelAndView("edit_course");
-		
-		Course course = service.get(id);
-		mav.addObject("course", course);
-		
-		return mav;
-	}	
+	
+	  @RequestMapping("/edit/{id}") public ModelAndView
+	  showEditCourseForm(@PathVariable(name = "id") Long id) { ModelAndView mav =
+	  new ModelAndView("edit_course");
+	  
+	  Course course = service.get(id); mav.addObject("course", course);
+	  
+	  return mav; }
+	 
 	
 	@RequestMapping("/delete/{id}")
 	public String deleteCourset(@PathVariable(name = "id") Long id) {
 		service.delete(id);
 		
-		return "redirect:/";
+		return "redirect:/courses";
 	}
 }
 
