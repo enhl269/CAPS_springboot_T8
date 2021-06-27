@@ -121,7 +121,7 @@ public class StudentController {
 				  eservice.save(e);
 				  
 				  final String username = "sizheng89@gmail.com";
-			        final String password = "to fill it in ";
+			        final String password = "fill it in yourself ";
 
 			        Properties prop = new Properties();
 			        prop.put("mail.smtp.host", "smtp.gmail.com");
