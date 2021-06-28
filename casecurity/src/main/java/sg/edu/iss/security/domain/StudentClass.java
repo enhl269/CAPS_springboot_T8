@@ -11,13 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.FutureOrPresent;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class StudentClass {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+	@DateTimeFormat (pattern="yyyy-MM-dd")
 	private LocalDate startdate;
 	
 	private int classSize;
@@ -36,7 +39,7 @@ public class StudentClass {
 		// TODO Auto-generated constructor stub
 	}
 
-	public StudentClass(long id, LocalDate startdate, int classSize, Course course, List<Enrollment> enrollmentList,
+	public StudentClass(long id, @FutureOrPresent LocalDate startdate, int classSize, Course course, List<Enrollment> enrollmentList,
 			Lecturer lecturer) {
 		super();
 		this.id = id;
@@ -47,7 +50,7 @@ public class StudentClass {
 		this.lecturer = lecturer;
 	}
 
-	public StudentClass(LocalDate startdate, int classSize, Course course, List<Enrollment> enrollmentList,
+	public StudentClass(@FutureOrPresent LocalDate startdate, int classSize, Course course, List<Enrollment> enrollmentList,
 			Lecturer lecturer) {
 		super();
 		this.startdate = startdate;
@@ -58,7 +61,7 @@ public class StudentClass {
 	}
 	
 
-	public StudentClass(LocalDate startdate, int classSize, Course course, Lecturer lecturer) {
+	public StudentClass(@FutureOrPresent LocalDate startdate, int classSize, Course course, Lecturer lecturer) {
 		super();
 		this.startdate = startdate;
 		this.classSize = classSize;
@@ -78,7 +81,7 @@ public class StudentClass {
 		return startdate;
 	}
 
-	public void setStartdate(LocalDate startdate) {
+	public void setStartdate(@FutureOrPresent LocalDate startdate) {
 		this.startdate = startdate;
 	}
 

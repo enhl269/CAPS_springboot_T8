@@ -7,35 +7,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.security.domain.Course;
-
 import sg.edu.iss.security.domain.Enrollment;
 import sg.edu.iss.security.domain.EnrollmentInfo;
 import sg.edu.iss.security.domain.StudentClass;
+import sg.edu.iss.security.domain.StudentClassInfo;
 import sg.edu.iss.security.domain.User;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
+import sg.edu.iss.security.service.LecturerService;
 import sg.edu.iss.security.service.StudentClassService;
+import sg.edu.iss.security.service.StudentService;
 import sg.edu.iss.security.service.UserService;
 
 @Controller
 public class AdminController {
-
+	
 	@Autowired
 	private UserService uService;
 
-	/*
-	 * @Autowired private StudentService sService;
-	 * 
-	 * @Autowired private LecturerService lService;
-	 */
+	@Autowired 
+	private StudentService sService;
+	 
+	@Autowired 
+	private LecturerService lService;
+	 
+	@Autowired
+	private StudentClassService scService;
 
 	@Autowired
 	private CourseService cService;
@@ -43,8 +48,6 @@ public class AdminController {
 	@Autowired
 	private EnrollmentService eService;
 	
-	@Autowired
-	private StudentClassService scService;
 
 	/*
 	 * @GetMapping("/users") public String listUsers(Model model) { List<User>
@@ -63,6 +66,7 @@ public class AdminController {
 	 * List<Lecturer> listLecturers = uService.listLecturer();
 	 * model.addAttribute("listLecturers", listLecturers); return "lecturers"; }
 	 */
+	
 	@GetMapping("users/edit/{id}")
 	public String showEditForm(Model model, @PathVariable("id") Long id) {
 		model.addAttribute("editUser", uService.get(id));
@@ -99,17 +103,7 @@ public class AdminController {
 		 model.addAttribute("editCourse", cService.get(id));
 		 return "editCourse_form"; }
 	 
-	 
-		/*
-		 * @RequestMapping(value = "/editCourse", method = RequestMethod.POST) public
-		 * String updateCourse(@RequestParam("id") Long id, Course courseDetail) {
-		 * 
-		 * Course course = cService.get(id); course.setName(courseDetail.getName());
-		 * course.setType(courseDetail.getType());
-		 * course.setDescription(courseDetail.getDescription()); cService.save(course);
-		 * 
-		 * return "redirect:/courses"; }
-		 */
+	
 
 	@GetMapping("/courses/delete/{id}")
 	public String deleteCourse(Model model, @PathVariable("id") Long id) {
@@ -156,5 +150,53 @@ public class AdminController {
 		return redirectString;
 	}
 	
+	
+	@RequestMapping(value = "/adminstudentClassList", method = RequestMethod.GET)
+	//@ResponseBody
+	public String ListAllStudentClass(Model model) {
+		
+		List<StudentClass> scList = scService.getAllStdCLass();
+		List<StudentClassInfo> sciList = new ArrayList<>(scList.size());
+		
+		for(int i=0; i < scList.size(); i++) {
+			sciList.add(new StudentClassInfo());
+			sciList.get(i).setId(scList.get(i).getId());
+			sciList.get(i).setCourseName(scList.get(i).getCourse().getName());
+			sciList.get(i).setCourseId(scList.get(i).getCourse().getId());
+			sciList.get(i).setStartdate(scList.get(i).getStartdate());
+			sciList.get(i).setClassSize(scList.get(i).getClassSize());
+			sciList.get(i).setEnrollmentSize(scList.get(i).getEnrollmentList().size());
+			sciList.get(i).setLecturerName(scList.get(i).getLecturer().getFirstName()+scList.get(i).getLecturer().getLastName());
+			sciList.get(i).setLecturerId(scList.get(i).getLecturer().getId());
+		}
+		
+		model.addAttribute("studentclasses",sciList);
+		//return sciList;
+		return "adminall_studentclasses";
+	}
+	
+	@RequestMapping(value = "/savestdclass", method = RequestMethod.POST)
+	public String saveCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
+		scService.save(StdClass);
+		
+		return "redirect:/adminstudentClassList";
+	}
+	
+	@GetMapping("/adminstudentClassList/edit/{id}")
+	public String showEditStudenClassForm(Model model,@PathVariable(name = "id") Long id) 
+	{ 	  
+	  StudentClass stdclass = scService.getStdClassByStdClassId(id); 
+	  model.addAttribute("stdclass", stdclass);
+	  
+	  return "edit_stdclass"; }
+	 
+	
+	@RequestMapping("/adminstudentClassList/delete/{id}")
+	public String deleteStdClass(@PathVariable(name = "id") Long id) {
+		scService.delete(id);
+		
+		return "redirect:/adminstudentClassList";
+
+	}
 //
 }

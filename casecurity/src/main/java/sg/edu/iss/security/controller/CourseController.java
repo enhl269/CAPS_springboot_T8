@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.security.domain.Course;
+import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.service.CourseService;
 
 @Controller
@@ -72,6 +73,15 @@ public class CourseController {
 		service.delete(id);
 		
 		return "redirect:/courses";
+	}
+	
+	@RequestMapping("/newdtdclass/{id}")
+	public String showNewStdClassForm(Model model,@PathVariable("id")Long id) {
+		
+		StudentClass StdClass= new StudentClass();
+		StdClass.setCourse(service.get(id));
+		model.addAttribute("StdClass", StdClass);
+		return "new_Stdclass";
 	}
 }
 
