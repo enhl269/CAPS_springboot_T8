@@ -110,32 +110,20 @@ public class AdminController {
 	}
 	@GetMapping("/admin/enrollment")
 	//@ResponseBody
-	public String showEnrollmentList(Model model, Principal p) {
+	public String showEnrollmentList(Model model) {
 		//how to regulate enrollment status
-//		pending
-//		confirmed
-//		denied
-		long adminId = urepo.findByEmail(p.getName()).getId();
-		
+		//pending,confirmed,denied
 		List<EnrollmentInfo> eiList = new ArrayList<>();
-		List<Course> cList =cService.getAllCourseByAdminId(adminId);
-		
-		for(Course course:cList) {
-			StudentClass sc = scService.getStdClass(course.getId());
-			List<Enrollment> eList = eService.getByStudentClassId(sc.getId());
-			for(Enrollment e:eList) {
-				eiList.add(
-					new EnrollmentInfo(
-							e.getId(),
-							e.getStudentClass().getCourse().getName(),
-							e.getStudentClass().getStartdate(),
-							e.getStudent().getId(),
-							e.getStudent().getFirstName(),
-							e.getStatus()));
-			}
+		List<Enrollment> eList = eService.getAllEnrollments();
+		for(Enrollment e:eList) {
+			eiList.add(new EnrollmentInfo(e.getId(),
+										  e.getStudentClass().getCourse().getName(),
+						                  e.getStudentClass().getStartdate(),
+						                  e.getStudent().getId(),
+						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
+						                  e.getStatus()));
 		}
 		model.addAttribute("enrollments",eiList);
-		//return eiList;
 		return "admin_enrollmentList";
 		
 	}

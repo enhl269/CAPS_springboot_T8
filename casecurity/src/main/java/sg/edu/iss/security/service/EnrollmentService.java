@@ -47,4 +47,8 @@ public class EnrollmentService {
 		return e.getStudentClass();
 	}
 	
+	public List<Enrollment> getAllEnrollments(){
+		return erepo.findAll();
+	}
+	
 }
