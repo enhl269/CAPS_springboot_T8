@@ -9,6 +9,12 @@
 <body>
 <h1>Classes Information</h1>
 
+<div>
+
+	<a href ="/courses">Create A New Class</a>
+
+	</div>
+
 <table>
 	<tr>
 		<th>Course Name</th>
@@ -25,8 +31,8 @@
 		<td th:text="${studentclass.classSize}">Class Size</td>
 		<td th:text="${studentclass.enrollmentSize}">Enrollment Size</td>
 		<td th:text="${studentclass.LecturerName}">Lecturer Name</td>
-		<!--  <td><a href="lecturer_enrollment.html"
-				th:href="@{/studentClassList/}+${studentclass.id}">Class Enrollment</a></td>-->
+		<td><a href="lecturer_enrollment.html"
+				th:href="@{/studentClassList/}+${studentclass.id}">Edit Class Enrollment</a>
 				
 	<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
 					<a th:href="@{'/adminstudentClassList/edit/' + ${studentclass.id}}">Edit</a>			
