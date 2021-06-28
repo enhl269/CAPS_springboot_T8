@@ -33,7 +33,7 @@
 		<td th:text="${enrollment.studentId}">Student Id</td>
 		<td th:text="${enrollment.studentName}">Student Name</td>
 		<td th:text="${enrollment.score}">Current Score</td>
-		<td><form th:action="@{/editScore/}+${enrollment.enrollmentId}" method="POST">
+		<td><form th:action="@{/editScore/}+${enrollment.StudentClassId}+@{/}+${enrollment.enrollmentId}" method="POST">
 			<input type="text" name = 'attempt1' th:value="${enrollment.score}" />
 			<button type="submit" class="btn btn-primary">Save</button>
 		</form></td>

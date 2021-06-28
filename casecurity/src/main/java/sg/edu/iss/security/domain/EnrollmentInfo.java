@@ -14,6 +14,7 @@ public class EnrollmentInfo {
 	private String grade;
 	private float prelimscore;
 	private float cgpa;
+	private long studentclassid;
 	
 	public EnrollmentInfo() {
 		super();
@@ -129,6 +130,14 @@ public class EnrollmentInfo {
 
 	public void setCGPA(float cgpa) {
 		this.cgpa = cgpa;
+	}
+	
+	public long getStudentClassId() {
+		return studentclassid;
+	}
+
+	public void setStudentClassId(long studentclassid) {
+		this.studentclassid = studentclassid;
 	}
 
 }

@@ -81,6 +81,7 @@ public class LecturerController {
 		  for(int i=0; i < eList.size(); i++) 
 		  { 
 			  eiList.add(new EnrollmentInfo());
+			  eiList.get(i).setStudentClassId(scId);
 			  eiList.get(i).setEnrollmentId(eList.get(i).getId());
 			  eiList.get(i).setCourseName(eList.get(i).getStudentClass().getCourse().getName());
 			  eiList.get(i).setCredits(eList.get(i).getStudentClass().getCourse().getCredits());
@@ -123,12 +124,12 @@ public class LecturerController {
 		  return "lecturer_enrollment"; 
 		  }
 		  
-	  @RequestMapping(value ="/editScore/{id}", method = RequestMethod.POST)
+	  @RequestMapping(value ="/editScore/{studentclassid}/{id}", method = RequestMethod.POST)
 	  //@ResponseBody
-	  public String saveScore(@PathVariable("id") Long eId, @RequestParam("attempt1") float score) {
+	  public String saveScore(@PathVariable("id") Long eId, @RequestParam("attempt1") float score,@PathVariable("studentclassid") Long scId) {
 			eservice.saveScore(score, eId);
 			
-			return "lecturer_enrollment";
+			return "redirect:/studentClassList/"+scId;
 		}
 	 
 }
