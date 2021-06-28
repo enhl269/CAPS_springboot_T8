@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
@@ -25,10 +24,7 @@ public class Course {
 	private String type;
 	
 	private Double credits;
-	
-	@ManyToOne
-	private Admin admin;
-		
+			
 	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
 	private List<LecturerCanTeach> lecturerCanTeach = new ArrayList<>();
 	
@@ -143,14 +139,6 @@ public class Course {
 		this.credits = credits;
 	}
 	
-	public Admin getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
-	}
-
 	@Override
 	public String toString() {
 		return "Course [name=" + name + ", description=" + description + ", type=" + type + ", lecturerCanTeach="
