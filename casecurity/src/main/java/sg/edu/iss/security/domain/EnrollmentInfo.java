@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class EnrollmentInfo {
 
+	private Long enrollmentId;
 	private String courseName;
 	private LocalDate startDate;
 	private Long studentId;
@@ -14,8 +15,10 @@ public class EnrollmentInfo {
 		super();
 	}
 	
-	public EnrollmentInfo(String courseName, LocalDate startDate, Long studentId, String studentName, String status) {
+	public EnrollmentInfo(Long enrollmentId, String courseName, LocalDate startDate, Long studentId, String studentName,
+			String status) {
 		super();
+		this.enrollmentId = enrollmentId;
 		this.courseName = courseName;
 		this.startDate = startDate;
 		this.studentId = studentId;
@@ -24,6 +27,15 @@ public class EnrollmentInfo {
 	}
 
 
+
+
+	public Long getEnrollmentId() {
+		return enrollmentId;
+	}
+
+	public void setEnrollmentId(Long enrollmentId) {
+		this.enrollmentId = enrollmentId;
+	}
 
 	public String getCourseName() {
 		return courseName;

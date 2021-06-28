@@ -116,8 +116,8 @@ public class AdminController {
 		return "redirect:/courses";
 	}
 	@GetMapping("/admin/enrollment/{adminId}")
-	@ResponseBody
-	public List<EnrollmentInfo> showEnrollmentList(Model model,@PathVariable("adminId") Long adminId) {
+	//@ResponseBody
+	public String showEnrollmentList(Model model,@PathVariable("adminId") Long adminId) {
 		//how to regulate enrollment status
 //		pending
 //		confirmed
@@ -131,21 +131,24 @@ public class AdminController {
 			for(Enrollment e:eList) {
 				eiList.add(
 					new EnrollmentInfo(
+							e.getId(),
 							e.getStudentClass().getCourse().getName(),
 							e.getStudentClass().getStartdate(),
 							e.getStudent().getId(),
 							e.getStudent().getFirstName(),
 							e.getStatus()));
 			}
-		}	
-		return eiList;
+		}
+		model.addAttribute("enrollments",eiList);
+		//return eiList;
+		return "admin_enrollmentList";
 		
 	}
 	
-	@GetMapping("/admin/enrollment/{id}/{status}")
-	public String updateStatus(@PathVariable("status") String status,@PathVariable("id") Long id) {
+	@PostMapping("/admin/enrollment/{id}")
+	public String updateStatus(@RequestParam("status") String status, @PathVariable("id") Long id) {
 		eService.saveStatus(status, id);
-		
+
 		Long adminId = eService.getStudentClass(id).getCourse().getAdmin().getId();
 		String redirectString = "redirect:/admin/enrollment/"+adminId;
 		
