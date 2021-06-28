@@ -87,6 +87,13 @@ public class SecurityController {
 		else
 			return "/index";
 	}
+	
+	@GetMapping("/NotAuth")
+	public String NotAuth()
+	{
+		return "NotAuth";
+	}
+	
 //
 //	@GetMapping("/landing_page")
 //	@ResponseBody
