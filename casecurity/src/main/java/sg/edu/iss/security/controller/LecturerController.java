@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import sg.edu.iss.security.domain.Course;
+import sg.edu.iss.security.domain.CourseGrades;
 import sg.edu.iss.security.domain.Enrollment;
 import sg.edu.iss.security.domain.EnrollmentInfo;
 import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.domain.StudentClassInfo;
 import sg.edu.iss.security.repo.UserRepository;
+import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
 import sg.edu.iss.security.service.StudentClassService;
 import sg.edu.iss.security.service.StudentService;
@@ -38,6 +41,9 @@ public class LecturerController {
 	
 	@Autowired 
 	private UserRepository urepo;
+	
+	@Autowired
+	private CourseService cservice;
 	
 	@RequestMapping("/studentClassList")
 	//@ResponseBody
@@ -69,15 +75,48 @@ public class LecturerController {
 		  List<Enrollment> eList = eservice.getByStudentClassId(scId);
 		  List<EnrollmentInfo> eiList = new ArrayList<>(eList.size());
 		  
+		  float sum = 0;
+		  float mc =0;
+		  
 		  for(int i=0; i < eList.size(); i++) 
 		  { 
 			  eiList.add(new EnrollmentInfo());
 			  eiList.get(i).setEnrollmentId(eList.get(i).getId());
 			  eiList.get(i).setCourseName(eList.get(i).getStudentClass().getCourse().getName());
+			  eiList.get(i).setCredits(eList.get(i).getStudentClass().getCourse().getCredits());
 			  eiList.get(i).setStartDate(eList.get(i).getStudentClass().getStartdate());
 			  eiList.get(i).setStudentId(eList.get(i).getStudent().getId());
 			  eiList.get(i).setStudentName(eList.get(i).getStudent().getFirstName()+eList.get(i).getStudent().getLastName());
 			  eiList.get(i).setScore(eList.get(i).getScore()); 
+			  eiList.get(i).setGrade(eList.get(i).getScore());
+			  eiList.get(i).setPrelimScore(eList.get(i).getScore());
+			  
+			  
+			  List<Course> stdcourses = cservice.getCourseStudentTakes(eiList.get(i).getStudentId());
+				List<CourseGrades> a = new ArrayList<>(stdcourses.size());
+				for(int j=0;j< stdcourses.size();j++)
+				{
+					a.add(new CourseGrades());
+					a.get(j).setId(stdcourses.get(j).getId());
+					a.get(j).setName(stdcourses.get(j).getName());
+					a.get(j).setDescription(stdcourses.get(j).getDescription());
+					a.get(j).setType(stdcourses.get(j).getType());
+					a.get(j).setCredits(stdcourses.get(j).getCredits());
+					
+					Long courseid = stdcourses.get(j).getId();
+					float x = eservice.getScore(courseid);
+					a.get(j).setScore(x);
+					a.get(j).setGrade(a.get(j).getScore());
+					
+					mc+= a.get(j).getCredits();
+					a.get(j).setPrelimScore(a.get(j).getScore());
+					sum += a.get(j).getCredits() * a.get(j).getPrelimScore();
+				}
+				
+				float cgpa = sum/mc;
+				
+				eiList.get(i).setCGPA(cgpa);
+			  
 			  }
 		  model.addAttribute("enrollments",eiList); 
 		  //return eiList; 

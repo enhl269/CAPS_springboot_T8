@@ -202,7 +202,7 @@ public class StudentController {
 		{
 			mc+= a.get(i).getCredits();
 			a.get(i).setPrelimScore(a.get(i).getScore());
-			sum += a.get(i).getCredits() * a.get(i).getPrelimScore();;
+			sum += a.get(i).getCredits() * a.get(i).getPrelimScore();
 		}
 		float x = sum/mc;
 		
