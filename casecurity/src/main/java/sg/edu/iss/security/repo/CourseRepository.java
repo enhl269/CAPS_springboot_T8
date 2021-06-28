@@ -11,7 +11,7 @@ import sg.edu.iss.security.domain.Course;
 
 
 
-public interface CourseRepository extends PagingAndSortingRepository<Course, Long>, JpaRepository<Course,Long> {
+public interface CourseRepository extends PagingAndSortingRepository<Course, Long>, JpaRepository<Course,Long>{
 	
 	@Query("SELECT c FROM Course c JOIN c.studentClass sc "
 			+ "JOIN sc.enrollmentList el JOIN el.student stu "

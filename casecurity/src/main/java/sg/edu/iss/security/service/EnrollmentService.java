@@ -1,12 +1,9 @@
 package sg.edu.iss.security.service;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sg.edu.iss.security.domain.Enrollment;
 import sg.edu.iss.security.repo.EnrollmentRepository;
 
@@ -33,4 +30,5 @@ public class EnrollmentService {
 	public List<Enrollment> getByStudentClassId(long scId){
 		return erepo.findEnrollmentByStudentClassId(scId);
 	}
+
 }

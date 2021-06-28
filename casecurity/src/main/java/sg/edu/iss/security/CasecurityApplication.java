@@ -1,14 +1,17 @@
 package sg.edu.iss.security;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
 
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.Enrollment;
@@ -26,6 +29,7 @@ import sg.edu.iss.security.repo.StudentClassRepository;
 import sg.edu.iss.security.repo.StudentRepository;
 import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.UserService;
+
 
 
 
@@ -60,6 +64,8 @@ public class CasecurityApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CasecurityApplication.class, args);
+		
+		
 	}
 	
 
@@ -67,6 +73,7 @@ public class CasecurityApplication {
 	CommandLineRunner runner() {
 		return args ->{
 			
+
 			//Creating Admin
 			User Admin = new User();
 			Admin.setEmail("ravikumar@gmail.com");
@@ -174,6 +181,7 @@ public class CasecurityApplication {
 			
 			Enrollment er = new Enrollment(50f,"Pass",s,sc);
 			erepo.save(er);
+
 		};
 	}
 

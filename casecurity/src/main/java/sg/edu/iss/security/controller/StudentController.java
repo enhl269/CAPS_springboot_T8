@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -104,108 +104,78 @@ public class StudentController {
 			return "coursesnottakenstd";
 		}
 		
-		//to create and save hidden enrollment
-		@RequestMapping("/enroll/{course.id}")
-		@ResponseBody
-		public String showNewEnrollmentForm(Model model, Principal p, @PathVariable("course.id") Long cid) {
-			
-			long id = urepo.findByEmail(p.getName()).getId();
-
-			StudentClass sc = scservice.getStdClass(cid);
-			
-			String page = "";
-			Student s = stdservice.getStd(id);
-			
-			  if(sc.getEnrollmentList().size()< sc.getClassSize()) 
-			  { 
-				  Enrollment e= new Enrollment("Pending",s,sc);
-				  eservice.save(e);
-				  
-				  final String username = "sizheng89@gmail.com";
-			        final String password = "fill it in yourself ";
-
-			        Properties prop = new Properties();
-			        prop.put("mail.smtp.host", "smtp.gmail.com");
-			        prop.put("mail.smtp.port", "587");
-			        prop.put("mail.smtp.auth", "true");
-			        prop.put("mail.smtp.starttls.enable", "true"); //TLS
-			        
-			        Session session = Session.getInstance(prop,
-			                new javax.mail.Authenticator() {
-			                    protected PasswordAuthentication getPasswordAuthentication() {
-			                        return new PasswordAuthentication(username, password);
-			                    }
-			                });
-
-			        try {
-
-			            Message message = new MimeMessage(session);
-			            message.setFrom(new InternetAddress("testing@gmail.com"));
-			            message.setRecipients(
-			                    Message.RecipientType.TO,
-			                    InternetAddress.parse("sizheng89@gmail.com")
-			            );
-			            message.setSubject("Testing Gmail TLS");
-			            message.setText("Dear Mail Crawler,"
-			                    + "\n\n Please do not spam my email!");
-
-			            Transport.send(message);
-
-			            System.out.println("Done");
-
-			        } catch (MessagingException f) {
-			            f.printStackTrace();
-			        }	  
-			  
-			  page = "You will receive an email acknowledging that you have enrolled in this course";
-			  
-			 } else { page = "class_full"; } 
-			  
-			  return page;
-		}
-		
-//	
-//	//to create and save hidden enrollment
-//	@RequestMapping("/enroll/{course.id}")
-//	@ResponseBody
-//	public String showNewEnrollmentForm(Model model, Principal p, @PathVariable("course.id") Long cid) {
-//		
-//		long id = urepo.findByEmail(p.getName()).getId();
-//
-//		StudentClass sc = scservice.getStdClass(cid);
-//		
-//		String page = "";
-//		Student s = stdservice.getStd(id);
-//		
-//		  if(sc.getEnrollmentList().size()< sc.getClassSize()) 
-//		  { 
-//			  Enrollment e= new Enrollment("Pending",s,sc);
-//			  eservice.save(e);
-//		  
-//		  page = "You will receive an email acknowledging that you have enrolled in this course";
-//		  
-//		 } else { page = "class_full"; } 
-//		  
-//		  return page;
-//	}
 	
-//	@RequestMapping(value = "/email", method = RequestMethod.POST)
-//	public String sendEmail(Principal p,@ModelAttribute("Enrollment") Enrollment e) {
-//		
-//		Long id = urepo.findByEmail(p.getName()).getId();
-//		Student s = stdservice.getStd(id);
-//
-//        SimpleMailMessage msg = new SimpleMailMessage();
-//        msg.setTo(s.getEmail());
-//
-//        msg.setSubject("Enrollment is Successful");
-//        msg.setText("Hello " + s.getFirstName() + " your enrollment in " + e.getStudentClass().getCourse().getName()+ "is successful.");
-//
-//        javaMailSender.send(msg);
-//        
-//        return "redirect:/";
-//
-//    }
+
+	//to create and save hidden enrollment
+	@RequestMapping("/enroll/{course.id}")
+	@ResponseBody
+	public String showNewEnrollmentForm(Model model, Principal p, @PathVariable("course.id") Long cid) {
+		
+		long id = urepo.findByEmail(p.getName()).getId();
+
+		StudentClass sc = scservice.getStdClass(cid);
+		
+		String page = "";
+		Student s = stdservice.getStd(id);
+		
+		  if(sc.getEnrollmentList().size()< sc.getClassSize()) 
+		  { 
+			  Enrollment e= new Enrollment("Pending",s,sc);
+			  eservice.save(e);
+			  
+			  final String username = "estherneohl269@gmail.com";
+		        final String password = "FILLINYOURSELF";
+
+		        Properties prop = new Properties();
+		        prop.put("mail.smtp.host", "smtp.gmail.com");
+		        prop.put("mail.smtp.port", "587");
+		        prop.put("mail.smtp.auth", "true");
+		        prop.put("mail.smtp.starttls.enable", "true"); //TLS
+		        
+		        Session session = Session.getInstance(prop,
+		                new javax.mail.Authenticator() {
+		                    protected PasswordAuthentication getPasswordAuthentication() {
+		                        return new PasswordAuthentication(username, password);
+		                    }
+		                });
+
+		        try {
+
+		            Message message = new MimeMessage(session);
+		            message.setFrom(new InternetAddress("testing@gmail.com"));
+		            message.setRecipients(
+		                    Message.RecipientType.TO,
+		                    InternetAddress.parse("sizheng89@gmail.com,e0696698@u.nus.edu")
+		            );
+		            message.setSubject("You have been enrolled into class");
+		            message.setText("Dear Student,"
+		                    + "\n\n You have been enrolled into course!");
+
+		            Transport.send(message);
+
+		            System.out.println("Done");
+
+		        } catch (MessagingException f) {
+		            f.printStackTrace();
+		        }	  
+		  
+		  page = "You will receive an email acknowledging that you have enrolled in this course";
+		  
+		 } else { page = "class_full"; } 
+		  
+		  return page;
+	}
+	
+	@RequestMapping(value = "/email", method = RequestMethod.POST)
+	public String sendEmail(Principal p,@ModelAttribute("Enrollment") Enrollment e) {
+		
+		Long id = urepo.findByEmail(p.getName()).getId();
+		Student s = stdservice.getStd(id);
+        
+        return "redirect:/";
+
+    }
+
 	
 	//all courses taken and grades
 	@RequestMapping(value = "/courseno", method = RequestMethod.GET)
@@ -235,7 +205,7 @@ public class StudentController {
 		{
 			mc+= a.get(i).getCredits();
 			a.get(i).setPrelimScore(a.get(i).getScore());
-			sum += a.get(i).getCredits() * a.get(i).getPrelimScore();;
+			sum += a.get(i).getCredits() * a.get(i).getPrelimScore();
 		}
 		float x = sum/mc;
 		

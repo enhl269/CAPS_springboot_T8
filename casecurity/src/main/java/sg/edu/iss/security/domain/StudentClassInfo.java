@@ -3,19 +3,14 @@ package sg.edu.iss.security.domain;
 import java.time.LocalDate;
 
 public class StudentClassInfo {
+
+	
+	private long id;
 	private String courseName;
 	private LocalDate startdate;
 	private int classSize;
+	private int enrollmentsize;
 	
-	public StudentClassInfo(String courseName, LocalDate startdate, int classSize) {
-		super();
-		this.courseName = courseName;
-		this.startdate = startdate;
-		this.classSize = classSize;
-	}
-	public StudentClassInfo() {
-		super();
-	}
 	public String getCourseName() {
 		return courseName;
 	}
@@ -35,5 +30,19 @@ public class StudentClassInfo {
 		this.classSize = classSize;
 	}
 	
+	public int getEnrollmentSize() {
+		return enrollmentsize;
+	}
+	public void setEnrollmentSize(int enrollmentsize) {
+		this.enrollmentsize = enrollmentsize;
+	}
 	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 }
