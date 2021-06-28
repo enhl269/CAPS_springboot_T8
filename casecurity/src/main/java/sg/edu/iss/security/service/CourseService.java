@@ -58,6 +58,10 @@ public class CourseService {
 		return repo.findAll();
 	}
 	
+	public List<Course> getAllCourseTaughtByLectuer(long id){
+		return repo.findCoursesTaughtByLecturerId(id);
+	}
+	
 	
 		
 		

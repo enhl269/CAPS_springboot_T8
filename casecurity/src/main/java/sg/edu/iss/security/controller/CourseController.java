@@ -83,6 +83,8 @@ public class CourseController {
 		model.addAttribute("StdClass", StdClass);
 		return "new_Stdclass";
 	}
+	
+	
 }
 
 

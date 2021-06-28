@@ -1,5 +1,7 @@
 package sg.edu.iss.security.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +27,11 @@ public class UserDetailsCustomService implements UserDetailsService {
 		return new UserDetailsCustom(user);
 	}
 	
+	public List<User> findAllLecturers(String role)
+	{
+		return userRepo.findByRoleType(role);
+		
+	}
 	
 
 }

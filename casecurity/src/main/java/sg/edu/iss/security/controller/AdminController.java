@@ -1,5 +1,6 @@
 package sg.edu.iss.security.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,21 +10,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.security.domain.Course;
+import sg.edu.iss.security.domain.CourseViewModel;
+import sg.edu.iss.security.domain.Enrollment;
+import sg.edu.iss.security.domain.EnrollmentInfo;
+import sg.edu.iss.security.domain.LecturerCanTeach;
 import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.domain.StudentClassInfo;
 import sg.edu.iss.security.domain.User;
+import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
 import sg.edu.iss.security.service.LecturerService;
 import sg.edu.iss.security.service.StudentClassService;
 import sg.edu.iss.security.service.StudentService;
+import sg.edu.iss.security.service.UserDetailsCustomService;
 import sg.edu.iss.security.service.UserService;
 
 @Controller
@@ -31,6 +37,9 @@ public class AdminController {
 	
 	@Autowired
 	private UserService uService;
+	
+	@Autowired
+	private UserDetailsCustomService udcservice;
 
 	@Autowired private StudentService sService;
 	 
@@ -43,6 +52,9 @@ public class AdminController {
 
 	@Autowired
 	private EnrollmentService eService;
+	
+	@Autowired
+	private UserRepository urepo;
 
 	/*
 	 * @GetMapping("/users") public String listUsers(Model model) { List<User>
@@ -56,18 +68,66 @@ public class AdminController {
 	 * model.addAttribute("listStudents", listStudents); return "students"; }
 	 */
 
-	/*
-	 * @GetMapping("/lecturers") public String listLecturers(Model model) {
-	 * List<Lecturer> listLecturers = uService.listLecturer();
-	 * model.addAttribute("listLecturers", listLecturers); return "lecturers"; }
-	 */
+	
+	@GetMapping("/lecturers") 
+	public String listLecturers(Model model) {
+		List<User> listLecturers = udcservice.findAllLecturers("LECTURER");
+		model.addAttribute("listUsers", listLecturers); 
+		return "lecturers"; 
+	}
+	@GetMapping("/modifycourseallocation/{id}") 
+	public String ModifyLecturerCourseAllocation(Model model, @PathVariable("id") Long id)
+	{
+		List<LecturerCanTeach> lct = lService.findAllLCT(id);
+		List<CourseViewModel> a = new ArrayList<>(lct.size());
+		for(int i=0;i< lct.size();i++)
+		{
+			a.add(new CourseViewModel());
+			a.get(i).setId(lct.get(i).getCourse().getId());
+			a.get(i).setName(lct.get(i).getCourse().getName());
+			a.get(i).setDescription(lct.get(i).getCourse().getDescription());
+			a.get(i).setType(lct.get(i).getCourse().getType());
+			a.get(i).setCredits(lct.get(i).getCourse().getCredits());
+			a.get(i).setLecturerCTId(lct.get(i).getId());
+			a.get(i).setLecId(id);
+		}
+		
+		List<CourseViewModel> Course = new ArrayList<>(a);
+		model.addAttribute("Course",Course);
+		
+		return "coursestaught";
+	}
+	
+	@GetMapping("/modifycourseallocation/delete/{lectct.id}/{lecid}")
+	public String deleteCourseAllocation(Model model, @PathVariable("lectct.id") Long lctid,@PathVariable("lecid") Long lecid) {
+		lService.delete(lctid);
+		return "redirect:/modifycourseallocation/"+lecid;
+	}
+	
+	@RequestMapping("/assignlecturer/{id}")
+	public String assignNewLecturertocourse(Model model,@PathVariable("id")Long id) {
+		
+		LecturerCanTeach lct = new LecturerCanTeach();
+		lct.setCourse(cService.get(id));
+		model.addAttribute("lct", lct);
+		return "new_lctassigned";
+	}
+	
+	@RequestMapping(value = "/savelctassignment", method = RequestMethod.POST)
+	public String saveLCTAssignment(@ModelAttribute("lct") LecturerCanTeach lct) {
+		lService.save(lct);
+		
+		return "redirect:/lecturers";
+	}
+	
+	
 	@GetMapping("users/edit/{id}")
 	public String showEditForm(Model model, @PathVariable("id") Long id) {
 		model.addAttribute("editUser", uService.get(id));
 		return "editUser_form";
 	}//
 	
-	@RequestMapping(value = "/editUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
 	public String updateUser(@RequestParam("id") Long id, User userDetail) {
 		User user = uService.get(id);
 		user.setFirstName(userDetail.getFirstName());
@@ -82,8 +142,6 @@ public class AdminController {
 		uService.delete(id);
 		return "redirect:/users";
 	}
-	
-
 	
 	@RequestMapping(value = "/adminstudentClassList", method = RequestMethod.GET)
 	//@ResponseBody
@@ -132,8 +190,6 @@ public class AdminController {
 		return "redirect:/adminstudentClassList";
 
 	}
-
-	
 }
 
 

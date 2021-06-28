@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Create Course Assignment to Lecturer</title>
+</head>
+<body>
+	<div align="center">
+		<h1>Create Course Assignment to Lecturer</h1>
+		<br/>
+		<form action="#" th:action="@{/savelctassignment}" th:object="${lct}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Course ID:</td>
+					<td><input type="text" th:field="*{course.Id}" readonly="readonly" /></td>
+				</tr>	
+				<tr>
+					<td>Lecturer Id:</td>
+					<td><input type="text" th:field="*{lecturer.Id}" /></td>
+				</tr>
+				
+			<!-- 	<tr>
+					<td>AdminID:</td>
+					<td><input type="text" th:field="*{adminId}" /></td>
+				</tr> -->
+				<tr>
+					<td colspan="2"><button type="submit">Save</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
