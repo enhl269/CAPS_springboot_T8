@@ -82,6 +82,10 @@ public class AdminController {
 		uService.delete(id);
 		return "redirect:/users";
 	}
+	
+	//studentclass
+	//enrolment 
+	//lecturer
 
 	@GetMapping("/courses/create")
 	public String showNewCourseForm(Model model) {
