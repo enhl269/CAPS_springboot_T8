@@ -7,19 +7,23 @@ public class EnrollmentInfo {
 	private String courseName;
 	private LocalDate startDate;
 	private Long studentId;
-	private String StudentName;
+	private String studentName;
+	private String status;
 	
 	public EnrollmentInfo() {
 		super();
 	}
 	
-	public EnrollmentInfo(String courseName, LocalDate startDate, Long studentId, String studentName) {
+	public EnrollmentInfo(String courseName, LocalDate startDate, Long studentId, String studentName, String status) {
 		super();
 		this.courseName = courseName;
 		this.startDate = startDate;
 		this.studentId = studentId;
-		StudentName = studentName;
+		this.studentName = studentName;
+		this.status = status;
 	}
+
+
 
 	public String getCourseName() {
 		return courseName;
@@ -46,10 +50,20 @@ public class EnrollmentInfo {
 	}
 
 	public String getStudentName() {
-		return StudentName;
+		return studentName;
 	}
 
 	public void setStudentName(String studentName) {
-		StudentName = studentName;
+		studentName = studentName;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 }

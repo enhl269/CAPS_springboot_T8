@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.security.domain.Enrollment;
+import sg.edu.iss.security.domain.Status;
 
 
 public interface EnrollmentRepository extends PagingAndSortingRepository<Enrollment, Long>, JpaRepository<Enrollment,Long> {
@@ -29,5 +30,16 @@ public interface EnrollmentRepository extends PagingAndSortingRepository<Enrollm
 	@Transactional
 	@Query("update Enrollment e set e.score =:score where e.id=:id")
 	public void saveScore(float score, long id);
+
+	@Modifying
+	@Transactional
+	@Query("update Enrollment e set e.status =:status where e.id=:id")
+	public void saveStatus(String status, long id);
+	
+	
+	
+	
+	
+	
 	
 }

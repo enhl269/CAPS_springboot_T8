@@ -16,6 +16,7 @@ public class StudentClassService {
 	
 	public StudentClass getStdClass(Long id)
 	{
+		//need a change to get current class
 		return screpo.findStudentClassByCourseId(id).get(0);
 	}
 	

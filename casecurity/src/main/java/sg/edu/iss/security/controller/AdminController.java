@@ -1,29 +1,27 @@
 package sg.edu.iss.security.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.security.domain.Course;
-import sg.edu.iss.security.domain.Lecturer;
-import sg.edu.iss.security.domain.Student;
+import sg.edu.iss.security.domain.Enrollment;
+import sg.edu.iss.security.domain.EnrollmentInfo;
+import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.domain.User;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
-import sg.edu.iss.security.service.LecturerService;
-import sg.edu.iss.security.service.StudentService;
+import sg.edu.iss.security.service.StudentClassService;
 import sg.edu.iss.security.service.UserService;
 
 @Controller
@@ -43,6 +41,9 @@ public class AdminController {
 
 	@Autowired
 	private EnrollmentService eService;
+	
+	@Autowired
+	private StudentClassService scService;
 
 	/*
 	 * @GetMapping("/users") public String listUsers(Model model) { List<User>
@@ -114,5 +115,42 @@ public class AdminController {
 		cService.delete(id);
 		return "redirect:/courses";
 	}
+	@GetMapping("/admin/enrollment/{adminId}")
+	@ResponseBody
+	public List<EnrollmentInfo> showEnrollmentList(Model model,@PathVariable("adminId") Long adminId) {
+		//how to regulate enrollment status
+//		pending
+//		confirmed
+//		denied
+		List<EnrollmentInfo> eiList = new ArrayList<>();
+		List<Course> cList =cService.getAllCourseByAdminId(adminId);
+		
+		for(Course course:cList) {
+			StudentClass sc = scService.getStdClass(course.getId());
+			List<Enrollment> eList = eService.getByStudentClassId(sc.getId());
+			for(Enrollment e:eList) {
+				eiList.add(
+					new EnrollmentInfo(
+							e.getStudentClass().getCourse().getName(),
+							e.getStudentClass().getStartdate(),
+							e.getStudent().getId(),
+							e.getStudent().getFirstName(),
+							e.getStatus()));
+			}
+		}	
+		return eiList;
+		
+	}
+	
+	@GetMapping("/admin/enrollment/{id}/{status}")
+	public String updateStatus(@PathVariable("status") String status,@PathVariable("id") Long id) {
+		eService.saveStatus(status, id);
+		
+		Long adminId = eService.getStudentClass(id).getCourse().getAdmin().getId();
+		String redirectString = "redirect:/admin/enrollment/"+adminId;
+		
+		return redirectString;
+	}
+	
 //
 }
