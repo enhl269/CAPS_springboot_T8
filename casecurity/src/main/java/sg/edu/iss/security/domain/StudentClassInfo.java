@@ -10,12 +10,23 @@ public class StudentClassInfo {
 	private LocalDate startdate;
 	private int classSize;
 	private int enrollmentsize;
+	private String lecturername;
+	
+	private long courseid;
+	private long lecturerid;
 	
 	public String getCourseName() {
 		return courseName;
 	}
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+	
+	public String getLecturerName() {
+		return lecturername;
+	}
+	public void setLecturerName(String lecturername) {
+		this.lecturername = lecturername;
 	}
 	public LocalDate getStartdate() {
 		return startdate;
@@ -43,6 +54,22 @@ public class StudentClassInfo {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public long getCourseId() {
+		return courseid;
+	}
+
+	public void setCourseId(long courseid) {
+		this.courseid = courseid;
+	}
+	
+	public long getLecturerId() {
+		return lecturerid;
+	}
+
+	public void setLecturerId(long lecturerid) {
+		this.lecturerid = lecturerid;
 	}
 
 }

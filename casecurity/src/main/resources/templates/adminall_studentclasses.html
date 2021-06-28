@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Class List Information</title>
+
+</head> 
+<body>
+<h1>Classes Information</h1>
+
+<table>
+	<tr>
+		<th>Course Name</th>
+		<th>Start Date</th>
+		<th>Class Size</th>
+		<th>Enrollment Size</th>
+		<th>Lecturer Name</th>
+		
+	</tr>
+	
+	<tr th:each="studentclass:${studentclasses}">
+		<td th:text="${studentclass.courseName}">Course Name</td>
+		<td th:text="${studentclass.startdate}">Start Date</td>
+		<td th:text="${studentclass.classSize}">Class Size</td>
+		<td th:text="${studentclass.enrollmentSize}">Enrollment Size</td>
+		<td th:text="${studentclass.LecturerName}">Lecturer Name</td>
+		<!--  <td><a href="lecturer_enrollment.html"
+				th:href="@{/studentClassList/}+${studentclass.id}">Class Enrollment</a></td>-->
+				
+	<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+					<a th:href="@{'/adminstudentClassList/edit/' + ${studentclass.id}}">Edit</a>			
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/adminstudentClassList/delete/' + ${studentclass.id}}">Delete</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+	 </tr>
+	 
+</table>
+</body>
+</html>
