@@ -43,14 +43,7 @@ public class CourseService {
 	public List<Course> getAllCourse() {
 		return repo.findAll();
 	}
-	
-	public List<Course> getAllCourseByAdminId(long id){
-		return repo.findCourseByAdminId(id);
-	}
-	
-	
-		
-		
+			
 }
 	
 

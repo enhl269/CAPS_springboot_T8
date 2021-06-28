@@ -29,8 +29,4 @@ public interface CourseRepository extends PagingAndSortingRepository<Course, Lon
 			+ "where stu.id=:id")
 	public List<Course> findCourseByStudentId(@Param("id") Long id);
 	
-	@Query("SELECT c FROM Course c JOIN c.admin ad "
-			+ "where ad.id=:id")
-	public List<Course> findCourseByAdminId(@Param("id") Long id);
-	
 }
