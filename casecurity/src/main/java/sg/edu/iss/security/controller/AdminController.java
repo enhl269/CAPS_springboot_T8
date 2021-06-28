@@ -1,5 +1,6 @@
 package sg.edu.iss.security.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,10 @@ import sg.edu.iss.security.domain.EnrollmentInfo;
 import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.domain.StudentClassInfo;
 import sg.edu.iss.security.domain.User;
+import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
-import sg.edu.iss.security.service.LecturerService;
 import sg.edu.iss.security.service.StudentClassService;
-import sg.edu.iss.security.service.StudentService;
 import sg.edu.iss.security.service.UserService;
 
 @Controller
@@ -33,11 +33,6 @@ public class AdminController {
 	@Autowired
 	private UserService uService;
 
-	@Autowired 
-	private StudentService sService;
-	 
-	@Autowired 
-	private LecturerService lService;
 	 
 	@Autowired
 	private StudentClassService scService;
@@ -47,6 +42,9 @@ public class AdminController {
 
 	@Autowired
 	private EnrollmentService eService;
+	
+	@Autowired
+	private UserRepository urepo;
 	
 
 	/*
@@ -110,13 +108,15 @@ public class AdminController {
 		cService.delete(id);
 		return "redirect:/courses";
 	}
-	@GetMapping("/admin/enrollment/{adminId}")
+	@GetMapping("/admin/enrollment")
 	//@ResponseBody
-	public String showEnrollmentList(Model model,@PathVariable("adminId") Long adminId) {
+	public String showEnrollmentList(Model model, Principal p) {
 		//how to regulate enrollment status
 //		pending
 //		confirmed
 //		denied
+		long adminId = urepo.findByEmail(p.getName()).getId();
+		
 		List<EnrollmentInfo> eiList = new ArrayList<>();
 		List<Course> cList =cService.getAllCourseByAdminId(adminId);
 		
@@ -143,11 +143,8 @@ public class AdminController {
 	@PostMapping("/admin/enrollment/{id}")
 	public String updateStatus(@RequestParam("status") String status, @PathVariable("id") Long id) {
 		eService.saveStatus(status, id);
-
-		Long adminId = eService.getStudentClass(id).getCourse().getAdmin().getId();
-		String redirectString = "redirect:/admin/enrollment/"+adminId;
 		
-		return redirectString;
+		return "redirect:/admin/enrollment";
 	}
 	
 	

@@ -9,23 +9,12 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.repo.CourseRepository;
-import sg.edu.iss.security.repo.EnrollmentRepository;
-import sg.edu.iss.security.repo.StudentClassRepository;
-import sg.edu.iss.security.repo.StudentRepository;
+
 
 @Service
 public class CourseService {
 	@Autowired
 	private CourseRepository repo;
-	
-	@Autowired
-	private EnrollmentRepository erepo;
-	
-	@Autowired 
-	private StudentRepository srepo;
-	
-	@Autowired 
-	private StudentClassRepository screpo;
 	
 //	public List<Course> listAll() {
 //		return repo.findAll(null);

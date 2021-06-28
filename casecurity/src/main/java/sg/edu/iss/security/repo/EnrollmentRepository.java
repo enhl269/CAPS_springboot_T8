@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.security.domain.Enrollment;
-import sg.edu.iss.security.domain.Status;
 
 
 public interface EnrollmentRepository extends PagingAndSortingRepository<Enrollment, Long>, JpaRepository<Enrollment,Long> {

@@ -22,7 +22,6 @@ import sg.edu.iss.security.CasecurityApplication;
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.LecturerCanTeach;
 import sg.edu.iss.security.domain.StudentClass;
-import sg.edu.iss.security.service.CourseService;
 
 
 
@@ -32,8 +31,6 @@ import sg.edu.iss.security.service.CourseService;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CourseRepoTest {
 
-	@Autowired
-	private CourseService co;
 	
 	@Autowired
 	private CourseRepository crepo;
