@@ -55,6 +55,10 @@ public class CourseService {
 		return repo.findAll();
 	}
 	
+	public List<Course> getAllCourseByAdminId(long id){
+		return repo.findCourseByAdminId(id);
+	}
+	
 	
 		
 		

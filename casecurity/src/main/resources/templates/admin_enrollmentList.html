@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Enrollments Information</title>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head> 
+<body>
+<h1>Enrollment Information</h1>
+
+
+<div>
+	</div>
+<table>
+	<tr>
+		<th>Enrollment Id</th>
+		<th>Course Name</th>
+		<th>Start Date</th>
+		<th>Student Id</th>
+		<th>Student Name</th>
+		<th>Status</th>
+		<th>Update Status</th>
+
+	</tr>
+	
+	<tr th:each="enrollment:${enrollments}">
+		<td th:text="${enrollment.enrollmentId}">Enrollment Id</td>
+		<td th:text="${enrollment.courseName}">Course Name</td>
+		<td th:text="${enrollment.startDate}">Start Date</td>
+		<td th:text="${enrollment.studentId}">Student Id</td>
+		<td th:text="${enrollment.studentName}">Student Name</td>
+		<td th:text="${enrollment.status}">Current Score</td>
+		<td><form th:action="@{/admin/enrollment/} + ${enrollment.enrollmentId}" method="POST">
+			<input type="text" name = 'status' th:value="${status}" />
+			<button type="submit" class="btn btn-primary">Save</button>
+		</form></td>
+	
+	 </tr>
+	 
+</table>
+</body>
+</html>

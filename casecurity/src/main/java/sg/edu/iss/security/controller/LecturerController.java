@@ -77,7 +77,7 @@ public class LecturerController {
 		  for(int i=0; i < eList.size(); i++) 
 		  { 
 			  eiList.add(new EnrollmentInfo());
-			  eiList.get(i).setStudentClassId(scId);
+			  eiList.get(i).setStudentclassid(scId);
 			  eiList.get(i).setEnrollmentId(eList.get(i).getId());
 			  eiList.get(i).setCourseName(eList.get(i).getStudentClass().getCourse().getName());
 			  eiList.get(i).setCredits(eList.get(i).getStudentClass().getCourse().getCredits());
@@ -112,7 +112,7 @@ public class LecturerController {
 				
 				float cgpa = sum/mc;
 				
-				eiList.get(i).setCGPA(cgpa);
+				eiList.get(i).setCgpa(cgpa);
 			  
 			  }
 		  model.addAttribute("enrollments",eiList); 
