@@ -47,6 +47,8 @@
 					<a th:href="@{'/edit/' + ${course.id}}">Edit</a>			
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${course.id}}">Delete</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/newdtdclass/' + ${course.id}}">Add New Student Class</a>
 				</td>
 			</tr>
 		</tbody>
