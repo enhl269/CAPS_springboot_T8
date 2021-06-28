@@ -8,9 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.Course;
-import sg.edu.iss.security.domain.Enrollment;
-import sg.edu.iss.security.domain.Student;
-import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.repo.CourseRepository;
 import sg.edu.iss.security.repo.EnrollmentRepository;
 import sg.edu.iss.security.repo.StudentClassRepository;

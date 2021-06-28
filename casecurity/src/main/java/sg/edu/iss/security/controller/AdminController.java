@@ -1,29 +1,21 @@
 package sg.edu.iss.security.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import sg.edu.iss.security.domain.Course;
-import sg.edu.iss.security.domain.Lecturer;
-import sg.edu.iss.security.domain.Student;
 import sg.edu.iss.security.domain.User;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
-import sg.edu.iss.security.service.LecturerService;
-import sg.edu.iss.security.service.StudentService;
+
 import sg.edu.iss.security.service.UserService;
 
 @Controller

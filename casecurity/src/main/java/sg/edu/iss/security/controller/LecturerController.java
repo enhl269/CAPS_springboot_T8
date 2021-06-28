@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.CourseGrades;
@@ -23,7 +22,7 @@ import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
 import sg.edu.iss.security.service.StudentClassService;
-import sg.edu.iss.security.service.StudentService;
+
 @Controller
 public class LecturerController {
 	
@@ -35,9 +34,6 @@ public class LecturerController {
 	
 	@Autowired
 	private StudentClassService scservice;
-	
-	@Autowired
-	private StudentService stdservice;
 	
 	@Autowired 
 	private UserRepository urepo;
