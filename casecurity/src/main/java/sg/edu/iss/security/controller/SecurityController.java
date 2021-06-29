@@ -47,7 +47,9 @@ public class SecurityController {
 	
 	@PostMapping("/process_register")
 	public String processRegister(@ModelAttribute("user") User user, Model model) {
-		
+		User userFromDb = us.getUserByEmail(user.getEmail());
+		if(userFromDb != null)
+			return "email-duplicate";
 		us.registerDefaultUser(user);
 		
 		return "register_success";

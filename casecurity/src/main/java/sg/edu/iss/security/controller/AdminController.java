@@ -130,7 +130,7 @@ public class AdminController {
 		lService.save(lct);
 		return "redirect:/lecturers";}
 			 }
-		return "error";
+		return "LectErrorPage";
 	}
 	
 	@GetMapping("users/edit/{id}")
