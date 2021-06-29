@@ -35,7 +35,9 @@ public interface EnrollmentRepository extends PagingAndSortingRepository<Enrollm
 	@Query("update Enrollment e set e.status =:status where e.id=:id")
 	public void saveStatus(String status, long id);
 	
-	
+	@Query("SELECT e FROM Enrollment e JOIN e.student s "
+			+ "where s.id=:id ")
+	public List<Enrollment> findEnrollmentByStudentId(@Param("id") Long id);
 	
 	
 	

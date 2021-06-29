@@ -27,7 +27,7 @@ public class UserDetailsCustomService implements UserDetailsService {
 		return new UserDetailsCustom(user);
 	}
 	
-	public List<User> findAllLecturers(String role)
+	public List<User> findAllByType(String role)
 	{
 		return userRepo.findByRoleType(role);
 		

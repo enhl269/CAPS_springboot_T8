@@ -54,10 +54,15 @@ public class AdminController {
 	
 	@Autowired
 	private LecturerService lService;
-
+	
+	@GetMapping("/adminview") 
+	public String adminoverallview() {
+		return "adminview"; 
+	}
+	
 	@GetMapping("/lecturers") 
 	public String listLecturers(Model model) {
-		List<User> listLecturers = udcservice.findAllLecturers("LECTURER");
+		List<User> listLecturers = udcservice.findAllByType("LECTURER");
 		model.addAttribute("listUsers", listLecturers); 
 		return "lecturers"; 
 	}
@@ -127,26 +132,54 @@ public class AdminController {
 		uService.delete(id);
 		return "redirect:/users";
 	}
-
-	@GetMapping("/courses/create")
-	public String showNewCourseForm(Model model) {
-		Course course = new Course();
-		model.addAttribute("course", course);
-
-		return "new_course";
-	}
-
 	
-	 @GetMapping("/courses/edit/{id}")
-	 public String showCourseForm(Model model, @PathVariable("id") Long id) {
-		 model.addAttribute("editCourse", cService.get(id));
-		 return "editCourse_form"; }
-
-	@GetMapping("/courses/delete/{id}")
-	public String deleteCourse(Model model, @PathVariable("id") Long id) {
-		cService.delete(id);
-		return "redirect:/courses";
+	@GetMapping("/students") 
+	public String listStudents(Model model) {
+		List<User> listStudents = udcservice.findAllByType("STUDENT");
+		model.addAttribute("listUsers", listStudents); 
+		return "students"; 
 	}
+	
+	@GetMapping("/modifystudentenrollment/{id}")
+	//@ResponseBody
+	public String showStudentEnrollmentList(Model model,@PathVariable("id") Long id) {
+		//how to regulate enrollment status
+		//pending,confirmed,denied
+		List<EnrollmentInfo> eiList = new ArrayList<>();
+		List<Enrollment> eList = eService.getEnrollmentByStudentId(id);
+		for(Enrollment e:eList) {
+			eiList.add(new EnrollmentInfo(e.getId(),
+										  e.getStudentClass().getCourse().getName(),
+						                  e.getStudentClass().getStartdate(),
+						                  e.getStudent().getId(),
+						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
+						                  e.getStatus()));
+		}
+		model.addAttribute("enrollments",eiList);
+		return "admin_enrollmentList";
+		
+	}
+	
+	@GetMapping("/modifystudentenrollmentstdclass/{id}")
+	//@ResponseBody
+	public String showStudentEnrollmentListStdClass(Model model,@PathVariable("id") Long id) {
+		//how to regulate enrollment status
+		//pending,confirmed,denied
+		List<EnrollmentInfo> eiList = new ArrayList<>();
+		List<Enrollment> eList = eService.getByStudentClassId(id);
+		for(Enrollment e:eList) {
+			eiList.add(new EnrollmentInfo(e.getId(),
+										  e.getStudentClass().getCourse().getName(),
+						                  e.getStudentClass().getStartdate(),
+						                  e.getStudent().getId(),
+						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
+						                  e.getStatus()));
+		}
+		model.addAttribute("enrollments",eiList);
+		return "admin_enrollmentList";
+		
+	}
+	
 	@GetMapping("/admin/enrollment")
 	//@ResponseBody
 	public String showEnrollmentList(Model model) {

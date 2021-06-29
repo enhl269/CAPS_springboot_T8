@@ -51,4 +51,8 @@ public class EnrollmentService {
 		return erepo.findAll();
 	}
 	
+	public List<Enrollment> getEnrollmentByStudentId(long id){
+		return erepo.findEnrollmentByStudentId(id);
+	}
+	
 }
