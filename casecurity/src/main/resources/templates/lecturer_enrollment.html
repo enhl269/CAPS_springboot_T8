@@ -39,21 +39,14 @@
 		<td th:text="${enrollment.score}">Current Score</td>
 		<td><form th:action="@{/editScore/}+${enrollment.Studentclassid}+@{/}+${enrollment.enrollmentId}" method="POST">
 			<input type="text" name = 'attempt1' th:value="${enrollment.score}" />
-			<button type="submit" class="btn btn-primary">Save</button>
-		</form></td>
+					<button type="submit" class="btn btn-primary">Save</button></form>
+		</td>
 		<td th:text="${enrollment.grade}">Current Grade</td>
 		<td th:text="${enrollment.Cgpa}">Current CGPA</td>
 		
-		
+
 	 </tr>
 	 
 </table>
-
-	 <!--  <div>
-		<form th:action="@{/editScore}" method="POST">
-			<input type="text" th:value="${enrollment.score}" />
-			<button type="submit" class="btn btn-primary">Save</button>
-		</form>
-	</div>-->
 </body>
 </html>

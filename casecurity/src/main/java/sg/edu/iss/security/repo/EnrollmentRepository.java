@@ -39,7 +39,12 @@ public interface EnrollmentRepository extends PagingAndSortingRepository<Enrollm
 			+ "where s.id=:id ")
 	public List<Enrollment> findEnrollmentByStudentId(@Param("id") Long id);
 	
-	
+	@Query("SELECT e FROM Enrollment e JOIN e.studentClass sc "
+			+ "JOIN sc.course c "
+			+ "JOIN e.student s "
+			+ "where c.id=:cid "
+			+ "AND s.id=:sid")
+	public Enrollment findEnrollmentByCourseIdandStdID(@Param("cid") Long cid,@Param("sid") Long sid);
 	
 	
 	
