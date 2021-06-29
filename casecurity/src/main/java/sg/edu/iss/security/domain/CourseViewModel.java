@@ -9,6 +9,7 @@ public class CourseViewModel {
 	private Double credits;
 	private long lecturerctid;
 	private long lecid;
+	private long stdid;
 	
 	
 	public Double getCredits() {
@@ -25,6 +26,14 @@ public class CourseViewModel {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public long getStdId() {
+		return stdid;
+	}
+
+	public void setStdId(long stdid) {
+		this.stdid = stdid;
 	}
 	
 	public long getLecturerCTId() {

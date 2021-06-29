@@ -1,7 +1,17 @@
 package sg.edu.iss.security.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +23,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.CourseViewModel;
 import sg.edu.iss.security.domain.Enrollment;
 import sg.edu.iss.security.domain.EnrollmentInfo;
 import sg.edu.iss.security.domain.LecturerCanTeach;
+import sg.edu.iss.security.domain.Student;
 import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.domain.StudentClassInfo;
 import sg.edu.iss.security.domain.User;
@@ -27,6 +39,7 @@ import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
 import sg.edu.iss.security.service.LecturerService;
 import sg.edu.iss.security.service.StudentClassService;
+import sg.edu.iss.security.service.StudentService;
 import sg.edu.iss.security.service.UserDetailsCustomService;
 import sg.edu.iss.security.service.UserService;
 
@@ -54,6 +67,10 @@ public class AdminController {
 	
 	@Autowired
 	private LecturerService lService;
+	
+
+	@Autowired
+	private StudentService stdService;
 	
 	@GetMapping("/adminview") 
 	public String adminoverallview() {
@@ -166,10 +183,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/modifystudentenrollmentstdclass/{id}")
-	//@ResponseBody
 	public String showStudentEnrollmentListStdClass(Model model,@PathVariable("id") Long id) {
-		//how to regulate enrollment status
-		//pending,confirmed,denied
 		List<EnrollmentInfo> eiList = new ArrayList<>();
 		List<Enrollment> eList = eService.getByStudentClassId(id);
 		for(Enrollment e:eList) {
@@ -264,5 +278,92 @@ public class AdminController {
 		return "redirect:/adminstudentClassList";
 
 	}
+	
+	//all courses taken and grades
+	@RequestMapping(value = "/adminenrollstdnotcourses/{studentid}", method = RequestMethod.GET)
+	public String listCourses(Model model, @PathVariable("studentid") Long stdid){
+		
+		long id = stdid;
+		List<Course> allstdcourses = cService.getAllCourse();
+		List<Course> stdcourses = cService.getCourseStudentTakes(id);
+		List<CourseViewModel> a = new ArrayList<>(allstdcourses.size());
+		List<CourseViewModel> b = new ArrayList<>(stdcourses.size());
+		for(int i=0;i< stdcourses.size();i++)
+		{
+			b.add(new CourseViewModel());
+			b.get(i).setId(stdcourses.get(i).getId());
+			b.get(i).setName(stdcourses.get(i).getName());
+			b.get(i).setDescription(stdcourses.get(i).getDescription());
+			b.get(i).setType(stdcourses.get(i).getType());
+			b.get(i).setCredits(stdcourses.get(i).getCredits());
+			b.get(i).setStdId(id);
+		}
+		
+		for(int i=0;i< allstdcourses.size();i++)
+		{
+			a.add(new CourseViewModel());
+			a.get(i).setId(allstdcourses.get(i).getId());
+			a.get(i).setName(allstdcourses.get(i).getName());
+			a.get(i).setDescription(allstdcourses.get(i).getDescription());
+			a.get(i).setType(allstdcourses.get(i).getType());
+			a.get(i).setCredits(allstdcourses.get(i).getCredits());
+			a.get(i).setStdId(id);
+		}
+		
+		List<CourseViewModel> Course = new ArrayList<>(a);
+		
+		for(int i=0;i< Course.size();i++)
+		{
+			for(int j=0;j<b.size();j++)
+			{
+				if(Course.get(i).getId()==b.get(j).getId())
+				{
+					Course.remove(i);
+				}
+			}
+		}
+		model.addAttribute("Course",Course);
+		
+		return "adminenrollstudent";
+	}
+	
+	//to create and save hidden enrollment
+	@RequestMapping("/adminenroll/{course.id}/{student.id}")
+	public String AdminEnrollStudentForm(Model model, @PathVariable("course.id") Long cid,@PathVariable("student.id") Long stdid) {
+		
+		long id = stdid;
+
+		StudentClass sc = scService.getStdClass(cid);
+		
+		String page = "";
+		Student s = stdService.getStd(id);
+		
+		  if(sc.getEnrollmentList().size()< sc.getClassSize()) 
+		  { 
+			  Enrollment e= new Enrollment("Pending",s,sc);
+			  eService.save(e);
+			  
+		  page = "students";
+		  
+		 } else { page = "class_full"; } 
+		  
+		  return page;
+	}
+	
+	@RequestMapping("/admin/enrollment/delete/{id}")
+	public String deleteStdEnrollment(@PathVariable(name = "id") Long id) {
+		eService.delete(id);
+		
+		return "redirect:/admin/enrollment";
+
+	}
+	
+
+
+
+
+
+	
+	
 
 }

@@ -55,4 +55,8 @@ public class EnrollmentService {
 		return erepo.findEnrollmentByStudentId(id);
 	}
 	
+	public void delete(Long id) {
+		erepo.deleteById(id);
+	}
+	
 }

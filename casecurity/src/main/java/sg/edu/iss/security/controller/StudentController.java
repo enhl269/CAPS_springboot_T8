@@ -108,7 +108,6 @@ public class StudentController {
 
 	//to create and save hidden enrollment
 	@RequestMapping("/enroll/{course.id}")
-	@ResponseBody
 	public String showNewEnrollmentForm(Model model, Principal p, @PathVariable("course.id") Long cid) {
 		
 		long id = urepo.findByEmail(p.getName()).getId();
@@ -165,16 +164,6 @@ public class StudentController {
 		  
 		  return page;
 	}
-	
-	@RequestMapping(value = "/email", method = RequestMethod.POST)
-	public String sendEmail(Principal p,@ModelAttribute("Enrollment") Enrollment e) {
-		
-		Long id = urepo.findByEmail(p.getName()).getId();
-		Student s = stdservice.getStd(id);
-        
-        return "redirect:/";
-
-    }
 
 	
 	//all courses taken and grades
