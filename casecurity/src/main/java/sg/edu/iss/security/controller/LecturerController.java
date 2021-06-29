@@ -71,11 +71,13 @@ public class LecturerController {
 		  List<Enrollment> eList = eservice.getByStudentClassId(scId);
 		  List<EnrollmentInfo> eiList = new ArrayList<>(eList.size());
 		  
-		  float sum = 0;
-		  float mc =0;
+		  
 		  
 		  for(int i=0; i < eList.size(); i++) 
 		  { 
+			  float sum = 0;
+			  float mc =0;
+			  
 			  eiList.add(new EnrollmentInfo());
 			  eiList.get(i).setStudentclassid(scId);
 			  eiList.get(i).setEnrollmentId(eList.get(i).getId());
@@ -127,7 +129,7 @@ public class LecturerController {
 	  public String saveScore(@PathVariable("id") Long eId, @RequestParam("attempt1") float score,@PathVariable("studentclassid") Long scId) {
 			eservice.saveScore(score, eId);
 			
-			return "redirect:/studentClassList/"+scId;
+			return "redirect:/studentClassList/"+ scId;
 		}
 	 
 }
