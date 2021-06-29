@@ -15,9 +15,9 @@ public class EnrollmentService {
 	@Autowired
 	private EnrollmentRepository erepo;
 	
-	public float getScore(Long id) {
+	public float getScore(Long cid, Long sid) {
 		
-		Enrollment e = erepo.findEnrollmentByCourseId(id);
+		Enrollment e = erepo.findEnrollmentByCourseIdandStdID(cid,sid);
 		return e.getScore();
 	}
 	

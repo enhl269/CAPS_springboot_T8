@@ -77,11 +77,13 @@ public class LecturerController {
 		  List<Enrollment> eList = eservice.getByStudentClassId(scId);
 		  List<EnrollmentInfo> eiList = new ArrayList<>(eList.size());
 		  
-		  float sum = 0;
-		  float mc =0;
+		  
 		  
 		  for(int i=0; i < eList.size(); i++) 
 		  { 
+			  float sum = 0;
+			  float mc =0;
+			  
 			  eiList.add(new EnrollmentInfo());
 			  eiList.get(i).setStudentclassid(scId);
 			  eiList.get(i).setEnrollmentId(eList.get(i).getId());
@@ -94,7 +96,7 @@ public class LecturerController {
 			  eiList.get(i).setGrade(eList.get(i).getScore());
 			  eiList.get(i).setPrelimScore(eList.get(i).getScore());
 			  
-			  
+			  Long stdid = eiList.get(i).getStudentId();
 			  List<Course> stdcourses = cservice.getCourseStudentTakes(eiList.get(i).getStudentId());
 				List<CourseGrades> a = new ArrayList<>(stdcourses.size());
 				for(int j=0;j< stdcourses.size();j++)
@@ -107,7 +109,7 @@ public class LecturerController {
 					a.get(j).setCredits(stdcourses.get(j).getCredits());
 					
 					Long courseid = stdcourses.get(j).getId();
-					float x = eservice.getScore(courseid);
+					float x = eservice.getScore(courseid,stdid);
 					a.get(j).setScore(x);
 					a.get(j).setGrade(a.get(j).getScore());
 					
@@ -122,6 +124,8 @@ public class LecturerController {
 			  
 			  }
 		  model.addAttribute("enrollments",eiList); 
+		  
+		  model.addAttribute("requestparam",new EnrollmentInfo()); 
 		  //return eiList; 
 		  return "lecturer_enrollment"; 
 		  }
@@ -131,7 +135,7 @@ public class LecturerController {
 	  public String saveScore(@PathVariable("id") Long eId, @RequestParam("attempt1") float score,@PathVariable("studentclassid") Long scId) {
 			eservice.saveScore(score, eId);
 			
-			return "redirect:/studentClassList/"+scId;
+			return "redirect:/studentClassList/"+ scId;
 		}
 	  
 	  @GetMapping("/time")

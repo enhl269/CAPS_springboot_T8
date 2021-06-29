@@ -194,7 +194,7 @@ public class StudentController {
 			a.get(i).setCredits(stdcourses.get(i).getCredits());
 			
 			Long courseid = stdcourses.get(i).getId();
-			float x = eservice.getScore(courseid);
+			float x = eservice.getScore(courseid,id);
 			a.get(i).setScore(x);
 			a.get(i).setGrade(a.get(i).getScore());
 		}

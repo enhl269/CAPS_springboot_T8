@@ -162,31 +162,48 @@ public class CasecurityApplication {
 			course.add(new Course("Python","learn Python","Python",6.0));
 			crepo.saveAll(course);
 			
-			
-			StudentClass sc = new StudentClass(dateStartSem1, 30, course.get(0),l2);
+			StudentClass sc = new StudentClass(dateStartSem1, 30, course.get(0), l2);
 			screpo.save(sc);
-			StudentClass sc2 = new StudentClass(dateStartSem1, 30, course.get(1),l);
+			StudentClass sc2 = new StudentClass(dateStartSem1, 30, course.get(1), l);
 			screpo.save(sc2);
-			StudentClass sc3 = new StudentClass(dateStartSem1, 30, course.get(4),l3);
+			StudentClass sc3 = new StudentClass(dateStartSem1, 30, course.get(4), l3);
 			screpo.save(sc3);
-			
+			StudentClass sc4 = new StudentClass(dateStartSem1, 30, course.get(2), l3);
+			screpo.save(sc4);
+			StudentClass sc5 = new StudentClass(dateStartSem1, 30, course.get(3), l);
+			screpo.save(sc5);
+
 			LecturerCanTeach LCT = new LecturerCanTeach(l, course.get(1));
 			lctrepo.save(LCT);
+			LecturerCanTeach LCT3 = new LecturerCanTeach(l, course.get(3));
+			lctrepo.save(LCT3);
+			LecturerCanTeach LCT4 = new LecturerCanTeach(l3, course.get(2));
+			lctrepo.save(LCT4);
 			LecturerCanTeach LCT2 = new LecturerCanTeach(l2, course.get(0));
 			lctrepo.save(LCT2);
+			LecturerCanTeach LCT5 = new LecturerCanTeach(l3, course.get(4));
+			lctrepo.save(LCT5);
 			
-			LecturerCanTeach LCT3 = new LecturerCanTeach(l3, course.get(4));
-			lctrepo.save(LCT3);
-			
-			Enrollment er = new Enrollment(50f,"Pass",s,sc);
+			Enrollment er = new Enrollment(50f, "Pass", s, sc);
 			erepo.save(er);
-			
-			Enrollment er2 = new Enrollment(50f,"Pass",srepo.findStudentByEmail("zhangran@gmail.com"),sc2);
-			erepo.save(er2);
-			
-			Enrollment er3 = new Enrollment(50f,"Pass",srepo.findStudentByEmail("johnson@gmail.com"),sc3);
-			erepo.save(er3);
+			Enrollment er4 = new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangran@gmail.com"), sc);
+			erepo.save(er4);
+			Enrollment er5 = new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc);
+			erepo.save(er5);
 
+			Enrollment er2 = new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangran@gmail.com"), sc2);
+			erepo.save(er2);
+			Enrollment er6 = new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc2);
+			erepo.save(er6);
+			Enrollment er7 = new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc2);
+			erepo.save(er7);
+
+			Enrollment er3 = new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc3);
+			erepo.save(er3);
+			Enrollment er8 = new Enrollment(50f, "Pass", srepo.findStudentByEmail("google@gmail.com"), sc3);
+			erepo.save(er8);
+			Enrollment er9 = new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc3);
+			erepo.save(er9);
 		};
 	}
 
