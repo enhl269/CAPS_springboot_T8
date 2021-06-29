@@ -89,16 +89,19 @@ public class StudentController {
 			
 			List<CourseViewModel> Course = new ArrayList<>(a);
 			
-			for(int i=0;i< Course.size();i++)
-			{
-				for(int j=0;j<b.size();j++)
-				{
-					if(Course.get(i).getId()==b.get(j).getId())
-					{
-						Course.remove(i);
-					}
-				}
-			}
+//			for(int i=0;i< Course.size();i++)
+//			{
+//				for(int j=0;j<b.size();j++)
+//				{
+//					if(Course.get(i).getId()==b.get(j).getId())
+//					{ 
+//						Course.remove(i);
+//					}
+//				}
+//			}
+			Course.removeAll(b);
+			
+			
 			model.addAttribute("Course",Course);
 			
 			return "coursesnottakenstd";
