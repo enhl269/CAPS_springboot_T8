@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
-import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.StudentClass;
 
 public interface StudentClassRepository extends PagingAndSortingRepository<StudentClass, Long>, JpaRepository<StudentClass,Long> {

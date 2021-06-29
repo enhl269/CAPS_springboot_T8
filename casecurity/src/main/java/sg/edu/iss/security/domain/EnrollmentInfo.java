@@ -3,12 +3,13 @@ package sg.edu.iss.security.domain;
 import java.time.LocalDate;
 
 public class EnrollmentInfo {
-	
-	private long enrollmentId;
+
+	private Long enrollmentId;
 	private String courseName;
 	private LocalDate startDate;
 	private Long studentId;
-	private String StudentName;
+	private String studentName;
+	private String status;
 	private Double credits;
 	private float score;
 	private String grade;
@@ -20,69 +21,136 @@ public class EnrollmentInfo {
 		super();
 	}
 	
-	public EnrollmentInfo(String courseName, LocalDate startDate, Long studentId, String studentName) {
+	public EnrollmentInfo(Long enrollmentId, String courseName, LocalDate startDate, Long studentId, String studentName,
+			String status) {
 		super();
+		this.enrollmentId = enrollmentId;
 		this.courseName = courseName;
 		this.startDate = startDate;
 		this.studentId = studentId;
-		StudentName = studentName;
+		this.studentName = studentName;
+		this.status = status;
 	}
+
+	public EnrollmentInfo(Long enrollmentId, String courseName, LocalDate startDate, Long studentId, String studentName,
+			String status, Double credits, float score, String grade, float prelimscore, float cgpa,
+			long studentclassid) {
+		super();
+		this.enrollmentId = enrollmentId;
+		this.courseName = courseName;
+		this.startDate = startDate;
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.status = status;
+		this.credits = credits;
+		this.score = score;
+		this.grade = grade;
+		this.prelimscore = prelimscore;
+		this.cgpa = cgpa;
+		this.studentclassid = studentclassid;
+	}
+
+
+	public Long getEnrollmentId() {
+		return enrollmentId;
+	}
+
+
+	public void setEnrollmentId(Long enrollmentId) {
+		this.enrollmentId = enrollmentId;
+	}
+
 
 	public String getCourseName() {
 		return courseName;
 	}
 
+
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
+
 
 	public LocalDate getStartDate() {
 		return startDate;
 	}
 
+
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+
 
 	public Long getStudentId() {
 		return studentId;
 	}
 
+
 	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
 	}
 
+
 	public String getStudentName() {
-		return StudentName;
+		return studentName;
 	}
+
 
 	public void setStudentName(String studentName) {
-		StudentName = studentName;
+		this.studentName = studentName;
 	}
 
-	public long getEnrollmentId() {
-		return enrollmentId;
+
+	public String getStatus() {
+		return status;
 	}
 
-	public void setEnrollmentId(long enrollmentId) {
-		this.enrollmentId = enrollmentId;
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
+
 
 	public Double getCredits() {
 		return credits;
 	}
+
+
 	public void setCredits(Double credits) {
 		this.credits = credits;
 	}
-	
+
+
 	public float getScore() {
 		return score;
 	}
 
+
 	public void setScore(float score) {
 		this.score = score;
 	}
-	
+
+
+	public float getCgpa() {
+		return cgpa;
+	}
+
+
+	public void setCgpa(float cgpa) {
+		this.cgpa = cgpa;
+	}
+
+
+	public long getStudentclassid() {
+		return studentclassid;
+	}
+
+
+	public void setStudentclassid(long studentclassid) {
+		this.studentclassid = studentclassid;
+	}
+
+
 	public float getPrelimScore() {
 		return prelimscore;
 	}
@@ -124,20 +192,4 @@ public class EnrollmentInfo {
 
 	}
 	
-	public float getCGPA() {
-		return cgpa;
-	}
-
-	public void setCGPA(float cgpa) {
-		this.cgpa = cgpa;
-	}
-	
-	public long getStudentClassId() {
-		return studentclassid;
-	}
-
-	public void setStudentClassId(long studentclassid) {
-		this.studentclassid = studentclassid;
-	}
-
 }

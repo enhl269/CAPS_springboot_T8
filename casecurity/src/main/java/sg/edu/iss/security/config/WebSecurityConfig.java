@@ -42,14 +42,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/users/**").authenticated()
-			.anyRequest().permitAll()
+			.antMatchers("/").authenticated()
+			.antMatchers("/courses/**").hasAuthority("ADMIN")
+			.anyRequest().authenticated()
 			.and()
-			.formLogin()
+			.formLogin().permitAll()
 				.usernameParameter("email")
 				.defaultSuccessUrl("/landing_page")
 				.permitAll()
 			.and()
-			.logout().logoutSuccessUrl("/").permitAll();
+			.logout().logoutSuccessUrl("/").permitAll()
+			.and()
+			.exceptionHandling().accessDeniedPage("/NotAuth");
 	}
 }

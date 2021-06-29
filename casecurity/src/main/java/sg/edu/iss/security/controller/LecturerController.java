@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.CourseGrades;
@@ -23,7 +22,7 @@ import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
 import sg.edu.iss.security.service.StudentClassService;
-import sg.edu.iss.security.service.StudentService;
+
 @Controller
 public class LecturerController {
 	
@@ -35,9 +34,6 @@ public class LecturerController {
 	
 	@Autowired
 	private StudentClassService scservice;
-	
-	@Autowired
-	private StudentService stdservice;
 	
 	@Autowired 
 	private UserRepository urepo;
@@ -81,7 +77,7 @@ public class LecturerController {
 		  for(int i=0; i < eList.size(); i++) 
 		  { 
 			  eiList.add(new EnrollmentInfo());
-			  eiList.get(i).setStudentClassId(scId);
+			  eiList.get(i).setStudentclassid(scId);
 			  eiList.get(i).setEnrollmentId(eList.get(i).getId());
 			  eiList.get(i).setCourseName(eList.get(i).getStudentClass().getCourse().getName());
 			  eiList.get(i).setCredits(eList.get(i).getStudentClass().getCourse().getCredits());
@@ -116,7 +112,7 @@ public class LecturerController {
 				
 				float cgpa = sum/mc;
 				
-				eiList.get(i).setCGPA(cgpa);
+				eiList.get(i).setCgpa(cgpa);
 			  
 			  }
 		  model.addAttribute("enrollments",eiList); 

@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+
 
 @Entity
 public class Course {
@@ -24,15 +24,7 @@ public class Course {
 	private String type;
 	
 	private Double credits;
-	
-	public Double getCredits() {
-		return credits;
-	}
-
-	public void setCredits(double credits) {
-		this.credits = credits;
-	}
-	
+			
 	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
 	private List<LecturerCanTeach> lecturerCanTeach = new ArrayList<>();
 	
@@ -138,7 +130,15 @@ public class Course {
 	public void setStudentClass(List<StudentClass> studentClass) {
 		this.studentClass = studentClass;
 	}
+	
+	public Double getCredits() {
+		return credits;
+	}
 
+	public void setCredits(double credits) {
+		this.credits = credits;
+	}
+	
 	@Override
 	public String toString() {
 		return "Course [name=" + name + ", description=" + description + ", type=" + type + ", lecturerCanTeach="

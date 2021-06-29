@@ -27,7 +27,6 @@ import sg.edu.iss.security.repo.LecturerCanTeachRepository;
 import sg.edu.iss.security.repo.LecturerRepository;
 import sg.edu.iss.security.repo.StudentClassRepository;
 import sg.edu.iss.security.repo.StudentRepository;
-import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.UserService;
 
 
@@ -43,9 +42,7 @@ public class CasecurityApplication {
 	
 	@Autowired
 	private UserService us;
-		
-	@Autowired
-	private UserRepository urepo;
+
 	
 	@Autowired
 	private StudentRepository srepo;
@@ -170,6 +167,8 @@ public class CasecurityApplication {
 			screpo.save(sc);
 			StudentClass sc2 = new StudentClass(dateStartSem1, 30, course.get(1),l);
 			screpo.save(sc2);
+			StudentClass sc3 = new StudentClass(dateStartSem1, 30, course.get(4),l3);
+			screpo.save(sc3);
 			
 			LecturerCanTeach LCT = new LecturerCanTeach(l, course.get(1));
 			lctrepo.save(LCT);
@@ -181,6 +180,12 @@ public class CasecurityApplication {
 			
 			Enrollment er = new Enrollment(50f,"Pass",s,sc);
 			erepo.save(er);
+			
+			Enrollment er2 = new Enrollment(50f,"Pass",srepo.findStudentByEmail("zhangran@gmail.com"),sc2);
+			erepo.save(er2);
+			
+			Enrollment er3 = new Enrollment(50f,"Pass",srepo.findStudentByEmail("johnson@gmail.com"),sc3);
+			erepo.save(er3);
 
 		};
 	}

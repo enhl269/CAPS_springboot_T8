@@ -8,27 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.Course;
-import sg.edu.iss.security.domain.Enrollment;
-import sg.edu.iss.security.domain.Student;
-import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.repo.CourseRepository;
-import sg.edu.iss.security.repo.EnrollmentRepository;
-import sg.edu.iss.security.repo.StudentClassRepository;
-import sg.edu.iss.security.repo.StudentRepository;
+
 
 @Service
 public class CourseService {
 	@Autowired
 	private CourseRepository repo;
-	
-	@Autowired
-	private EnrollmentRepository erepo;
-	
-	@Autowired 
-	private StudentRepository srepo;
-	
-	@Autowired 
-	private StudentClassRepository screpo;
 	
 //	public List<Course> listAll() {
 //		return repo.findAll(null);
@@ -57,14 +43,9 @@ public class CourseService {
 	public List<Course> getAllCourse() {
 		return repo.findAll();
 	}
-	
 	public List<Course> getAllCourseTaughtByLectuer(long id){
 		return repo.findCoursesTaughtByLecturerId(id);
 	}
-	
-	
-		
-		
 }
 	
 

@@ -1,6 +1,5 @@
 package sg.edu.iss.security.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,6 @@ import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
 import sg.edu.iss.security.service.LecturerService;
 import sg.edu.iss.security.service.StudentClassService;
-import sg.edu.iss.security.service.StudentService;
 import sg.edu.iss.security.service.UserDetailsCustomService;
 import sg.edu.iss.security.service.UserService;
 
@@ -41,11 +39,9 @@ public class AdminController {
 	@Autowired
 	private UserDetailsCustomService udcservice;
 
-	@Autowired private StudentService sService;
 	 
-	 @Autowired private LecturerService lService;
-	 @Autowired
-		private StudentClassService scService;
+	@Autowired
+	private StudentClassService scService;
 
 	@Autowired
 	private CourseService cService;
@@ -55,6 +51,9 @@ public class AdminController {
 	
 	@Autowired
 	private UserRepository urepo;
+	
+	@Autowired
+	private LecturerService lService;
 
 	@GetMapping("/lecturers") 
 	public String listLecturers(Model model) {
@@ -107,7 +106,6 @@ public class AdminController {
 		return "redirect:/lecturers";
 	}
 	
-	
 	@GetMapping("users/edit/{id}")
 	public String showEditForm(Model model, @PathVariable("id") Long id) {
 		model.addAttribute("editUser", uService.get(id));
@@ -129,7 +127,53 @@ public class AdminController {
 		uService.delete(id);
 		return "redirect:/users";
 	}
+
+	@GetMapping("/courses/create")
+	public String showNewCourseForm(Model model) {
+		Course course = new Course();
+		model.addAttribute("course", course);
+
+		return "new_course";
+	}
+
 	
+	 @GetMapping("/courses/edit/{id}")
+	 public String showCourseForm(Model model, @PathVariable("id") Long id) {
+		 model.addAttribute("editCourse", cService.get(id));
+		 return "editCourse_form"; }
+
+	@GetMapping("/courses/delete/{id}")
+	public String deleteCourse(Model model, @PathVariable("id") Long id) {
+		cService.delete(id);
+		return "redirect:/courses";
+	}
+	@GetMapping("/admin/enrollment")
+	//@ResponseBody
+	public String showEnrollmentList(Model model) {
+		//how to regulate enrollment status
+		//pending,confirmed,denied
+		List<EnrollmentInfo> eiList = new ArrayList<>();
+		List<Enrollment> eList = eService.getAllEnrollments();
+		for(Enrollment e:eList) {
+			eiList.add(new EnrollmentInfo(e.getId(),
+										  e.getStudentClass().getCourse().getName(),
+						                  e.getStudentClass().getStartdate(),
+						                  e.getStudent().getId(),
+						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
+						                  e.getStatus()));
+		}
+		model.addAttribute("enrollments",eiList);
+		return "admin_enrollmentList";
+		
+	}
+	
+	@PostMapping("/admin/enrollment/{id}")
+	public String updateStatus(@RequestParam("status") String status, @PathVariable("id") Long id) {
+		eService.saveStatus(status, id);
+		
+		return "redirect:/admin/enrollment";
+	}
+
 	@RequestMapping(value = "/adminstudentClassList", method = RequestMethod.GET)
 	//@ResponseBody
 	public String ListAllStudentClass(Model model) {
@@ -177,6 +221,5 @@ public class AdminController {
 		return "redirect:/adminstudentClassList";
 
 	}
+
 }
-
-

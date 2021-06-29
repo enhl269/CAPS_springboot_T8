@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.repo.StudentClassRepository;
 
@@ -17,6 +16,7 @@ public class StudentClassService {
 	
 	public StudentClass getStdClass(Long id)
 	{
+		//need a change to get current class
 		return screpo.findStudentClassByCourseId(id).get(0);
 	}
 	

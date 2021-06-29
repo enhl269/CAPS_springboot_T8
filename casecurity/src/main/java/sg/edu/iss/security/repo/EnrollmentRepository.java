@@ -29,5 +29,16 @@ public interface EnrollmentRepository extends PagingAndSortingRepository<Enrollm
 	@Transactional
 	@Query("update Enrollment e set e.score =:score where e.id=:id")
 	public void saveScore(float score, long id);
+
+	@Modifying
+	@Transactional
+	@Query("update Enrollment e set e.status =:status where e.id=:id")
+	public void saveStatus(String status, long id);
+	
+	
+	
+	
+	
+	
 	
 }

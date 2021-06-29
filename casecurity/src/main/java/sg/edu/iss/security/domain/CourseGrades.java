@@ -1,7 +1,5 @@
 package sg.edu.iss.security.domain;
 
-import javax.persistence.Transient;
-
 public class CourseGrades {
 	private long id;
 	private String name;
