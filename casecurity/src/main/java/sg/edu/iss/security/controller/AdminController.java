@@ -56,19 +56,6 @@ public class AdminController {
 	@Autowired
 	private UserRepository urepo;
 
-	/*
-	 * @GetMapping("/users") public String listUsers(Model model) { List<User>
-	 * listUsers = uService.listAll(); model.addAttribute("listUsers", listUsers);
-	 * return "users"; }
-	 */
-
-	/*
-	 * @GetMapping("/students") public String listStudents(Model model) {
-	 * List<Student> listStudents = uService.listStudent();
-	 * model.addAttribute("listStudents", listStudents); return "students"; }
-	 */
-
-	
 	@GetMapping("/lecturers") 
 	public String listLecturers(Model model) {
 		List<User> listLecturers = udcservice.findAllLecturers("LECTURER");
