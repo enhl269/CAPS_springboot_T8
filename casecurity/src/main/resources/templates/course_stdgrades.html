@@ -7,6 +7,9 @@
 </head>
 <body>
 	<h1>Courses and Grades Listing</h1>
+		<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
 	<div>
 		Welcome <b><span sec:authentication="name">Username</span></b>
 		&nbsp;

@@ -7,6 +7,9 @@
 <body>
 	<div align="center">
 		<h1>Create New Student Class</h1>
+			<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
 		<br/>
 		<form action="#" th:action="@{/savestdclass}" th:object="${StdClass}" method="post">
 			<table border="0" cellpadding="10">

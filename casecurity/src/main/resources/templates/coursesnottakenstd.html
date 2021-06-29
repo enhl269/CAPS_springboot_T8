@@ -7,7 +7,9 @@
 </head>
 <body>
 	<h1>Course Listing for Classes not taken</h1>
-	
+		<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
 	<div>
 		<a href="/courseno">View Courses Taken and Grades</a>
 	</div>

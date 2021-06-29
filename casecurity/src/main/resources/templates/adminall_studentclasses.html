@@ -8,7 +8,9 @@
 </head> 
 <body>
 <h1>Classes Information</h1>
-
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
 <div>
 
 	<a href ="/courses">Create A New Class</a>
