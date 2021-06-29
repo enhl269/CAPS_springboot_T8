@@ -233,9 +233,14 @@ public class AdminController {
 	
 	@RequestMapping(value = "/savestdclass", method = RequestMethod.POST)
 	public String saveCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
-		scService.save(StdClass);
 		
-		return "redirect:/adminstudentClassList";
+		List<User> lecturers = uService.getLectures();
+		 for(int i = 0; i < lecturers.size(); i++) {
+			 if(lecturers.get(i).getId().equals(StdClass.getLecturer().getId())) {
+				 scService.save(StdClass);
+				 return "redirect:/adminstudentClassList";
+			 }
+		 }return "error";
 	}
 	
 	@GetMapping("/adminstudentClassList/edit/{id}")

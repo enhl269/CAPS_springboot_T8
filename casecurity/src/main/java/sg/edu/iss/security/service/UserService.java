@@ -70,6 +70,10 @@ public class UserService {
 	public List<User> listAll() {
 		return userRepo.findAll();
 	}
+	
+	public List<User> getLectures() {
+		return userRepo.findByRoleType("Lecturer");
+	}
 
 	public User get(Long id) {
 		return userRepo.findById(id).get();
