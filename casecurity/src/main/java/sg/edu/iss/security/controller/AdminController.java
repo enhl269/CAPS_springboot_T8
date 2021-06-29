@@ -245,7 +245,7 @@ public class AdminController {
 				 scService.save(StdClass);
 				 return "redirect:/adminstudentClassList";
 			 }
-		 }return "error";
+		 }return "LectErrorPage";
 	}
 	
 	@GetMapping("/adminstudentClassList/edit/{id}")
