@@ -106,9 +106,14 @@ public class AdminController {
 	
 	@RequestMapping(value = "/savelctassignment", method = RequestMethod.POST)
 	public String saveLCTAssignment(@ModelAttribute("lct") LecturerCanTeach lct) {
+		List<User> lecturers = uService.getLectures();
+		List<Course> courses = cService.getAllCourse();
+		 for(int i = 0; i < lecturers.size(); i++) {
+			 if(lecturers.get(i).getId().equals(lct.getLecturer().getId())) {
 		lService.save(lct);
-		
-		return "redirect:/lecturers";
+		return "redirect:/lecturers";}
+			 }
+		return "error";
 	}
 	
 	@GetMapping("users/edit/{id}")
