@@ -12,6 +12,19 @@ public class CourseViewModel {
 	private long stdid;
 	
 	
+	public CourseViewModel() {
+		super();
+	}
+
+	public CourseViewModel(long id, String name, String description, String type, Double credits) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.type = type;
+		this.credits = credits;
+	}
+
 	public Double getCredits() {
 		return credits;
 	}
