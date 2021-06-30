@@ -135,14 +135,15 @@ public class AdminController {
 	
 	@RequestMapping(value = "/savelctassignment", method = RequestMethod.POST)
 	public String saveLCTAssignment(@ModelAttribute("lct") LecturerCanTeach lct) {
-		List<User> lecturers = uService.getLectures();
-		List<Course> courses = cService.getAllCourse();
-		 for(int i = 0; i < lecturers.size(); i++) {
-			 if(lecturers.get(i).getId().equals(lct.getLecturer().getId())) {
+		
+		List<LecturerCanTeach> lctCT = lService.getAll();
+		 for(int i = 0; i < lctCT.size(); i++) {
+			 if(lctCT.get(i).getLecturer().getId() == lct.getLecturer().getId() &&
+					 lctCT.get(i).getCourse().getId() == lct.getCourse().getId()) {
 		lService.save(lct);
 		return "redirect:/lecturers";}
 			 }
-		return "LectErrorPage";
+		return "LectAssignError";
 	}
 	
 	@GetMapping("users/edit/{id}")
@@ -158,14 +159,15 @@ public class AdminController {
 		user.setLastName(userDetail.getLastName());
 		user.setEmail(userDetail.getEmail());
 		user.setContactNumber(userDetail.getContactNumber());
+		user.setRoles(userDetail.getRoles());
 		uService.save(user);
 		return "redirect:/users";
 	}
 
 	@GetMapping("/users/delete/{id}")
-	public String deleteUser(Model model, @PathVariable("id") Long id) {
-		uService.delete(id);
-		return "redirect:/users";
+	public String deleteUser(Model model, @PathVariable("id") Long id, @ModelAttribute User userdetail) {
+			uService.delete(id);
+			return "redirect:/users";
 	}
 	
 	@GetMapping("/students") 
