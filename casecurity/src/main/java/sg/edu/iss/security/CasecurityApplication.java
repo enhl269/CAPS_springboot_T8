@@ -242,37 +242,44 @@ public class CasecurityApplication {
 			screpo.save(sc);
 			StudentClass sc1 = new StudentClass(dateStartSem1, 30, course.get(1), l.get(0));
 			screpo.save(sc1);
-			StudentClass sc2 = new StudentClass(dateStartSem1, 30, course.get(4), l.get(2));
+			StudentClass sc2 = new StudentClass(dateStartSem1, 30, course.get(4), l.get(4));
 			screpo.save(sc2);
 			StudentClass sc3 = new StudentClass(dateStartSem1, 30, course.get(2), l.get(2));
 			screpo.save(sc3);
-			StudentClass sc4 = new StudentClass(dateStartSem1, 30, course.get(3), l.get(0));
+			StudentClass sc4 = new StudentClass(dateStartSem1, 30, course.get(3), l.get(3));
 			screpo.save(sc4);
-			StudentClass sc5 = new StudentClass(dateStartSem2, 2, course.get(5), l.get(1));
+			StudentClass sc5 = new StudentClass(dateStartSem2, 2, course.get(5), l.get(0));
 			screpo.save(sc5);
-			StudentClass sc6 = new StudentClass(dateStartSem2, 5, course.get(6), l.get(3));
+			StudentClass sc6 = new StudentClass(dateStartSem2, 5, course.get(6), l.get(1));
 			screpo.save(sc6);
-			StudentClass sc7 = new StudentClass(dateStartSem2, 30, course.get(7), l.get(4));
+			StudentClass sc7 = new StudentClass(dateStartSem2, 30, course.get(7), l.get(2));
 			screpo.save(sc7);
 			StudentClass sc8 = new StudentClass(dateStartSem2, 30, course.get(8), l.get(3));
 			screpo.save(sc8);
-			StudentClass sc9 = new StudentClass(dateStartSem2, 30, course.get(9), l.get(0));
+			StudentClass sc9 = new StudentClass(dateStartSem2, 30, course.get(9), l.get(4));
 			screpo.save(sc9);
 
-			LecturerCanTeach LCT = new LecturerCanTeach(l.get(1), course.get(0));
+			LecturerCanTeach LCT = new LecturerCanTeach(l.get(0), course.get(0));
 			lctrepo.save(LCT);
-			LecturerCanTeach LCT3 = new LecturerCanTeach(l.get(0), course.get(3));
+			LecturerCanTeach LCT3 = new LecturerCanTeach(l.get(1), course.get(1));
 			lctrepo.save(LCT3);
 			LecturerCanTeach LCT4 = new LecturerCanTeach(l.get(2), course.get(2));
 			lctrepo.save(LCT4);
-			LecturerCanTeach LCT2 = new LecturerCanTeach(l.get(1), course.get(0));
+			LecturerCanTeach LCT2 = new LecturerCanTeach(l.get(3), course.get(3));
 			lctrepo.save(LCT2);
-			LecturerCanTeach LCT5 = new LecturerCanTeach(l.get(2), course.get(4));
+			LecturerCanTeach LCT5 = new LecturerCanTeach(l.get(4), course.get(4));
 			lctrepo.save(LCT5);
-			LecturerCanTeach LCT6 = new LecturerCanTeach(l.get(1), course.get(5));
+			LecturerCanTeach LCT6 = new LecturerCanTeach(l.get(0), course.get(5));
 			lctrepo.save(LCT6);
-			LecturerCanTeach LCT7 = new LecturerCanTeach(l.get(3), course.get(6));
+			LecturerCanTeach LCT7 = new LecturerCanTeach(l.get(1), course.get(6));
 			lctrepo.save(LCT7);
+			LecturerCanTeach LCT8 = new LecturerCanTeach(l.get(2), course.get(7));
+			lctrepo.save(LCT8);
+			LecturerCanTeach LCT9 = new LecturerCanTeach(l.get(3), course.get(8));
+			lctrepo.save(LCT9);
+			LecturerCanTeach LCT10 = new LecturerCanTeach(l.get(4), course.get(9));
+			lctrepo.save(LCT10);
+			
 			
 			List<Enrollment> enrol = new ArrayList<>();
 			
