@@ -2,50 +2,25 @@ package sg.edu.iss.security.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.Course;
-import sg.edu.iss.security.repo.CourseRepository;
 
+public interface CourseService {
 
-@Service
-public class CourseService {
-	@Autowired
-	private CourseRepository repo;
-	
-//	public List<Course> listAll() {
-//		return repo.findAll(null);
-//	}
-	
-	public void save(Course Course) {
-		repo.save(Course);
-	}
-	
-	public Course get(Long id) {
-		return repo.findById(id).get();
-	}
-	
-	public void delete(Long id) {
-		repo.deleteById(id);
-	}
+	void save(Course Course);
 
-	public Page<Course> getPageCourse(Pageable pageable) {
-		return repo.findAll(pageable);
-	}
-	
-	public List<Course> getCourseStudentTakes(Long id) {
-		return repo.findCourseByStudentId(id);
-	}
-	
-	public List<Course> getAllCourse() {
-		return repo.findAll();
-	}
-	public List<Course> getAllCourseTaughtByLectuer(long id){
-		return repo.findCoursesTaughtByLecturerId(id);
-	}
+	Course get(Long id);
+
+	void delete(Long id);
+
+	Page<Course> getPageCourse(Pageable pageable);
+
+	List<Course> getCourseStudentTakes(Long id);
+
+	List<Course> getAllCourse();
+
+	List<Course> getAllCourseTaughtByLectuer(long id);
+
 }
-	
-
