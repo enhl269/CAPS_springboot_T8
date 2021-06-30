@@ -63,27 +63,73 @@ public class AdminController {
 	private EnrollmentService eService;
 	
 	@Autowired
-	private UserRepository urepo;
-	
-	@Autowired
 	private LecturerService lService;
 	
 
 	@Autowired
 	private StudentService stdService;
 	
-	@GetMapping("/adminview") 
+	@GetMapping("admin/adminview") 
 	public String adminoverallview() {
 		return "adminview"; 
 	}
 	
-	@GetMapping("/lecturers") 
+	@GetMapping("admin/lecturers") 
 	public String listLecturers(Model model) {
 		List<User> listLecturers = udcservice.findAllByType("LECTURER");
 		model.addAttribute("listUsers", listLecturers); 
 		return "lecturers"; 
 	}
-	@GetMapping("/modifycourseallocation/{id}") 
+	
+	@GetMapping("admin/students") 
+	public String listStudents(Model model) {
+		List<User> listStudents = udcservice.findAllByType("STUDENT");
+		model.addAttribute("listUsers", listStudents); 
+		return "students"; 
+	}
+	
+	@GetMapping("admin/enrollment")
+	//@ResponseBody
+	public String showEnrollmentList(Model model) {
+		//how to regulate enrollment status
+		//pending,confirmed,denied
+		List<EnrollmentInfo> eiList = new ArrayList<>();
+		List<Enrollment> eList = eService.getAllEnrollments();
+		for(Enrollment e:eList) {
+			eiList.add(new EnrollmentInfo(e.getId(),
+										  e.getStudentClass().getCourse().getName(),
+						                  e.getStudentClass().getStartdate(),
+						                  e.getStudent().getId(),
+						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
+						                  e.getStatus()));
+		}
+		model.addAttribute("enrollments",eiList);
+		return "admin_enrollmentList";	
+	}
+	
+	@GetMapping("adminstudentClassList")
+	public String ListAllStudentClass(Model model) {
+		
+		List<StudentClass> scList = scService.getAllStdCLass();
+		List<StudentClassInfo> sciList = new ArrayList<>(scList.size());
+		
+		for(int i=0; i < scList.size(); i++) {
+			sciList.add(new StudentClassInfo());
+			sciList.get(i).setId(scList.get(i).getId());
+			sciList.get(i).setCourseName(scList.get(i).getCourse().getName());
+			sciList.get(i).setCourseId(scList.get(i).getCourse().getId());
+			sciList.get(i).setStartdate(scList.get(i).getStartdate());
+			sciList.get(i).setClassSize(scList.get(i).getClassSize());
+			sciList.get(i).setEnrollmentSize(scList.get(i).getEnrollmentList().size());
+			sciList.get(i).setLecturerName(scList.get(i).getLecturer().getFirstName()+scList.get(i).getLecturer().getLastName());
+			sciList.get(i).setLecturerId(scList.get(i).getLecturer().getId());
+		}
+		
+		model.addAttribute("studentclasses",sciList);
+		return "adminall_studentclasses";
+	}
+	
+	@GetMapping("admin/modifycourseallocation/{id}") 
 	public String ModifyLecturerCourseAllocation(Model model, @PathVariable("id") Long id)
 	{
 		List<LecturerCanTeach> lct = lService.findAllLCT(id);
@@ -106,13 +152,13 @@ public class AdminController {
 		return "coursestaught";
 	}
 	
-	@GetMapping("/modifycourseallocation/delete/{lectct.id}/{lecid}")
+	@GetMapping("admin/modifycourseallocation/delete/{lectct.id}/{lecid}")
 	public String deleteCourseAllocation(Model model, @PathVariable("lectct.id") Long lctid,@PathVariable("lecid") Long lecid) {
 		lService.delete(lctid);
 		return "redirect:/modifycourseallocation/"+lecid;
 	}
 	
-	@RequestMapping("/assignlecturer/{id}")
+	@RequestMapping("admin/assignlecturer/{id}")
 	public String assignNewLecturertocourse(Model model,@PathVariable("id")Long id) {
 		
 		LecturerCanTeach lct = new LecturerCanTeach();
@@ -121,7 +167,7 @@ public class AdminController {
 		return "new_lctassigned";
 	}
 	
-	@RequestMapping(value = "/savelctassignment", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/savelctassignment", method = RequestMethod.POST)
 	public String saveLCTAssignment(@ModelAttribute("lct") LecturerCanTeach lct) {
 		List<User> lecturers = uService.getLectures();
 		List<Course> courses = cService.getAllCourse();
@@ -133,13 +179,13 @@ public class AdminController {
 		return "LectErrorPage";
 	}
 	
-	@GetMapping("users/edit/{id}")
+	@GetMapping("user/edit/{id}")
 	public String showEditForm(Model model, @PathVariable("id") Long id) {
 		model.addAttribute("editUser", uService.get(id));
 		return "editUser_form";
 	}//
 	
-	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+	@RequestMapping(value = "user/saveUser", method = RequestMethod.POST)
 	public String updateUser(@RequestParam("id") Long id, User userDetail) {
 		User user = uService.get(id);
 		user.setFirstName(userDetail.getFirstName());
@@ -149,20 +195,15 @@ public class AdminController {
 		return "redirect:/users";
 	}
 
-	@GetMapping("/users/delete/{id}")
+	@GetMapping("user/delete/{id}")
 	public String deleteUser(Model model, @PathVariable("id") Long id) {
 		uService.delete(id);
 		return "redirect:/users";
 	}
 	
-	@GetMapping("/students") 
-	public String listStudents(Model model) {
-		List<User> listStudents = udcservice.findAllByType("STUDENT");
-		model.addAttribute("listUsers", listStudents); 
-		return "students"; 
-	}
+
 	
-	@GetMapping("/modifystudentenrollment/{id}")
+	@GetMapping("admin/modifystudentenrollment/{id}")
 	//@ResponseBody
 	public String showStudentEnrollmentList(Model model,@PathVariable("id") Long id) {
 		//how to regulate enrollment status
@@ -182,7 +223,7 @@ public class AdminController {
 		
 	}
 	
-	@GetMapping("/modifystudentenrollmentstdclass/{id}")
+	@GetMapping("admin/modifystudentenrollmentstdclass/{id}")
 	public String showStudentEnrollmentListStdClass(Model model,@PathVariable("id") Long id) {
 		List<EnrollmentInfo> eiList = new ArrayList<>();
 		List<Enrollment> eList = eService.getByStudentClassId(id);
@@ -199,58 +240,14 @@ public class AdminController {
 		
 	}
 	
-	@GetMapping("/admin/enrollment")
-	//@ResponseBody
-	public String showEnrollmentList(Model model) {
-		//how to regulate enrollment status
-		//pending,confirmed,denied
-		List<EnrollmentInfo> eiList = new ArrayList<>();
-		List<Enrollment> eList = eService.getAllEnrollments();
-		for(Enrollment e:eList) {
-			eiList.add(new EnrollmentInfo(e.getId(),
-										  e.getStudentClass().getCourse().getName(),
-						                  e.getStudentClass().getStartdate(),
-						                  e.getStudent().getId(),
-						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
-						                  e.getStatus()));
-		}
-		model.addAttribute("enrollments",eiList);
-		return "admin_enrollmentList";
-		
-	}
-	
-	@PostMapping("/admin/enrollment/{id}")
+	@PostMapping("admin/enrollment/{id}")
 	public String updateStatus(@RequestParam("status") String status, @PathVariable("id") Long id) {
 		eService.saveStatus(status, id);
 		
 		return "redirect:/admin/enrollment";
 	}
 
-	@RequestMapping(value = "/adminstudentClassList", method = RequestMethod.GET)
-	//@ResponseBody
-	public String ListAllStudentClass(Model model) {
-		
-		List<StudentClass> scList = scService.getAllStdCLass();
-		List<StudentClassInfo> sciList = new ArrayList<>(scList.size());
-		
-		for(int i=0; i < scList.size(); i++) {
-			sciList.add(new StudentClassInfo());
-			sciList.get(i).setId(scList.get(i).getId());
-			sciList.get(i).setCourseName(scList.get(i).getCourse().getName());
-			sciList.get(i).setCourseId(scList.get(i).getCourse().getId());
-			sciList.get(i).setStartdate(scList.get(i).getStartdate());
-			sciList.get(i).setClassSize(scList.get(i).getClassSize());
-			sciList.get(i).setEnrollmentSize(scList.get(i).getEnrollmentList().size());
-			sciList.get(i).setLecturerName(scList.get(i).getLecturer().getFirstName()+scList.get(i).getLecturer().getLastName());
-			sciList.get(i).setLecturerId(scList.get(i).getLecturer().getId());
-		}
-		
-		model.addAttribute("studentclasses",sciList);
-		//return sciList;
-		return "adminall_studentclasses";
-	}
-	
-	@RequestMapping(value = "/savestdclass", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/savestdclass", method = RequestMethod.POST)
 	public String saveCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
 		
 		List<User> lecturers = uService.getLectures();
@@ -262,7 +259,7 @@ public class AdminController {
 		 }return "LectErrorPage";
 	}
 	
-	@GetMapping("/adminstudentClassList/edit/{id}")
+	@GetMapping("admin/studentClassList/edit/{id}")
 	public String showEditStudenClassForm(Model model,@PathVariable(name = "id") Long id) 
 	{ 	  
 	  StudentClass stdclass = scService.getStdClassByStdClassId(id); 
@@ -271,7 +268,7 @@ public class AdminController {
 	  return "edit_stdclass"; }
 	 
 	
-	@RequestMapping("/adminstudentClassList/delete/{id}")
+	@RequestMapping("admin/studentClassList/delete/{id}")
 	public String deleteStdClass(@PathVariable(name = "id") Long id) {
 		scService.delete(id);
 		
@@ -280,7 +277,7 @@ public class AdminController {
 	}
 	
 	//all courses taken and grades
-	@RequestMapping(value = "/adminenrollstdnotcourses/{studentid}", method = RequestMethod.GET)
+	@GetMapping("admin/enrollstdnotcourses/{studentid}")
 	public String listCourses(Model model, @PathVariable("studentid") Long stdid){
 		
 		long id = stdid;
@@ -328,7 +325,7 @@ public class AdminController {
 	}
 	
 	//to create and save hidden enrollment
-	@RequestMapping("/adminenroll/{course.id}/{student.id}")
+	@RequestMapping("admin/enroll/{course.id}/{student.id}")
 	public String AdminEnrollStudentForm(Model model, @PathVariable("course.id") Long cid,@PathVariable("student.id") Long stdid) {
 		
 		long id = stdid;
@@ -350,7 +347,7 @@ public class AdminController {
 		  return page;
 	}
 	
-	@RequestMapping("/admin/enrollment/delete/{id}")
+	@RequestMapping("admin/enrollment/delete/{id}")
 	public String deleteStdEnrollment(@PathVariable(name = "id") Long id) {
 		eService.delete(id);
 		

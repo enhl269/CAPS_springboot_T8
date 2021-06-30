@@ -44,7 +44,7 @@
 			<td th:text=${course.type}>Course Type</td>
 			<td th:text=${course.credits}>Course Credits</td>
 				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-					<a th:href="@{'/edit/' + ${course.id}}">Edit</a>			
+					<a th:href="@{'admin/edit/' + ${course.id}}">Edit</a>			
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${course.id}}">Delete</a>
 					&nbsp;&nbsp;&nbsp;&nbsp;

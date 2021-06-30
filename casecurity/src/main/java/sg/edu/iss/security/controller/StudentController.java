@@ -57,9 +57,47 @@ public class StudentController {
 	
 //	@Autowired
 //    private JavaMailSender javaMailSender;
+	
+	//all courses taken and grades
+	@RequestMapping(value = "/courseno", method = RequestMethod.GET)
+	public String ListCourseByStudent(Model model,Principal p){
+		long id = urepo.findByEmail(p.getName()).getId();
+		List<Course> stdcourses = service.getCourseStudentTakes(id);
+		List<CourseGrades> a = new ArrayList<>(stdcourses.size());
+		for(int i=0;i< stdcourses.size();i++)
+		{
+			//a.add(new CourseGrades());
+			a.get(i).setId(stdcourses.get(i).getId());
+			a.get(i).setName(stdcourses.get(i).getName());
+			a.get(i).setDescription(stdcourses.get(i).getDescription());
+			a.get(i).setType(stdcourses.get(i).getType());
+			a.get(i).setCredits(stdcourses.get(i).getCredits());
+			
+			Long courseid = stdcourses.get(i).getId();
+			float x = eservice.getScore(courseid,id);
+			a.get(i).setScore(x);
+			a.get(i).setGrade(a.get(i).getScore());
+		}
+		
+		float sum = 0;
+		float mc =0;
+		for(int i=0;i< stdcourses.size();i++)
+		{
+			mc+= a.get(i).getCredits();
+			a.get(i).setPrelimScore(a.get(i).getScore());
+			sum += a.get(i).getCredits() * a.get(i).getPrelimScore();
+		}
+		float x = sum/mc;
+		
+		model.addAttribute("Course",a);
+		model.addAttribute("cgpa",x);
+		
+		return "course_stdgrades";
+	}
+	
 
 	//all courses taken and grades
-		@RequestMapping(value = "/stdnotcourses", method = RequestMethod.GET)
+		@RequestMapping(value = "student/stdnotcourses", method = RequestMethod.GET)
 		public String listCourses(Model model, Principal p){
 			long id = urepo.findByEmail(p.getName()).getId();
 			
@@ -110,13 +148,15 @@ public class StudentController {
 	
 
 	//to create and save hidden enrollment
-	@RequestMapping("/enroll/{course.id}")
+	@RequestMapping("student/enroll/{course.id}")
 	public String showNewEnrollmentForm(Model model, Principal p, @PathVariable("course.id") Long cid) {
 		
 		long id = urepo.findByEmail(p.getName()).getId();
 
 		StudentClass sc = scservice.getStdClass(cid);
-		
+		if(sc==null) {
+			return "there is no class for the course currently";
+		}
 		String page = "";
 		Student s = stdservice.getStd(id);
 		
@@ -169,42 +209,6 @@ public class StudentController {
 	}
 
 	
-	//all courses taken and grades
-	@RequestMapping(value = "/courseno", method = RequestMethod.GET)
-	
-	public String ListCourseByStudent(Model model,Principal p){
-		long id = urepo.findByEmail(p.getName()).getId();
-		List<Course> stdcourses = service.getCourseStudentTakes(id);
-		List<CourseGrades> a = new ArrayList<>(stdcourses.size());
-		for(int i=0;i< stdcourses.size();i++)
-		{
-			a.add(new CourseGrades());
-			a.get(i).setId(stdcourses.get(i).getId());
-			a.get(i).setName(stdcourses.get(i).getName());
-			a.get(i).setDescription(stdcourses.get(i).getDescription());
-			a.get(i).setType(stdcourses.get(i).getType());
-			a.get(i).setCredits(stdcourses.get(i).getCredits());
-			
-			Long courseid = stdcourses.get(i).getId();
-			float x = eservice.getScore(courseid,id);
-			a.get(i).setScore(x);
-			a.get(i).setGrade(a.get(i).getScore());
-		}
-		
-		float sum = 0;
-		float mc =0;
-		for(int i=0;i< stdcourses.size();i++)
-		{
-			mc+= a.get(i).getCredits();
-			a.get(i).setPrelimScore(a.get(i).getScore());
-			sum += a.get(i).getCredits() * a.get(i).getPrelimScore();
-		}
-		float x = sum/mc;
-		
-		model.addAttribute("Course",a);
-		model.addAttribute("cgpa",x);
-		
-		return "course_stdgrades";
-	}
+
 
 }

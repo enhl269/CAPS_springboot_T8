@@ -34,12 +34,12 @@
 		<td th:text="${studentclass.enrollmentSize}">Enrollment Size</td>
 		<td th:text="${studentclass.LecturerName}">Lecturer Name</td>
 		<td><a href="lecturer_enrollment.html"
-				th:href="@{/modifystudentenrollmentstdclass/}+${studentclass.id}">Edit Class Enrollment</a>
+				th:href="@{admin/modifystudentenrollmentstdclass/}+${studentclass.id}">Edit Class Enrollment</a>
 				
 	<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-					<a th:href="@{'/adminstudentClassList/edit/' + ${studentclass.id}}">Edit</a>			
+					<a th:href="@{'admin/studentClassList/edit/' + ${studentclass.id}}">Edit</a>			
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/adminstudentClassList/delete/' + ${studentclass.id}}">Delete</a>
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'admin/studentClassList/delete/' + ${studentclass.id}}">Delete</a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
 	 </tr>

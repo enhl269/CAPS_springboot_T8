@@ -27,7 +27,6 @@ public class SecurityController {
 	@Autowired
 	UserRepository urepo;
 	
-
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
 		
@@ -81,11 +80,11 @@ public class SecurityController {
 	public String log(Model model, Principal p) {
 		String role= urepo.findByEmail(p.getName()).getRoles();
 		if(role.equalsIgnoreCase("STUDENT"))
-			return "redirect:/courseno";
+			return "redirect:/student/courseno";
 		else if(role.equalsIgnoreCase("LECTURER"))
-			return "redirect:/studentClassList";
+			return "redirect:/lecturer/studentClassList";
 		else if(role.equalsIgnoreCase("ADMIN"))
-			return "redirect:/adminview";
+			return "redirect:/admin/adminview";
 		else
 			return "/index";
 	}

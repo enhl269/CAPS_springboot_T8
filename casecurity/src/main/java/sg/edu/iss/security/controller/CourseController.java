@@ -23,7 +23,7 @@ public class CourseController {
 	private CourseService service;
 
 
-	@RequestMapping(value = "/courses", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/courses", method = RequestMethod.GET)
 	public String listCourses(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
 		final int currentPage = page.orElse(1);
 		final int pageSize = size.orElse(5);
@@ -43,7 +43,7 @@ public class CourseController {
 		return "page_course_final";
 	}
 
-	@RequestMapping("/new")
+	@RequestMapping("admin/new")
 	public String showNewCourseForm(Model model) {
 		Course Course= new Course();
 		model.addAttribute("Course", Course);
@@ -51,7 +51,7 @@ public class CourseController {
 		return "new_Course";
 	}
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/save", method = RequestMethod.POST)
 	public String saveCourse(@ModelAttribute("Course") Course Course) {
 		service.save(Course);
 		
@@ -59,7 +59,7 @@ public class CourseController {
 	}
 	
 	
-	  @RequestMapping("/edit/{id}") public ModelAndView
+	  @RequestMapping("admin/edit/{id}") public ModelAndView
 	  showEditCourseForm(@PathVariable(name = "id") Long id) { ModelAndView mav =
 	  new ModelAndView("edit_course");
 	  
@@ -68,14 +68,14 @@ public class CourseController {
 	  return mav; }
 	 
 	
-	@RequestMapping("/delete/{id}")
+	@RequestMapping("admin/delete/{id}")
 	public String deleteCourset(@PathVariable(name = "id") Long id) {
 		service.delete(id);
 		
 		return "redirect:/courses";
 	}
 	
-	@RequestMapping("/newdtdclass/{id}")
+	@RequestMapping("admin/newdtdclass/{id}")
 	public String showNewStdClassForm(Model model,@PathVariable("id")Long id) {
 		
 		StudentClass StdClass= new StudentClass();
