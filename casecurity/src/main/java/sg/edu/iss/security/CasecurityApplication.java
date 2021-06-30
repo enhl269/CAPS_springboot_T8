@@ -259,7 +259,7 @@ public class CasecurityApplication {
 			StudentClass sc9 = new StudentClass(dateStartSem2, 30, course.get(9), l.get(0));
 			screpo.save(sc9);
 
-			LecturerCanTeach LCT = new LecturerCanTeach(l.get(0), course.get(1));
+			LecturerCanTeach LCT = new LecturerCanTeach(l.get(1), course.get(0));
 			lctrepo.save(LCT);
 			LecturerCanTeach LCT3 = new LecturerCanTeach(l.get(0), course.get(3));
 			lctrepo.save(LCT3);
@@ -269,7 +269,7 @@ public class CasecurityApplication {
 			lctrepo.save(LCT2);
 			LecturerCanTeach LCT5 = new LecturerCanTeach(l.get(2), course.get(4));
 			lctrepo.save(LCT5);
-			LecturerCanTeach LCT6 = new LecturerCanTeach(l.get(4), course.get(5));
+			LecturerCanTeach LCT6 = new LecturerCanTeach(l.get(1), course.get(5));
 			lctrepo.save(LCT6);
 			LecturerCanTeach LCT7 = new LecturerCanTeach(l.get(3), course.get(6));
 			lctrepo.save(LCT7);

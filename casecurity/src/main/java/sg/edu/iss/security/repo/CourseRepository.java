@@ -34,3 +34,4 @@ public interface CourseRepository extends PagingAndSortingRepository<Course, Lon
 			+ "where lec.id=:id")
 	public List<Course> findCoursesTaughtByLecturerId(@Param("id") Long id);
 }
+

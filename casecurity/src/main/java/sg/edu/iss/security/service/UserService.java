@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -107,11 +109,16 @@ public class UserService {
 	public void delete(Long id) {
 		userRepo.deleteById(id);
 	}
-
-	public User getUserByEmail(String email) {
-		return userRepo.findByEmail(email);
-		
+	
+	public Page<User> getPageUser(Pageable pageable) {
+		return userRepo.findAll(pageable);
 	}
 
-}
+	public User getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return userRepo.findByEmail(email);
+	}
+	
+	
 
+}

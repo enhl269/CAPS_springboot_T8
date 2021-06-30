@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -35,7 +34,15 @@
 	</table>
 
 	 <br/>
+	 <a th:if="${coursePage.totalPages > 0}" class="pagination"
+		   th:each="pageNumber : ${pageNumbers}"
+		   th:href="@{/courses(size=${coursePage.size}, page=${pageNumber})}"
+		   th:text="${pageNumber}"
+		   th:class="${pageNumber==coursePage.number + 1} ? active"></a>
+	 
+	 
 </body>
 </html>
 
 
+>>>>>>> refs/remotes/origin/lxypagination

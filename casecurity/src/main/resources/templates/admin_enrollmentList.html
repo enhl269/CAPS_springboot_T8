@@ -13,9 +13,10 @@
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Logout" />
 	</form>
-
-<div>
+    <div>
+		<a href ="/adminview">go back home</a>
 	</div>
+
 <table>
 	<tr>
 		<th>Enrollment Id</th>
@@ -45,5 +46,12 @@
 	 </tr>
 	 
 </table>
+<a th:if="${enrollmentPage.totalPages > 0}" class="pagination"
+		   th:each="pageNumber : ${pageNumbers}"
+		   th:href="@{/(size=${enrollmentPage.size}, page=${pageNumber})}"
+		   th:text="${pageNumber}"
+		   th:class="${pageNumber==enrollmentPage.number + 1} ? active"></a>
+
+
 </body>
 </html>

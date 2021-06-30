@@ -3,6 +3,8 @@ package sg.edu.iss.security.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.Enrollment;
@@ -69,4 +71,8 @@ public class EnrollmentServiceImp implements EnrollmentService {
 		erepo.deleteById(id);
 	}
 	
+	@Override
+	public Page<Enrollment> getPageEnrollment(Pageable pageable) {
+		return erepo.findAll(pageable);
+	}
 }

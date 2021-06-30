@@ -22,3 +22,4 @@ public interface LecturerRepository extends PagingAndSortingRepository<Course, L
 	public List<Lecturer> findAllLecturer();
 
 }
+

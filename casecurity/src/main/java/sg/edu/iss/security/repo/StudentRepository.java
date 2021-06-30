@@ -17,3 +17,4 @@ public interface StudentRepository extends JpaRepository<User, Long>  {
 	@Query("SELECT s FROM Student s")
 	public List<Student> findAllStudents();
 }
+

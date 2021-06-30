@@ -3,7 +3,10 @@ package sg.edu.iss.security.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -14,15 +17,16 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 //import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.CourseGrades;
@@ -59,8 +63,22 @@ public class StudentController {
 //    private JavaMailSender javaMailSender;
 
 	//all courses taken and grades
-		@RequestMapping(value = "/stdnotcourses", method = RequestMethod.GET)
-		public String listCourses(Model model, Principal p){
+	@RequestMapping(value = "/stdnotcourses", method = RequestMethod.GET)
+	public String listCourses(Model model, Principal p,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+		final int currentPage = page.orElse(1);
+		final int pageSize = size.orElse(5);
+
+		Page<Course> coursePage = service.getPageCourse(PageRequest.of(currentPage - 1, pageSize));
+
+		model.addAttribute("coursePage", coursePage);
+
+		int totalPages = coursePage.getTotalPages();
+		if (totalPages > 0) {
+			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+					.boxed()
+					.collect(Collectors.toList());
+			model.addAttribute("pageNumbers", pageNumbers);
+		}
 			long id = urepo.findByEmail(p.getName()).getId();
 			
 			//List<Course> allstdcourses = service.getAllCourse();
@@ -219,3 +237,4 @@ public class StudentController {
 	}
 
 }
+

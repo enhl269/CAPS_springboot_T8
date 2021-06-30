@@ -3,6 +3,8 @@ package sg.edu.iss.security.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.StudentClass;
@@ -47,6 +49,11 @@ public class StudentClassServiceImp implements StudentClassService {
 	@Override
 	public void delete(Long id) {
 		screpo.deleteById(id);
+	}
+	
+	@Override
+	public Page<StudentClass> getPageStudentClass(Pageable pageable) {
+		return screpo.findAll(pageable);
 	}
 
 }

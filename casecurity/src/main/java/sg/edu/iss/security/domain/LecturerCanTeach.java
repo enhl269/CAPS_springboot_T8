@@ -65,8 +65,7 @@ public class LecturerCanTeach {
 		return "LecturerCanTeach [lecturer=" + lecturer + ", course=" + course + "]";
 	}
 	
-	
-
 
 
 }
+

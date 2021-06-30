@@ -1,3 +1,4 @@
+
 package sg.edu.iss.security.domain;
 
 import javax.persistence.Entity;

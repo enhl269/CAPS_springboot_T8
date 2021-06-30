@@ -1,16 +1,14 @@
 package sg.edu.iss.security.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import sg.edu.iss.security.domain.Lecturer;
+import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.LecturerCanTeach;
-import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.domain.User;
 import sg.edu.iss.security.repo.LecturerCanTeachRepository;
 import sg.edu.iss.security.repo.LecturerRepository;
@@ -50,6 +48,11 @@ public class LecturerServiceImp implements LecturerService {
 	@Override
 	public void save(LecturerCanTeach lct) {
 		lctrepo.save(lct);
+	}
+	
+	@Override
+	public Page<Course> getPageLecture(Pageable pageable) {
+		return lrepo.findAll(pageable);
 	}
 
 }

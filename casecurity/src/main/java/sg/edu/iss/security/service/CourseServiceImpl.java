@@ -19,7 +19,6 @@ public class CourseServiceImpl implements CourseService {
 //	public List<Course> listAll() {
 //		return repo.findAll(null);
 //	}
-	
 	@Override
 	public void save(Course Course) {
 		repo.save(Course);

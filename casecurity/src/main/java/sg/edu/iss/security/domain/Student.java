@@ -11,15 +11,9 @@ import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("Student")
 public class Student extends User {
-	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)	
-//	private Long StudentId;
-//	
+
 	private float cGPA;
-	
-	
-	
+
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private List<Enrollment> enrollmentList = new ArrayList<>();
 
@@ -30,20 +24,11 @@ public class Student extends User {
 	
 	
 
-//	public Student(Long studentId, float cGPA, int contactNumber, List<Enrollment> enrollmentList) {
-//		super();
-////		StudentId = studentId;
-//		this.cGPA = cGPA;
-//		this.contactNumber = contactNumber;
-//		this.enrollmentList = enrollmentList;
-//	}
-
 	public Student(float cGPA) {
 		super();
 		this.cGPA = cGPA;
 		
 	}
-
 
 
 	public Student(float cGPA, int contactNumber, List<Enrollment> enrollmentList) {
@@ -53,14 +38,6 @@ public class Student extends User {
 	}
 	
 	
-
-//	public Long getStudentId() {
-//		return StudentId;
-//	}
-//
-//	public void setStudentId(Long studentId) {
-//		StudentId = studentId;
-//	}
 
 	public float getcGPA() {
 		return cGPA;
@@ -85,34 +62,6 @@ public class Student extends User {
 				+ ", getEmail()=" + getEmail() + ", getFirstName()=" + getFirstName() + ", getLastName()="
 				+ getLastName() + "]";
 	}
-
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = super.hashCode();
-//		result = prime * result + ((StudentId == null) ? 0 : StudentId.hashCode());
-//		return result;
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (!super.equals(obj))
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Student other = (Student) obj;
-//		if (StudentId == null) {
-//			if (other.StudentId != null)
-//				return false;
-//		} else if (!StudentId.equals(other.StudentId))
-//			return false;
-//		return true;
-//	}
-
-	
-	
-	
 	
 }
+

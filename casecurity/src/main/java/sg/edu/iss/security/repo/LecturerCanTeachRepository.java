@@ -7,10 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
-import sg.edu.iss.security.domain.Enrollment;
-import sg.edu.iss.security.domain.Lecturer;
 import sg.edu.iss.security.domain.LecturerCanTeach;
-import sg.edu.iss.security.domain.StudentClass;
+
 
 public interface LecturerCanTeachRepository extends PagingAndSortingRepository<LecturerCanTeach, Long>, JpaRepository<LecturerCanTeach, Long>{
 

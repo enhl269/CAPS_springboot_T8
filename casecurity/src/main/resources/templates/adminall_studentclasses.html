@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <meta charset="ISO-8859-1">
@@ -14,7 +15,7 @@
 <div>
 
 	<a href ="/courses">Create A New Class</a>
-
+<a href ="/adminview">go back home</a>
 	</div>
 
 <table>
@@ -43,7 +44,14 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
 	 </tr>
+	 <a th:if="${studentClassPage.totalPages > 0}" class="pagination"
+		   th:each="pageNumber : ${pageNumbers}"
+		   th:href="@{/(size=${studentClassPage.size}, page=${pageNumber})}"
+		   th:text="${pageNumber}"
+		   th:class="${pageNumber==studentClassPage.number + 1} ? active"></a>
+	 
 	 
 </table>
 </body>
 </html>
+

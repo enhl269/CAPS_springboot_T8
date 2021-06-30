@@ -20,13 +20,9 @@ public class UserDetailsCustom implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-        //Role roles = user.getRoles();
+
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-         
-//        for (Role role : Role.values()) {
-//            authorities.add(new SimpleGrantedAuthority(role.toString()));
-//        }
-        
+             
         authorities.add(new SimpleGrantedAuthority(user.getRoles()));
          
         return authorities;
@@ -67,5 +63,4 @@ public class UserDetailsCustom implements UserDetails {
 	}
 
 } 
-
 

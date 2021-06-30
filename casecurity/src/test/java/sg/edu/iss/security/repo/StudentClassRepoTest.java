@@ -40,5 +40,4 @@ public class StudentClassRepoTest {
 	  assertEquals(lecturer_id,sc.getLecturer().getId());
   }
   
-  
 }
