@@ -63,10 +63,15 @@ public class StudentController {
 		public String listCourses(Model model, Principal p){
 			long id = urepo.findByEmail(p.getName()).getId();
 			
-			List<Course> allstdcourses = service.getAllCourse();
+			//List<Course> allstdcourses = service.getAllCourse();
 			List<Course> stdcourses = service.getCourseStudentTakes(id);
-			List<CourseViewModel> a = new ArrayList<>(allstdcourses.size());
+
+			//List<CourseViewModel> a = new ArrayList<>(allstdcourses.size());
 			List<CourseViewModel> b = new ArrayList<>(stdcourses.size());
+			
+			List<CourseViewModel> c = new ArrayList<>();
+			List<StudentClass> studentClasses = scservice.getAllStdCLass();
+			
 			for(int i=0;i< stdcourses.size();i++)
 			{
 				b.add(new CourseViewModel());
@@ -77,17 +82,25 @@ public class StudentController {
 				b.get(i).setCredits(stdcourses.get(i).getCredits());
 			}
 			
-			for(int i=0;i< allstdcourses.size();i++)
-			{
-				a.add(new CourseViewModel());
-				a.get(i).setId(allstdcourses.get(i).getId());
-				a.get(i).setName(allstdcourses.get(i).getName());
-				a.get(i).setDescription(allstdcourses.get(i).getDescription());
-				a.get(i).setType(allstdcourses.get(i).getType());
-				a.get(i).setCredits(allstdcourses.get(i).getCredits());
-			}
+//			for(int i=0;i< allstdcourses.size();i++)
+//			{
+//				a.add(new CourseViewModel());
+//				a.get(i).setId(allstdcourses.get(i).getId());
+//				a.get(i).setName(allstdcourses.get(i).getName());
+//				a.get(i).setDescription(allstdcourses.get(i).getDescription());
+//				a.get(i).setType(allstdcourses.get(i).getType());
+//				a.get(i).setCredits(allstdcourses.get(i).getCredits());
+//			}
 			
-			List<CourseViewModel> Course = new ArrayList<>(a);
+			for(StudentClass sc:studentClasses) {
+				Course cStClass = service.get(sc.getCourse().getId());
+				c.add(new CourseViewModel(cStClass.getId(), 
+										  cStClass.getName(), 
+										  cStClass.getDescription(),
+										  cStClass.getType(),
+										  cStClass.getCredits()));
+			}
+			List<CourseViewModel> Course = new ArrayList<>(c);
 			
 //			for(int i=0;i< Course.size();i++)
 //			{
@@ -100,14 +113,12 @@ public class StudentController {
 //				}
 //			}
 			Course.removeAll(b);
-			
+			//Course.removeAll(c);
 			
 			model.addAttribute("Course",Course);
 			
 			return "coursesnottakenstd";
 		}
-		
-	
 
 	//to create and save hidden enrollment
 	@RequestMapping("/enroll/{course.id}")
