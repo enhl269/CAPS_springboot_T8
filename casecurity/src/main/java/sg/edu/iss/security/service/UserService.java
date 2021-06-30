@@ -36,7 +36,8 @@ public class UserService {
 			admin.setId(user.getId());
 			admin.setLastName(user.getLastName());
 			admin.setPassword(user.getPassword());
-			admin.setRoles(user.getRoles());	
+			admin.setRoles(user.getRoles());
+			admin.setContactNumber(user.getContactNumber());
 			encodePassword(admin);
 			userRepo.save(admin);
 			break;
@@ -47,7 +48,8 @@ public class UserService {
 			student.setId(user.getId());
 			student.setLastName(user.getLastName());
 			student.setPassword(user.getPassword());
-			student.setRoles(user.getRoles());	
+			student.setRoles(user.getRoles());
+			student.setContactNumber(user.getContactNumber());
 			encodePassword(student);
 			userRepo.save(student);
 			break;
@@ -58,7 +60,8 @@ public class UserService {
 			lecturer.setId(user.getId());
 			lecturer.setLastName(user.getLastName());
 			lecturer.setPassword(user.getPassword());
-			lecturer.setRoles(user.getRoles());			
+			lecturer.setRoles(user.getRoles());		
+			lecturer.setContactNumber(user.getContactNumber());
 			encodePassword(lecturer);
 			userRepo.save(lecturer);
 			break;

@@ -134,6 +134,7 @@ public class AdminController {
 		user.setFirstName(userDetail.getFirstName());
 		user.setLastName(userDetail.getLastName());
 		user.setEmail(userDetail.getEmail());
+		user.setContactNumber(userDetail.getContactNumber());
 		uService.save(user);
 		return "redirect:/users";
 	}

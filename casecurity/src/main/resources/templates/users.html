@@ -35,6 +35,7 @@
 					<th>E-mail</th>
 					<th>First Name</th>
 					<th>Last Name</th>
+					<th>Contact Number</th>
 					<th>Roles</th>
 					<th></th>
 				</tr>
@@ -45,6 +46,7 @@
 					<td th:text="${user.email}">E-mail</td>
 					<td th:text="${user.firstName}">First Name</td>
 					<td th:text="${user.lastName}">Last Name</td>
+					<td th:text="${user.contactNumber}">Last Name</td>
 					<td th:text="${user.roles}">Roles</td>
 					<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/users/edit/' + ${user.id}}">Edit</a></td>
 					<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/users/delete/' + ${user.id}}">Delete</a></td>

@@ -17,5 +17,8 @@ public interface LecturerRepository extends PagingAndSortingRepository<Course, L
 	
 	@Query("SELECT l FROM Lecturer l where l.roles = :roles")
 	public List<Lecturer> findLecturerByRole(@Param("roles") String roles);
+	
+	@Query("SELECT s FROM Lecturer s")
+	public List<Lecturer> findAllLecturer();
 
 }

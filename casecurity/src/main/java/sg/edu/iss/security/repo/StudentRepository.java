@@ -1,5 +1,7 @@
 package sg.edu.iss.security.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,4 +13,7 @@ public interface StudentRepository extends JpaRepository<User, Long>  {
 
 	@Query("SELECT s FROM Student s where s.email=:email")
 	public Student findStudentByEmail(@Param("email") String email);
+	
+	@Query("SELECT s FROM Student s")
+	public List<Student> findAllStudents();
 }
