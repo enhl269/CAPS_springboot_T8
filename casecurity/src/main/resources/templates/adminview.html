@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Administrator view</title>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<p>
+				Welcome <b>[[${#request.userPrincipal.principal.fullName}]] </b>
+				<span sec:authentication="principal.authorities"></span>
+			</p>
+			<input type="submit" value="Sign Out" />
+		</form>
+	</div>
+	
+	<div>
+		<a href="/students">Manage Students</a>
+	</div>
+	
+	<div>
+		<a href="/lecturers">Manage Lecturers</a>
+	</div>
+	
+	<div>
+		<a href="/courses">Manage Courses</a>
+	</div>
+	
+	<div>
+		<a href="/admin/enrollment">Manage Enrollment</a>
+	</div>
+	
+	<div>
+		<a href="/adminstudentClassList">Manage Student Classes</a>
+	</div>
+	
+</div>
+</body>
+</html>

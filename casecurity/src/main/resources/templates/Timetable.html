@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Using JavaScript/HTML5 Event Calendar in Spring Boot (Java) </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="icons/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="header">
+    <h1>Timetable for lecturer</h1>
+</div>
+
+<div class="main" style="display: flex;">
+    <div style="margin-right: 10px;">
+        <div id="nav"></div>
+    </div>
+    <div style="flex-grow: 1">
+        <div id="dp"></div>
+    </div>
+</div>
+
+<!-- DayPilot library -->
+<script src="js/daypilot/daypilot-all.min.js"></script>
+
+<script>
+
+    const nav = new DayPilot.Navigator("nav");
+    nav.showMonths = 3;
+    nav.skipMonths = 3;
+    nav.selectMode = "week";
+    nav.onTimeRangeSelected = (args) => {
+        dp.startDate = args.day;
+        dp.update();
+        dp.events.load("/api/events");
+    };
+    nav.init();
+    
+    
+
+
+   const dp = new DayPilot.Calendar("dp");
+    dp.viewType = "Week";
+     dp.moveBy = "none";
+     dp.durationBarVisible = false;
+     dp.dayBeginsHour = 9;
+     dp.dayEndsHour = 17;
+    dp.init();
+    dp.showAllDayEvents = true;
+    dp.events.load("/api/events");
+
+
+   
+</script>
+
+</body>
+</html>

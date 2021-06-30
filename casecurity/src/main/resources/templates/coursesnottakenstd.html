@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Listing</title>
+</head>
+<body>
+	<h1>Course Listing for Classes not taken</h1>
+		<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+	<div>
+		<a href="/courseno">View Courses Taken and Grades</a>
+	</div>
+
+	<h2 th:if="${not #lists.isEmpty(Course)}">Course List</h2>
+	<table border="1" cellpadding="10" th:if="${not #lists.isEmpty(Course)}">
+		<tr>
+			<th>Course Id</th>
+			<th>Course Name</th>
+			<th>Course Description</th>
+			<th>Course Type</th>
+			<th>Course Credits</th>
+		</tr>
+		<tr th:each="course:${Course}">
+			<td th:text=${course.id}>Course Id</td>
+			<td th:text=${course.name}>Course Name</td>
+			<td th:text=${course.description}>Course Description</td>
+			<td th:text=${course.type}>Course Type</td>
+			<td th:text=${course.credits}>Course Credits</td>
+			<td><a href="EditFacility.html"
+				th:href="@{/enroll/}+${course.id}">Enroll</a></td>
+		</tr>
+	</table>
+
+	 <br/>
+	 <a th:if="${coursePage.totalPages > 0}" class="pagination"
+		   th:each="pageNumber : ${pageNumbers}"
+		   th:href="@{/courses(size=${coursePage.size}, page=${pageNumber})}"
+		   th:text="${pageNumber}"
+		   th:class="${pageNumber==coursePage.number + 1} ? active"></a>
+	 
+	 
+</body>
+</html>
+
+

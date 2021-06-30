@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Manager</title>
+</head>
+<body>
+<div align="center">	
+	<div sec:authorize="isAuthenticated()">
+		Welcome <b><span sec:authentication="name">Username</span></b>
+		&nbsp;
+		<i><span sec:authentication="principal.authorities">Roles</span></i>
+	</div>
+		
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+	
+	<h1>Course Manager</h1>
+	<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
+		<a href="new">Create New Course</a>
+	</div>
+	
+	<br/><br/>
+	<table border="1" cellpadding="10">
+		<thead>
+			<tr>
+				<th>Course ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Type</th>
+				<th>Course Credits</th>
+
+				<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Actions</th>				
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="course : ${coursePage.content}">
+			<td th:text=${course.id}>Course Id</td>
+			<td th:text=${course.name}>Course Name</td>
+			<td th:text=${course.description}>Course Description</td>
+			<td th:text=${course.type}>Course Type</td>
+			<td th:text=${course.credits}>Course Credits</td>
+				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+					<a th:href="@{'/edit/' + ${course.id}}">Edit</a>			
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${course.id}}">Delete</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/newdtdclass/' + ${course.id}}">Add New Student Class</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/assignlecturer/' + ${course.id}}">Assign a New Lecturer</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+		<a th:if="${coursePage.totalPages > 0}" class="pagination"
+		   th:each="pageNumber : ${pageNumbers}"
+		   th:href="@{/courses(size=${coursePage.size}, page=${pageNumber})}"
+		   th:text="${pageNumber}"
+		   th:class="${pageNumber==coursePage.number + 1} ? active"></a>
+</div>
+</body>
+</html>

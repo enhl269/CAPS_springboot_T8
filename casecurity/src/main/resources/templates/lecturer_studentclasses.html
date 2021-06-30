@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Class List Information</title>
+
+</head> 
+<body>
+<h1>Classes Information</h1>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+<table>
+	<tr>
+		<th>Course Name</th>
+		<th>Start Date</th>
+		<th>Class Size</th>
+		<th>Enrollment Size</th>
+		
+	</tr>
+	
+	<tr th:each="studentclass:${studentclasses}">
+		<td th:text="${studentclass.courseName}">Course Name</td>
+		<td th:text="${studentclass.startdate}">Start Date</td>
+		<td th:text="${studentclass.classSize}">Class Size</td>
+		<td th:text="${studentclass.enrollmentSize}">Enrollment Size</td>
+		<td><a href="lecturer_enrollment.html"
+				th:href="@{/studentClassList/}+${studentclass.id}">Class Enrollment</a></td>
+	 </tr>
+	 
+</table>
+</body>
+</html>

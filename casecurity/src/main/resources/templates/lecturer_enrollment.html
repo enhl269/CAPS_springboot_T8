@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Enrollments Information</title>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head> 
+<body>
+<h1>Enrollment Information</h1>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+
+<div>
+		<a href="/studentClassList">Return to Student Class List</a>
+	</div>
+<table>
+	<tr>
+		<th>Enrollment Id</th>
+		<th>Course Name</th>
+		<th>Start Date</th>
+		<th>Student Id</th>
+		<th>Student Name</th>
+		<th>Current Score</th>
+		<th>Modify Score</th>
+		<th>Current Grade</th>
+		<th>Current CGPA</th>
+		
+
+	</tr>
+	
+	<tr th:each="enrollment:${enrollments}">
+		<td th:text="${enrollment.enrollmentId}">Enrollment Id</td>
+		<td th:text="${enrollment.courseName}">Course Name</td>
+		<td th:text="${enrollment.startDate}">Start Date</td>
+		<td th:text="${enrollment.studentId}">Student Id</td>
+		<td th:text="${enrollment.studentName}">Student Name</td>
+		<td th:text="${enrollment.score}">Current Score</td>
+		<td><form th:action="@{/editScore/}+${enrollment.Studentclassid}+@{/}+${enrollment.enrollmentId}" method="POST">
+
+			<input type="number" name = 'attempt1' th:value="${enrollment.score}" min="0" max="100"/>
+			<button type="submit" class="btn btn-primary">Save</button>
+		</form></td>
+			<!--  <input type="text" name = 'attempt1' th:value="${enrollment.score}" />
+					<button type="submit" class="btn btn-primary">Save</button></form>
+		</td>-->
+
+		<td th:text="${enrollment.grade}">Current Grade</td>
+		<td th:text="${enrollment.Cgpa}">Current CGPA</td>
+		
+
+	 </tr>
+	 
+</table>
+</body>
+</html>

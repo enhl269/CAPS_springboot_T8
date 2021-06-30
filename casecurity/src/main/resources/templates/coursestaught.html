@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Listing</title>
+</head>
+<body>
+	<h1>Courses Taught</h1>
+		<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+	<div>
+		<a href="/lecturers">Return to All Lecturers</a>
+	</div>
+
+	<h2 th:if="${not #lists.isEmpty(Course)}">Course List</h2>
+	<table border="1" cellpadding="10" th:if="${not #lists.isEmpty(Course)}">
+		<tr>
+			<th>Course Id</th>
+			<th>Course Name</th>
+			<th>Course Description</th>
+			<th>Course Type</th>
+			<th>Course Credits</th>
+			<th>Action</th>
+			
+		</tr>
+		<tr th:each="course:${Course}">
+			<td th:text=${course.id}>Course Id</td>
+			<td th:text=${course.name}>Course Name</td>
+			<td th:text=${course.description}>Course Description</td>
+			<td th:text=${course.type}>Course Type</td>
+			<td th:text=${course.credits}>Course Credits</td>
+			<td><a th:href="@{/modifycourseallocation/delete/}+${course.LecturerCTId}+@{/}+${course.LecId}">Delete</a></td>
+		</tr>
+	</table>
+
+	 <br/>
+</body>
+</html>
+
+

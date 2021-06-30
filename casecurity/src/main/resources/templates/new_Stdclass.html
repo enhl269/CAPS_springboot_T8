@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Create New Student Class</title>
+</head>
+<body>
+	<div align="center">
+		<h1>Create New Student Class</h1>
+			<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+		<br/>
+		<form action="#" th:action="@{/savestdclass}" th:object="${StdClass}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Course ID:</td>
+					<td><input type="text" th:field="*{course.Id}" readonly="readonly" /></td>
+				</tr>	
+				<tr>
+					<td>Start Date:</td>
+					<td><input type="text" th:field="*{startdate}"
+				placeholder="yyyy-MM-dd"
+				th:text="${#dates.format(StdClass.startdate, 'yyyy-MM-dd')}"/></td>
+				</tr>
+				<tr>
+					<td>Class Size:</td>
+					<td><input type="text" th:field="*{classSize}" /></td>
+				</tr>
+				<tr>
+					<td>Lecturer Id:</td>
+					<td><input type="text" th:field="*{lecturer.Id}" /></td>
+				</tr>
+				
+			<!-- 	<tr>
+					<td>AdminID:</td>
+					<td><input type="text" th:field="*{adminId}" /></td>
+				</tr> -->
+				<tr>
+					<td colspan="2"><button type="submit">Save</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
