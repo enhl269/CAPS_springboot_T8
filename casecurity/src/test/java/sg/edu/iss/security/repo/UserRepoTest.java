@@ -2,6 +2,7 @@ package sg.edu.iss.security.repo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -35,14 +36,14 @@ public class UserRepoTest {
 	public void createUserTestAdmin()
 	{
 		User user = new User();
-		user.setEmail("ravikumar@gmail.com");
-		user.setPassword("ravi2020");
+		user.setEmail("ravikumarr@gmail.com");
+		user.setPassword("123456");
 		user.setFirstName("Ravi");
 		user.setLastName("Kumar");
 		user.setRoles(Role.ADMIN.toString());
 		us.registerDefaultUser(user);
 		
-		User saved = urepo.findByEmail("ravikumar@gmail.com");
+		User saved = urepo.findByEmail("ravikumarr@gmail.com");
 		
 		assertNotNull(saved);
 	}
@@ -52,14 +53,14 @@ public class UserRepoTest {
 	public void createUserTestStudent()
 	{
 		User user = new User();
-		user.setEmail("google@gmail.com");
-		user.setPassword("ravi2020");
+		user.setEmail("googlee@gmail.com");
+		user.setPassword("123456");
 		user.setFirstName("Larry");
 		user.setLastName("PAge");
 		user.setRoles(Role.STUDENT.toString());
 		us.registerDefaultUser(user);
 		
-		User saved = urepo.findByEmail("google@gmail.com");
+		User saved = urepo.findByEmail("googlee@gmail.com");
 		
 		assertEquals("STUDENT",saved.getRoles());
 	}
@@ -88,5 +89,11 @@ public class UserRepoTest {
 		User u = urepo.findByRoleType("Admin").get(0);
 		assertEquals("ADMIN",u.getRoles());
 	}
+	
+	@Test
+	@Order(5)
+	public void testFindByEmail() {
+		User u = urepo.findByEmail("google@gmail.com");
+		assertTrue(u != null);
+	}
 }
-

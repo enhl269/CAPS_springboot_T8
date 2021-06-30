@@ -1,6 +1,9 @@
 package sg.edu.iss.security.repo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -35,9 +38,17 @@ public class StudentClassRepoTest {
   @Test
   @Order(2)
   public void TestFindbyLecturerId(){
-	  long lecturer_id = 3;
+	  long lecturer_id = 12;
 	  StudentClass sc = screpo.findStudentClassByLecturerId(lecturer_id).get(0);
 	  assertEquals(lecturer_id,sc.getLecturer().getId());
+  }
+  
+  @Test
+  @Order(3)
+  public void testFindStudentClassByCourseId() {
+	  long id = 1;
+	  List<StudentClass> sc = screpo.findStudentClassByCourseId(id);
+	  assertTrue(sc.size() >= 0);
   }
   
 }

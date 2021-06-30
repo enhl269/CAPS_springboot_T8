@@ -2,6 +2,7 @@ package sg.edu.iss.security.repo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
@@ -61,14 +62,14 @@ public class ClassRepoTest {
 	public void createUserTestAdmin()
 	{
 		User user = new User();
-		user.setEmail("ravikumar@gmail.com");
+		user.setEmail("ravikumarr@gmail.com");
 		user.setPassword("ravi2020");
 		user.setFirstName("Ravi");
 		user.setLastName("Kumar");
 		user.setRoles(Role.ADMIN.toString());
 		us.registerDefaultUser(user);
 		
-		User saved = urepo.findByEmail("ravikumar@gmail.com");
+		User saved = urepo.findByEmail("ravikumarr@gmail.com");
 		
 		assertNotNull(saved);
 	}
@@ -78,14 +79,14 @@ public class ClassRepoTest {
 	public void createUserTestStudent()
 	{
 		User user = new User();
-		user.setEmail("google@gmail.com");
+		user.setEmail("googlee@gmail.com");
 		user.setPassword("ravi2020");
 		user.setFirstName("Larry");
 		user.setLastName("PAge");
 		user.setRoles(Role.STUDENT.toString());
 		us.registerDefaultUser(user);
 		
-		User saved = urepo.findByEmail("google@gmail.com");
+		User saved = urepo.findByEmail("googlee@gmail.com");
 		
 		assertEquals("STUDENT",saved.getRoles());
 		
@@ -156,9 +157,20 @@ public class ClassRepoTest {
 		assertNotNull(cfind);
 		
    }
+	@Test
+	@Order(6)
+	public void testFindStudentClassByCourseId() {
+		long id = 3;
+		StudentClass saved = screpo.findStudentClassByCourseId(id).get(0);
+		assertTrue(!saved.equals(null));
+	}
 	
-	
-	
-
-}
+	@Test
+	@Order(7)
+	public void testFindStudentClassByLecturerId() {
+		long id = 12;
+		StudentClass saved = screpo.findStudentClassByLecturerId(id).get(0);
+		assertTrue(!saved.equals(null));
+	}
+	}
 

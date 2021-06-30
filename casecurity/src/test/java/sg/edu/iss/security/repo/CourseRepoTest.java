@@ -97,13 +97,28 @@ public class CourseRepoTest {
 	public void testDeleteCourse() {
 		
 		// given
-		String fn = "Python";
+		String fn = "Java";
 		// when
 		Course selected = crepo.findCoursesByName(fn).get(0);
-		crepo.delete(selected);
+		crepo.delete(selected);;
 		// then
 		assertTrue(crepo.findCoursesByName(fn).size() == 0);
 	}
 	
+	@Test
+	@Order(7)
+	public void testFindCourseByStudentId() {
+		
+		long id = 1;
+		List<Course> saved = crepo.findCourseByStudentId(id);
+		assertTrue(saved.size() >= 0);
+	}
 	
+	@Test
+	@Order(8)
+	public void testFindCoursesTaughtByLecturerId() {
+		long id = 1;
+		List<Course> saved = crepo.findCoursesTaughtByLecturerId(id);
+		assertTrue(saved.size() >= 0);
+	}
 }
