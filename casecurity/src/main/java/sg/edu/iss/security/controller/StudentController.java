@@ -161,7 +161,7 @@ public class StudentController {
 		            f.printStackTrace();
 		        }	  
 		  
-		  page = "You will receive an email acknowledging that you have enrolled in this course";
+		  page = "SuccessfulEnroll";
 		  
 		 } else { page = "class_full"; } 
 		  
