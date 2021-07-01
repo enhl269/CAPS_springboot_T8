@@ -113,11 +113,19 @@ public class AdminController {
 	@RequestMapping(value = "/savelctassignment", method = RequestMethod.POST)
 	public String saveLCTAssignment(@ModelAttribute("lct") LecturerCanTeach lct) {
 		List<User> lecturers = uService.getLectures();
-		List<Course> courses = cService.getAllCourse();
+		List<LecturerCanTeach> lectCT = lService.findAllLCT(lct.getLecturer().getId());
+		
 		 for(int i = 0; i < lecturers.size(); i++) {
 			 if(lecturers.get(i).getId().equals(lct.getLecturer().getId())) {
-		lService.save(lct);
-		return "redirect:/lecturers";}
+				 for(int j = 0; j < lectCT.size(); j++) {
+					 if(lectCT.get(j).getLecturer().getId() == lct.getLecturer().getId() &&
+							 lectCT.get(j).getCourse().getId() == lct.getCourse().getId()) {
+						 lService.save(lct);
+							return "redirect:/lecturers";
+						 }
+					 }
+				  return "LectAssignError";		 
+		}
 			 }
 		return "LectErrorPage";
 	}
@@ -248,12 +256,29 @@ public class AdminController {
 	public String saveCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
 		
 		List<User> lecturers = uService.getLectures();
+		List<LecturerCanTeach> lectCT = lService.findAllLCT(StdClass.getLecturer().getId());
+		List<StudentClass> stdClassByDate = scService.findStudentClassByStartDate(StdClass.getStartdate());
 		 for(int i = 0; i < lecturers.size(); i++) {
 			 if(lecturers.get(i).getId().equals(StdClass.getLecturer().getId())) {
-				 scService.save(StdClass);
-				 return "redirect:/adminstudentClassList";
+				 for(int j = 0; j < lectCT.size(); j++) {
+					 if(lectCT.get(j).getLecturer().getId() == StdClass.getLecturer().getId() &&
+							 lectCT.get(j).getCourse().getId() == StdClass.getCourse().getId()) {
+						 for(int k = 0; k < stdClassByDate.size(); k++) {
+							 if(!stdClassByDate.isEmpty() &&
+									 stdClassByDate.get(k).getCourse().getId()==StdClass.getCourse().getId() &&
+									 stdClassByDate.get(k).getLecturer().getId()==StdClass.getLecturer().getId()) {
+								 return "class_duplicate";
+						 }
+						 
+						 }
+						 scService.save(StdClass); return
+								  "adminall_studentclasses";
+						 
+						 }return "LectAssignError";		
+					 }
+		}
 			 }
-		 }return "LectErrorPage";
+		return "LectErrorPage";
 	}
 	
 	@GetMapping("/adminstudentClassList/edit/{id}")
@@ -354,12 +379,4 @@ public class AdminController {
 
 	}
 	
-
-
-
-
-
-	
-	
-
 }

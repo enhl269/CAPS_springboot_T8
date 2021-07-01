@@ -238,9 +238,9 @@ public class CasecurityApplication {
 			course.add(new Course("Kotlin","learn Kotlin","Android",4.0));
 			crepo.saveAll(course);
 			
-			StudentClass sc = new StudentClass(dateStartSem1, 30, course.get(0), l.get(1));
+			StudentClass sc = new StudentClass(dateStartSem1, 30, course.get(0), l.get(0));
 			screpo.save(sc);
-			StudentClass sc1 = new StudentClass(dateStartSem1, 30, course.get(1), l.get(0));
+			StudentClass sc1 = new StudentClass(dateStartSem1, 30, course.get(1), l.get(1));
 			screpo.save(sc1);
 			StudentClass sc2 = new StudentClass(dateStartSem1, 30, course.get(4), l.get(4));
 			screpo.save(sc2);

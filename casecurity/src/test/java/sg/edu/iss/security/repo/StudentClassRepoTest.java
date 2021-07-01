@@ -3,6 +3,7 @@ package sg.edu.iss.security.repo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -49,6 +50,14 @@ public class StudentClassRepoTest {
 	  long id = 1;
 	  List<StudentClass> sc = screpo.findStudentClassByCourseId(id);
 	  assertTrue(sc.size() >= 0);
+  }
+  
+  @Test
+  @Order(4)
+  public void testFindStudentClassByStartDate() {
+	  LocalDate date3 = LocalDate.of(2021, 02, 01);
+	  List<StudentClass> sc = screpo.findStudentClassByStartDate(date3);
+	  assertTrue(sc.size() > 0);
   }
   
 }
