@@ -283,7 +283,7 @@ public class AdminController {
 						 
 						 }return "LectAssignError";		
 					 }
-		}
+		}//
 			 }
 		return "LectErrorPage";
 	}

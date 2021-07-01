@@ -24,3 +24,4 @@ public interface StudentClassRepository extends PagingAndSortingRepository<Stude
 	public List<StudentClass> findStudentClassByStartDate( LocalDate startDate);
 
 }
+//
