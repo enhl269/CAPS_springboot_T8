@@ -19,21 +19,6 @@
 					"allowPublicKeyRetrieval": "TRUE",
 					"sslMode": "DISABLED"
 				},
-				"auth-model": "native"
-			}
-		},
-		"mysql8-17a61fcc01e-7b0d67a6818a7665": {
-			"provider": "mysql",
-			"driver": "mysql8",
-			"name": "localhost",
-			"save-password": true,
-			"read-only": false,
-			"configuration": {
-				"host": "localhost",
-				"port": "3306",
-				"url": "jdbc:mysql://localhost:3306/",
-				"home": "/usr/local/mysql-8.0.25-macos11-x86_64",
-				"type": "dev",
 				"auth-model": "native",
 				"handlers": {}
 			}

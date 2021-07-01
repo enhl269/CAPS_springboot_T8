@@ -22,61 +22,22 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
     
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Lecturer
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/lecturers">Manage Lecturer</a>
-          <a class="dropdown-item" href="/register">Create New Lecturer</a>
-           <a class="dropdown-item" href="/courses">Assign Lecturer</a>
-         
-      </li>
-      <li class="nav-item dropdown">
+     
+       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Student
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/students">Manage Student</a>
-          <a class="dropdown-item" href="/register">Create Student</a>
+             <a class="dropdown-item" href="/courses">View Courses</a>
           <a class="dropdown-item" href="/courseno">View Current Courses and CGPA</a>
           <a class="dropdown-item" href="/stdnotcourses">View Available Courses to enroll</a>
+         <a class="dropdown-item" href="/studenttimetable">View Timetable</a>
+         </div>
          
-         
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Course
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/courses">Mange Courses</a>
-          <a class="dropdown-item" href="/new">Create New Course</a>
-          
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Enrollment
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="admin/enrollment">Manage Enrollment</a>
-          
-          
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Student Class
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/adminstudentClassList">Manage Student Class</a>
-          
-      </li>
+     
     </ul>
-            <form th:action="@{/users}" method="get">
-			
-   <button type="submit" style="margin-right: 8px" class="btn btn-dark">
- 	 Users 
-	</button>
-	</form>
+          
    
    
 	<div>
@@ -92,9 +53,9 @@
 
 </head>
 <body>
-	<div>
-		<h2 style="text-align:center">The class is currently full for this semester !</h2>
-		<h2 style="text-align:center">Please enroll next semester !</h2>
+	<div style="margin-top: 200px" >
+		<h2 style="text-align:center">The class is currently full for this semester</h2>
+		<h2 style="text-align:center">Please enroll next semester :) </h2>
 	</div>
 
 

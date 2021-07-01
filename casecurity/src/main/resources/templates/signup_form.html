@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Sign Up - CodeJava</title>
+	<title>Sign Up</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -15,7 +15,7 @@
 	<!-- Navbar-->
 
         <!-- Registeration Form -->
-        <div class="col-md-5 col-lg-5 ml-auto" style="margin: auto; margin-top: 70px">
+        <div class="col-md-5 col-lg-5 ml-auto" style="margin: auto; margin-top: 200px">
             <form th:action="@{/process_register}" th:object="${user}" method="post">
                 <div class="row">
 
@@ -49,6 +49,15 @@
                         <input id="email" th:field="*{email}" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
                     </div>
 
+				<!-- Phone  -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-phone text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="email" th:field="*{contactNumber}" type="contactNumber" name="contactNumber" placeholder="Contact Number" class="form-control bg-white border-left-0 border-md">
+                    </div>
                     <!-- Role -->
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">
@@ -80,7 +89,7 @@
 
                     <!-- Submit Button -->
                     <div class="form-group col-lg-12 mx-auto mb-0">
-                        <button type="submit" class="btn btn-primary" style="width:100%; text-align: center;">Sign Up</button>
+                        <button type="submit" class="btn btn-dark" style="width:100%; text-align: center;">Sign Up</button>
                     </div>
 
                     
