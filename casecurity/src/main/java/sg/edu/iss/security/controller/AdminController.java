@@ -338,12 +338,21 @@ public class AdminController {
 	public String saveCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
 		
 		List<User> lecturers = uService.getLectures();
+		List<LecturerCanTeach> lectCT = lService.findAllLCT(StdClass.getLecturer().getId());
+		
 		 for(int i = 0; i < lecturers.size(); i++) {
 			 if(lecturers.get(i).getId().equals(StdClass.getLecturer().getId())) {
-				 scService.save(StdClass);
-				 return "redirect:/adminstudentClassList";
+				 for(int j = 0; j < lectCT.size(); j++) {
+					 if(lectCT.get(j).getLecturer().getId() == StdClass.getLecturer().getId() &&
+							 lectCT.get(j).getCourse().getId() == StdClass.getCourse().getId()) {
+						 scService.save(StdClass);
+							return "redirect:/lecturers";
+						 }
+					 }
+				  return "LectAssignError";		 
+		}
 			 }
-		 }return "LectErrorPage";
+		return "LectErrorPage";
 	}
 	
 	@GetMapping("/adminstudentClassList/edit/{id}")
