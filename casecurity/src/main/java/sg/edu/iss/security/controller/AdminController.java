@@ -23,6 +23,7 @@ import sg.edu.iss.security.domain.Student;
 import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.domain.StudentClassInfo;
 import sg.edu.iss.security.domain.User;
+import sg.edu.iss.security.exception.CustomException;
 import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
@@ -88,7 +89,7 @@ public class AdminController {
 			a.get(i).setLecturerCTId(lct.get(i).getId());
 			a.get(i).setLecId(id);
 		}
-		
+		if(a.isEmpty()) throw new CustomException("Lecturer has not been assigned to any classes");
 		List<CourseViewModel> Course = new ArrayList<>(a);
 		model.addAttribute("Course",Course);
 		
