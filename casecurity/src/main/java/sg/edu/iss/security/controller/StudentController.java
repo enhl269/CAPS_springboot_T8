@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,8 @@ import sg.edu.iss.security.domain.CourseViewModel;
 import sg.edu.iss.security.domain.Enrollment;
 import sg.edu.iss.security.domain.Student;
 import sg.edu.iss.security.domain.StudentClass;
+import sg.edu.iss.security.domain.Timetable;
+import sg.edu.iss.security.repo.TimetableRepository;
 import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
@@ -54,6 +57,9 @@ public class StudentController {
 	
 	@Autowired
 	private UserRepository urepo;
+	
+	@Autowired
+	private TimetableRepository trepo;
 	
 //	@Autowired
 //    private JavaMailSender javaMailSender;
@@ -203,5 +209,26 @@ public class StudentController {
 		
 		return "course_stdgrades";
 	}
+	@GetMapping("/studenttimetable")
+    public String showTimetable(Principal p) {
+		long id = urepo.findByEmail(p.getName()).getId();
+		List<Course> scList = service.getCourseStudentTakes(id);
+		
+		trepo.deleteAll();
+		for(Course course : scList ){
+			
+			StudentClass sClass = course.getStudentClass().get(0);
+					Timetable t = new Timetable();
+					t.setText(sClass.getCourse().getName());
+					t.setStart(sClass.getStartdate());
+					t.setEnd(sClass.getStartdate().plusDays(90));
+					t.setColor("blue");
+					trepo.save(t);
+				}
+			
+			
+		
+    	return "StdTimetable";
+    }
 
 }

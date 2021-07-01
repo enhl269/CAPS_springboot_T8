@@ -6,40 +6,84 @@
 	<title>Administrator view</title>
 	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container text-center">
-	<div>
-		<form th:action="@{/logout}" method="post">
-			<p>
-				Welcome <b>[[${#request.userPrincipal.principal.fullName}]] </b>
+	
+		
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<p style="padding-top: 14px;padding-right: 14px">
+				Welcome, <b>[[${#request.userPrincipal.principal.fullName}]] </b>
 				<span sec:authentication="principal.authorities"></span>
 			</p>
-			<input type="submit" value="Sign Out" />
+  
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Lecturer
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/lecturers">Manage Lecturer</a>
+          <a class="dropdown-item" href="/register">Create New Lecturer</a>
+           <a class="dropdown-item" href="/courses">Assign Lecturer</a>
+         
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Student
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/students">Manage Student</a>
+          <a class="dropdown-item" href="/register">Create Student</a>
+         
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Course
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/courses">Mange Courses</a>
+          <a class="dropdown-item" href="/new">Create New Course</a>
+          
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Enrollment
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="admin/enrollment">Manage Enrollment</a>
+          
+          
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Student Class
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/adminstudentClassList">Manage Student Class</a>
+          
+      </li>
+    </ul>
+   
+   
+	<div>
+		<form th:action="@{/logout}" method="post">
+			
+			<button type="submit" class="btn btn-outline-secondary">Sign Out</button>
+
 		</form>
 	</div>
 	
-	<div>
-		<a href="/students">Manage Students</a>
-	</div>
-	
-	<div>
-		<a href="/lecturers">Manage Lecturers</a>
-	</div>
-	
-	<div>
-		<a href="/courses">Manage Courses</a>
-	</div>
-	
-	<div>
-		<a href="/admin/enrollment">Manage Enrollment</a>
-	</div>
-	
-	<div>
-		<a href="/adminstudentClassList">Manage Student Classes</a>
-	</div>
-	
-</div>
+  </div>
+</nav>
+
+</head>
+<body>
+
 </body>
 </html>

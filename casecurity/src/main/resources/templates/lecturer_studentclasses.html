@@ -4,31 +4,88 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Class List Information</title>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	
+		
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<p style="padding-top: 14px;padding-right: 14px">
+				Welcome, <b>[[${#request.userPrincipal.principal.fullName}]] </b>
+				<span sec:authentication="principal.authorities"></span>
+			</p>
+  
 
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    
+         <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Lecturer
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/studentClassList">View Course Taught</a>
+           <a class="dropdown-item" href="/courses">View All Course</a>
+           <a class="dropdown-item" href="/time">View Timetable</a>
+         
+      </li>
+     
+    </ul>
+   
+   
+	<div>
+		<form th:action="@{/logout}" method="post">
+			
+			<button type="submit" class="btn btn-outline-secondary">Sign Out</button>
+
+		</form>
+	</div>
+	
+  </div>
+  </nav>
 </head> 
 <body>
-<h1>Classes Information</h1>
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Logout" />
-	</form>
-<table>
-	<tr>
-		<th>Course Name</th>
-		<th>Start Date</th>
-		<th>Class Size</th>
-		<th>Enrollment Size</th>
+<div class="container text-center">	
+	<div sec:authorize="isAuthenticated()">
 		
-	</tr>
+		
+	</div>
+		<br/><br/>
 	
-	<tr th:each="studentclass:${studentclasses}">
-		<td th:text="${studentclass.courseName}">Course Name</td>
-		<td th:text="${studentclass.startdate}">Start Date</td>
-		<td th:text="${studentclass.classSize}">Class Size</td>
-		<td th:text="${studentclass.enrollmentSize}">Enrollment Size</td>
-		<td><a href="lecturer_enrollment.html"
-				th:href="@{/studentClassList/}+${studentclass.id}">Class Enrollment</a></td>
-	 </tr>
-	 
+	
+	<h1>Class  Information</h1>
+	
+	
+	<br/><br/>
+	
+	
+<table class="table table-striped table-bordered">
+	<thead class="thead-dark">
+		<tr>
+			<th>Course Name</th>
+			<th>Start Date</th>
+			<th>Class Size</th>
+			<th>Enrollment Size</th>
+			<th></th>
+		
+		</tr>
+	</thead>
+		<tr th:each="studentclass:${studentclasses}">
+			<td th:text="${studentclass.courseName}">Course Name</td>
+			<td th:text="${studentclass.startdate}">Start Date</td>
+			<td th:text="${studentclass.classSize}">Class Size</td>
+			<td th:text="${studentclass.enrollmentSize}">Enrollment Size</td>
+			<td><a href="lecturer_enrollment.html"
+					th:href="@{/studentClassList/}+${studentclass.id}">Class Enrollment</a></td>
+		 </tr>
+
 </table>
+<div></div>
+</div>
+
 </body>
 </html>
