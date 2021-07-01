@@ -1,5 +1,6 @@
 package sg.edu.iss.security.service;
-
+//
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,17 @@ public class StudentClassServiceImp implements StudentClassService {
 	public Page<StudentClass> getPageStudentClass(Pageable pageable) {
 		return screpo.findAll(pageable);
 	}
-
+	
+	@Override
+	public List<StudentClass> getStdClassByCourseId(long id) {
+		return screpo.findStudentClassByCourseId(id);
+	}
+	
+	
+	@Override
+	public List<StudentClass> findStudentClassByStartDate(LocalDate date){
+		return screpo.findStudentClassByStartDate(date);
+	}
+	
+	
 }

@@ -1,5 +1,6 @@
 package sg.edu.iss.security.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -23,4 +24,8 @@ public interface StudentClassService {
 	
 	Page<StudentClass> getPageStudentClass(Pageable pageable);
 
+	List<StudentClass> getStdClassByCourseId(long id);
+
+	List<StudentClass> findStudentClassByStartDate(LocalDate date);
+//
 }

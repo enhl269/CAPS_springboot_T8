@@ -1,5 +1,6 @@
 package sg.edu.iss.security.repo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,9 @@ public interface StudentClassRepository extends PagingAndSortingRepository<Stude
 	@Query("SELECT sc FROM StudentClass sc JOIN sc.lecturer l "
 			+ "where l.id=:id")
 	public List<StudentClass> findStudentClassByLecturerId(@Param("id") Long id);
+	
+	@Query("SELECT sc FROM StudentClass sc WHERE sc.startdate = ?1")
+	public List<StudentClass> findStudentClassByStartDate( LocalDate startDate);
 
 }
+//
