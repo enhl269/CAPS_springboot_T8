@@ -3,8 +3,6 @@ package sg.edu.iss.security.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.Enrollment;
@@ -22,6 +20,35 @@ public class EnrollmentServiceImp implements EnrollmentService {
 		
 		Enrollment e = erepo.findEnrollmentByCourseIdandStdID(cid,sid);
 		return e.getScore();
+	}
+	
+	@Override
+	public String getCGPAByStudent(Long sid) {
+		//sid means studentId
+		List<Enrollment> eList = erepo.findEnrollmentByStudentId(sid);
+		float sum = 0;
+		float mc =0;
+		for(Enrollment e: eList) {
+			float score = e.getScore();
+			if(score>=0) {
+				double credits = e.getStudentClass().getCourse().getCredits();
+				float prelimscore;
+				if(score>= 80) {prelimscore=5f;}
+				else if(score>=75) {prelimscore=4.5f;}
+				else if(score>=70) {prelimscore=4f;}
+				else if(score>=65) {prelimscore=3.5f;}
+				else if(score>=60) {prelimscore=3f;}
+				else if(score>=55) {prelimscore=2.5f;}
+				else if(score>=50) {prelimscore=2f;}
+				else if(score>=45) {prelimscore=1.5f;}
+				else if(score>=40) {prelimscore=1f;}
+				else {prelimscore=0f;}
+				sum += credits * prelimscore;
+				mc += credits;
+			}
+		}
+		float cgpa = sum/mc;	
+		return String.valueOf(cgpa);
 	}
 	
 	@Override
@@ -72,7 +99,10 @@ public class EnrollmentServiceImp implements EnrollmentService {
 	}
 	
 	@Override
-	public Page<Enrollment> getPageEnrollment(Pageable pageable) {
-		return erepo.findAll(pageable);
+	public String getStatusByCourseAndSt(long courseId, long stId) {
+		Enrollment e = erepo.findEnrollmentByCourseIdandStdID(courseId,stId);
+		return e.getStatus();
+		
 	}
+	
 }

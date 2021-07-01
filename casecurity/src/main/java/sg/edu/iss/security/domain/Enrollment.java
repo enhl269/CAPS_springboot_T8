@@ -1,4 +1,3 @@
-
 package sg.edu.iss.security.domain;
 
 import javax.persistence.Entity;
@@ -13,7 +12,7 @@ public class Enrollment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	private float score;
+	private float score=-1;
 	
 	private String status;
 	

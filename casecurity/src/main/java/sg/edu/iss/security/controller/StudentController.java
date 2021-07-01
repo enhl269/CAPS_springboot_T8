@@ -3,10 +3,7 @@ package sg.edu.iss.security.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Properties;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,16 +14,16 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 //import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.CourseGrades;
@@ -39,6 +36,7 @@ import sg.edu.iss.security.repo.TimetableRepository;
 import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
+import sg.edu.iss.security.service.EnrollmentServiceImp;
 import sg.edu.iss.security.service.StudentClassService;
 import sg.edu.iss.security.service.StudentService;
 
@@ -68,28 +66,11 @@ public class StudentController {
 //    private JavaMailSender javaMailSender;
 
 	//all courses taken and grades
-	@RequestMapping(value = "/stdnotcourses", method = RequestMethod.GET)
-	public String listCourses(Model model, Principal p,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
-		final int currentPage = page.orElse(1);
-		final int pageSize = size.orElse(5);
-
-		Page<Course> coursePage = service.getPageCourse(PageRequest.of(currentPage - 1, pageSize));
-
-		model.addAttribute("coursePage", coursePage);
-
-		int totalPages = coursePage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-					.boxed()
-					.collect(Collectors.toList());
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
+		@RequestMapping(value = "/stdnotcourses", method = RequestMethod.GET)
+		public String listCourses(Model model, Principal p){
 			long id = urepo.findByEmail(p.getName()).getId();
 			
-			//List<Course> allstdcourses = service.getAllCourse();
 			List<Course> stdcourses = service.getCourseStudentTakes(id);
-
-			//List<CourseViewModel> a = new ArrayList<>(allstdcourses.size());
 			List<CourseViewModel> b = new ArrayList<>(stdcourses.size());
 			
 			List<CourseViewModel> c = new ArrayList<>();
@@ -105,16 +86,6 @@ public class StudentController {
 				b.get(i).setCredits(stdcourses.get(i).getCredits());
 			}
 			
-//			for(int i=0;i< allstdcourses.size();i++)
-//			{
-//				a.add(new CourseViewModel());
-//				a.get(i).setId(allstdcourses.get(i).getId());
-//				a.get(i).setName(allstdcourses.get(i).getName());
-//				a.get(i).setDescription(allstdcourses.get(i).getDescription());
-//				a.get(i).setType(allstdcourses.get(i).getType());
-//				a.get(i).setCredits(allstdcourses.get(i).getCredits());
-//			}
-			
 			for(StudentClass sc:studentClasses) {
 				Course cStClass = service.get(sc.getCourse().getId());
 				c.add(new CourseViewModel(cStClass.getId(), 
@@ -125,18 +96,7 @@ public class StudentController {
 			}
 			List<CourseViewModel> Course = new ArrayList<>(c);
 			
-//			for(int i=0;i< Course.size();i++)
-//			{
-//				for(int j=0;j<b.size();j++)
-//				{
-//					if(Course.get(i).getId()==b.get(j).getId())
-//					{ 
-//						Course.remove(i);
-//					}
-//				}
-//			}
 			Course.removeAll(b);
-			//Course.removeAll(c);
 			
 			model.addAttribute("Course",Course);
 			
@@ -220,27 +180,24 @@ public class StudentController {
 			a.get(i).setCredits(stdcourses.get(i).getCredits());
 			
 			Long courseid = stdcourses.get(i).getId();
+			//check whether lecturer is scored or not 
 			float x = eservice.getScore(courseid,id);
-			a.get(i).setScore(x);
-			a.get(i).setGrade(a.get(i).getScore());
+			if(x>=0) {
+				a.get(i).setScore(x);
+				a.get(i).setGrade(x);
+			}
 		}
 		
-		float sum = 0;
-		float mc =0;
-		for(int i=0;i< stdcourses.size();i++)
-		{
-			mc+= a.get(i).getCredits();
-			a.get(i).setPrelimScore(a.get(i).getScore());
-			sum += a.get(i).getCredits() * a.get(i).getPrelimScore();
-		}
-		float x = sum/mc;
 		
+		String cgpa = eservice.getCGPAByStudent(id);
+				
 		model.addAttribute("Course",a);
-		model.addAttribute("cgpa",x);
+		model.addAttribute("cgpa",cgpa);
 		
 		return "course_stdgrades";
 	}
-	@RequestMapping(value ="/studenttimetable",method = RequestMethod.GET)
+	
+	@GetMapping("/studenttimetable")
     public String showTimetable(Principal p) {
 		long id = urepo.findByEmail(p.getName()).getId();
 		List<Course> scList = service.getCourseStudentTakes(id);
@@ -263,4 +220,3 @@ public class StudentController {
     }
 
 }
-
