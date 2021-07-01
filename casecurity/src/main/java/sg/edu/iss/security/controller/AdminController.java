@@ -3,9 +3,12 @@ package sg.edu.iss.security.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -130,7 +133,10 @@ public class AdminController {
 	}//
 	
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
-	public String updateUser(@RequestParam("id") Long id, User userDetail) {
+	public String updateUser(@RequestParam("id") Long id, @Valid User userDetail, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "editUser_form";
+		}
 		User user = uService.get(id);
 		user.setFirstName(userDetail.getFirstName());
 		user.setLastName(userDetail.getLastName());

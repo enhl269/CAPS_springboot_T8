@@ -122,6 +122,7 @@
 				<label class="col-4 col-form-label">E-mail: </label>
 				<div class="col-8">
 					<input type="email" th:field="*{email}" class="form-control" required />
+					<a th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></a>
 				</div>
 			</div>
 
@@ -129,7 +130,8 @@
 					<label class="col-4 col-form-label">Contact Number: </label>
 					<div class="col-8">
 						<input type="text" th:field="*{contactNumber}" class="form-control"
-							required />
+							 required minlength="8" maxlength="8"/>
+							<a th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></a>
 					</div>
 				</div>
 
@@ -138,6 +140,7 @@
 				<div class="col-8">
 					<input type="password" th:field="*{password}" class="form-control" 
 							required minlength="6" maxlength="10"/>
+							<a th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></a>
 				</div>
 			</div>
 			
@@ -146,6 +149,7 @@
 				<div class="col-8">
 					<input type="text" th:field="*{firstName}" class="form-control" 
 							required minlength="2" maxlength="20"/>
+							<a th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></a>
 				</div>
 			</div>
 			
@@ -154,6 +158,7 @@
 				<div class="col-8">
 					<input type="text" th:field="*{lastName}" class="form-control" 
 							required minlength="2" maxlength="20" />
+							<a th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></a>
 				</div>
 			</div>
 			
