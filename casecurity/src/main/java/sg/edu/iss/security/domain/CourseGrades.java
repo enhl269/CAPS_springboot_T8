@@ -6,8 +6,8 @@ public class CourseGrades {
 	private String description;
 	private String type;
 	private Double credits;
-	private float score;
-	private String grade;
+	private String score="";
+	private String grade="";
 	
 	private float prelimscore;
 	
@@ -43,11 +43,14 @@ public class CourseGrades {
 	public void setCredits(Double credits) {
 		this.credits = credits;
 	}
-	public float getScore() {
+	public String getScore() {
 		return score;
 	}
 	public void setScore(float score) {
-		this.score = score;
+		if(score <0)
+			this.score = "";
+		else
+			this.score = String.valueOf(score);
 	}
 	
 	public float getPrelimScore() {
@@ -75,6 +78,7 @@ public class CourseGrades {
 	public void setGrade(float score) {
 		
 		String grade = "";
+		
 		if(score>=85) {grade="A*";}
 		else if(score>= 80) {grade= "A";}
 		else if(score>=75) {grade= "A-";}
@@ -85,12 +89,12 @@ public class CourseGrades {
 		else if(score>=50) {grade= "C";}
 		else if(score>=45) {grade= "D*";}
 		else if(score>=40) {grade= "D";}
-		else {grade= "F";}
+		else if(score>=0)  {grade= "F";}
+		else {grade="";}
 		
 		this.grade = grade;
 
 	}
-	
 	
 
 }

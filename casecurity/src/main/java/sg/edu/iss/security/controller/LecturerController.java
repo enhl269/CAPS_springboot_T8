@@ -77,64 +77,37 @@ public class LecturerController {
 		  List<Enrollment> eList = eservice.getByStudentClassId(scId);
 		  List<EnrollmentInfo> eiList = new ArrayList<>(eList.size());
 		  
-		  
-		  
 		  for(int i=0; i < eList.size(); i++) 
 		  { 
-			  float sum = 0;
-			  float mc =0;
+			  //if(eList.get(i).getStatus() =="Confirm"|eList.get(i).getStatus()=="Graded") {
+				  eiList.add(new EnrollmentInfo());
+				  eiList.get(i).setStudentclassid(scId);
+				  eiList.get(i).setEnrollmentId(eList.get(i).getId());
+				  eiList.get(i).setCourseName(eList.get(i).getStudentClass().getCourse().getName());
+				  eiList.get(i).setCredits(eList.get(i).getStudentClass().getCourse().getCredits());
+				  eiList.get(i).setStartDate(eList.get(i).getStudentClass().getStartdate());
+				  eiList.get(i).setStudentId(eList.get(i).getStudent().getId());
+				  eiList.get(i).setStudentName(eList.get(i).getStudent().getFirstName()+eList.get(i).getStudent().getLastName());
+				  float score = eList.get(i).getScore();
+				  if(score>=0) {
+					  eiList.get(i).setScore(eList.get(i).getScore());
+				  	  eiList.get(i).setGrade(eList.get(i).getScore());
+				  }
+				  String cgpa = eservice.getCGPAByStudent(eList.get(i).getStudent().getId());
+				  eiList.get(i).setCgpa(cgpa);
 			  
-			  eiList.add(new EnrollmentInfo());
-			  eiList.get(i).setStudentclassid(scId);
-			  eiList.get(i).setEnrollmentId(eList.get(i).getId());
-			  eiList.get(i).setCourseName(eList.get(i).getStudentClass().getCourse().getName());
-			  eiList.get(i).setCredits(eList.get(i).getStudentClass().getCourse().getCredits());
-			  eiList.get(i).setStartDate(eList.get(i).getStudentClass().getStartdate());
-			  eiList.get(i).setStudentId(eList.get(i).getStudent().getId());
-			  eiList.get(i).setStudentName(eList.get(i).getStudent().getFirstName()+eList.get(i).getStudent().getLastName());
-			  eiList.get(i).setScore(eList.get(i).getScore()); 
-			  eiList.get(i).setGrade(eList.get(i).getScore());
-			  eiList.get(i).setPrelimScore(eList.get(i).getScore());
-			  
-			  Long stdid = eiList.get(i).getStudentId();
-			  List<Course> stdcourses = cservice.getCourseStudentTakes(eiList.get(i).getStudentId());
-				List<CourseGrades> a = new ArrayList<>(stdcourses.size());
-				for(int j=0;j< stdcourses.size();j++)
-				{
-					a.add(new CourseGrades());
-					a.get(j).setId(stdcourses.get(j).getId());
-					a.get(j).setName(stdcourses.get(j).getName());
-					a.get(j).setDescription(stdcourses.get(j).getDescription());
-					a.get(j).setType(stdcourses.get(j).getType());
-					a.get(j).setCredits(stdcourses.get(j).getCredits());
-					
-					Long courseid = stdcourses.get(j).getId();
-					float x = eservice.getScore(courseid,stdid);
-					a.get(j).setScore(x);
-					a.get(j).setGrade(a.get(j).getScore());
-					
-					mc+= a.get(j).getCredits();
-					a.get(j).setPrelimScore(a.get(j).getScore());
-					sum += a.get(j).getCredits() * a.get(j).getPrelimScore();
-				}
-				
-				float cgpa = sum/mc;
-				
-				eiList.get(i).setCgpa(cgpa);
-			  
-			  }
-		  model.addAttribute("enrollments",eiList); 
-		  
+			  //}
+		  }
+		  model.addAttribute("enrollments",eiList); 	  
 		  model.addAttribute("requestparam",new EnrollmentInfo()); 
 		  //return eiList; 
 		  return "lecturer_enrollment"; 
 		  }
 		  
 	  @RequestMapping(value ="/editScore/{studentclassid}/{id}", method = RequestMethod.POST)
-	  //@ResponseBody
 	  public String saveScore(@PathVariable("id") Long eId, @RequestParam("attempt1") float score,@PathVariable("studentclassid") Long scId) {
 			eservice.saveScore(score, eId);
-			
+			eservice.saveStatus("Graded", eId);
 			return "redirect:/studentClassList/"+ scId;
 		}
 	  
@@ -159,4 +132,4 @@ public class LecturerController {
 	    }
 	 
 }
-
+	 

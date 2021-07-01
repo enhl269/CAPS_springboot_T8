@@ -11,10 +11,10 @@ public class EnrollmentInfo {
 	private String studentName;
 	private String status;
 	private Double credits;
-	private float score;
-	private String grade;
+	private float score =0;
+	private String grade ="";
 	private float prelimscore;
-	private float cgpa;
+	private String cgpa;
 	private long studentclassid;
 	
 	public EnrollmentInfo() {
@@ -33,7 +33,7 @@ public class EnrollmentInfo {
 	}
 
 	public EnrollmentInfo(Long enrollmentId, String courseName, LocalDate startDate, Long studentId, String studentName,
-			String status, Double credits, float score, String grade, float prelimscore, float cgpa,
+			String status, Double credits, float score, String grade, float prelimscore, String cgpa,
 			long studentclassid) {
 		super();
 		this.enrollmentId = enrollmentId;
@@ -131,12 +131,12 @@ public class EnrollmentInfo {
 	}
 
 
-	public float getCgpa() {
+	public String getCgpa() {
 		return cgpa;
 	}
 
 
-	public void setCgpa(float cgpa) {
+	public void setCgpa(String cgpa) {
 		this.cgpa = cgpa;
 	}
 
@@ -193,4 +193,3 @@ public class EnrollmentInfo {
 	}
 	
 }
-

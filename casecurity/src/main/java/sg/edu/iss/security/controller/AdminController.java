@@ -2,13 +2,8 @@ package sg.edu.iss.security.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,29 +67,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/lecturers") 
-	public String listLecturers(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-		
-		final int currentPage = page.orElse(1);//current page 
-		final int pageSize = size.orElse(10);//this page have how many data 
-//orElse,this is optional attribute. 
-		Page<User> userPage = udcservice.getPageUser(PageRequest.of(currentPage - 1, pageSize));
-
-		model.addAttribute("userPage", userPage);
-//addAttribute(name,value), name is the name of attribute 
-		int totalPages = userPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-					.boxed()
-					.collect(Collectors.toList());//×°Ïä²ðÏäµÄ¹ý³Ì. means from int byte transfer to integer, cos the collector is a warpper 
-			//this process is must , otherwise it will error
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		
+	public String listLecturers(Model model) {
 		List<User> listLecturers = udcservice.findAllByType("LECTURER");
 		model.addAttribute("listUsers", listLecturers); 
 		return "lecturers"; 
 	}
-	
 	@GetMapping("/modifycourseallocation/{id}") 
 	public String ModifyLecturerCourseAllocation(Model model, @PathVariable("id") Long id)
 	{
@@ -136,19 +113,11 @@ public class AdminController {
 	@RequestMapping(value = "/savelctassignment", method = RequestMethod.POST)
 	public String saveLCTAssignment(@ModelAttribute("lct") LecturerCanTeach lct) {
 		List<User> lecturers = uService.getLectures();
-		List<LecturerCanTeach> lectCT = lService.findAllLCT(lct.getLecturer().getId());
-		
+		List<Course> courses = cService.getAllCourse();
 		 for(int i = 0; i < lecturers.size(); i++) {
 			 if(lecturers.get(i).getId().equals(lct.getLecturer().getId())) {
-				 for(int j = 0; j < lectCT.size(); j++) {
-					 if(lectCT.get(j).getLecturer().getId() == lct.getLecturer().getId() &&
-							 lectCT.get(j).getCourse().getId() == lct.getCourse().getId()) {
-						 lService.save(lct);
-							return "redirect:/lecturers";
-						 }
-					 }
-				  return "LectAssignError";		 
-		}
+		lService.save(lct);
+		return "redirect:/lecturers";}
 			 }
 		return "LectErrorPage";
 	}
@@ -166,47 +135,18 @@ public class AdminController {
 		user.setLastName(userDetail.getLastName());
 		user.setEmail(userDetail.getEmail());
 		user.setContactNumber(userDetail.getContactNumber());
-		user.setRoles(userDetail.getRoles());
 		uService.save(user);
 		return "redirect:/users";
 	}
 
 	@GetMapping("/users/delete/{id}")
 	public String deleteUser(Model model, @PathVariable("id") Long id) {
-		User user = uService.get(id);
-		
-		if(user.getRoles().contains("LECTURER")) {
-			uService.delete(id);
-			return "redirect:/lecturers";
-		}else if(user.getRoles().contains("STUDENT")) {
-			uService.delete(id);
-			return "redirect:/students";
-		}
-			uService.delete(id);
-			return "redirect:/users";
+		uService.delete(id);
+		return "redirect:/users";
 	}
 	
 	@GetMapping("/students") 
-	public String listStudents(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-		
-		
-		final int currentPage = page.orElse(1);//current page 
-		final int pageSize = size.orElse(10);//this page have how many data 
-//orElse,this is optional attribute. 
-		Page<User> studentPage = udcservice.getPageUser(PageRequest.of(currentPage - 1, pageSize));
-
-		model.addAttribute("studentPage", studentPage);
-//addAttribute(name,value), name is the name of attribute 
-		int totalPages = studentPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-					.boxed()
-					.collect(Collectors.toList());//×°Ïä²ðÏäµÄ¹ý³Ì. means from int byte transfer to integer, cos the collector is a warpper 
-			//this process is must , otherwise it will error
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		
-		
+	public String listStudents(Model model) {
 		List<User> listStudents = udcservice.findAllByType("STUDENT");
 		model.addAttribute("listUsers", listStudents); 
 		return "students"; 
@@ -251,26 +191,9 @@ public class AdminController {
 	
 	@GetMapping("/admin/enrollment")
 	//@ResponseBody
-	public String showEnrollmentList(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+	public String showEnrollmentList(Model model) {
 		//how to regulate enrollment status
 		//pending,confirmed,denied
-		
-		final int currentPage = page.orElse(1);//current page 
-		final int pageSize = size.orElse(10);//this page have how many data 
-//orElse,this is optional attribute. 
-		Page<Enrollment> enrollmentPage = eService.getPageEnrollment(PageRequest.of(currentPage - 1, pageSize));
-
-		model.addAttribute("enrollmentPage", enrollmentPage);
-//addAttribute(name,value), name is the name of attribute 
-		int totalPages = enrollmentPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-					.boxed()
-					.collect(Collectors.toList());//×°Ïä²ðÏäµÄ¹ý³Ì. means from int byte transfer to integer, cos the collector is a warpper 
-			//this process is must , otherwise it will error
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		
 		List<EnrollmentInfo> eiList = new ArrayList<>();
 		List<Enrollment> eList = eService.getAllEnrollments();
 		for(Enrollment e:eList) {
@@ -281,37 +204,25 @@ public class AdminController {
 						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
 						                  e.getStatus()));
 		}
+		List<String> status = new ArrayList<>();
+		status.add("Reject");
+		status.add("Confirm");
 		model.addAttribute("enrollments",eiList);
+		//model.addAttribute("status",status);
 		return "admin_enrollmentList";
 		
 	}
 	
 	@PostMapping("/admin/enrollment/{id}")
 	public String updateStatus(@RequestParam("status") String status, @PathVariable("id") Long id) {
-		eService.saveStatus(status, id);
+			eService.saveStatus(status, id);			
 		
 		return "redirect:/admin/enrollment";
 	}
 
 	@RequestMapping(value = "/adminstudentClassList", method = RequestMethod.GET)
 	//@ResponseBody
-	public String ListAllStudentClass(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-		final int currentPage = page.orElse(1);//current page 
-		final int pageSize = size.orElse(10);//this page have how many data 
-//orElse,this is optional attribute. 
-		Page<StudentClass> studentClassPage = scService.getPageStudentClass(PageRequest.of(currentPage - 1, pageSize));
-
-		model.addAttribute("studentClassPage", studentClassPage);
-//addAttribute(name,value), name is the name of attribute 
-		int totalPages = studentClassPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-					.boxed()
-					.collect(Collectors.toList());//×°Ïä²ðÏäµÄ¹ý³Ì. means from int byte transfer to integer, cos the collector is a warpper 
-			//this process is must , otherwise it will error
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		
+	public String ListAllStudentClass(Model model) {
 		
 		List<StudentClass> scList = scService.getAllStdCLass();
 		List<StudentClassInfo> sciList = new ArrayList<>(scList.size());
@@ -333,26 +244,16 @@ public class AdminController {
 		return "adminall_studentclasses";
 	}
 	
-	
 	@RequestMapping(value = "/savestdclass", method = RequestMethod.POST)
 	public String saveCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
 		
 		List<User> lecturers = uService.getLectures();
-		List<LecturerCanTeach> lectCT = lService.findAllLCT(StdClass.getLecturer().getId());
-		
 		 for(int i = 0; i < lecturers.size(); i++) {
 			 if(lecturers.get(i).getId().equals(StdClass.getLecturer().getId())) {
-				 for(int j = 0; j < lectCT.size(); j++) {
-					 if(lectCT.get(j).getLecturer().getId() == StdClass.getLecturer().getId() &&
-							 lectCT.get(j).getCourse().getId() == StdClass.getCourse().getId()) {
-						 scService.save(StdClass);
-							return "redirect:/lecturers";
-						 }
-					 }
-				  return "LectAssignError";		 
-		}
+				 scService.save(StdClass);
+				 return "redirect:/adminstudentClassList";
 			 }
-		return "LectErrorPage";
+		 }return "LectErrorPage";
 	}
 	
 	@GetMapping("/adminstudentClassList/edit/{id}")
@@ -452,6 +353,13 @@ public class AdminController {
 		return "redirect:/admin/enrollment";
 
 	}
+	
+
+
+
+
+
+	
 	
 
 }

@@ -2,15 +2,14 @@ package sg.edu.iss.security.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import sg.edu.iss.security.domain.Enrollment;
 import sg.edu.iss.security.domain.StudentClass;
 
 public interface EnrollmentService {
 
 	float getScore(Long cid, Long sid);
+	
+	String getCGPAByStudent(Long sid);
 
 	void save(Enrollment e);
 
@@ -30,6 +29,6 @@ public interface EnrollmentService {
 
 	void delete(Long id);
 	
-	Page<Enrollment> getPageEnrollment(Pageable pageable);
+	String getStatusByCourseAndSt(long courseId, long stId);
 
 }
