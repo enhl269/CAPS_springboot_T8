@@ -3,9 +3,12 @@ package sg.edu.iss.security.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +26,7 @@ import sg.edu.iss.security.domain.Student;
 import sg.edu.iss.security.domain.StudentClass;
 import sg.edu.iss.security.domain.StudentClassInfo;
 import sg.edu.iss.security.domain.User;
+import sg.edu.iss.security.exception.CustomException;
 import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
@@ -88,7 +92,7 @@ public class AdminController {
 			a.get(i).setLecturerCTId(lct.get(i).getId());
 			a.get(i).setLecId(id);
 		}
-		
+		if(a.isEmpty()) throw new CustomException("Lecturer has not been assigned to any classes");
 		List<CourseViewModel> Course = new ArrayList<>(a);
 		model.addAttribute("Course",Course);
 		
@@ -129,7 +133,10 @@ public class AdminController {
 	}//
 	
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
-	public String updateUser(@RequestParam("id") Long id, User userDetail) {
+	public String updateUser(@RequestParam("id") Long id, @Valid User userDetail, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "editUser_form";
+		}
 		User user = uService.get(id);
 		user.setFirstName(userDetail.getFirstName());
 		user.setLastName(userDetail.getLastName());

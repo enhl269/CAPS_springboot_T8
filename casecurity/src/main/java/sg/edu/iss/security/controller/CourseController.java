@@ -59,13 +59,15 @@ public class CourseController {
 	}
 	
 	
-	  @RequestMapping("/edit/{id}") public ModelAndView
-	  showEditCourseForm(@PathVariable(name = "id") Long id) { ModelAndView mav =
-	  new ModelAndView("edit_course");
-	  
-	  Course course = service.get(id); mav.addObject("course", course);
-	  
-	  return mav; }
+	  @RequestMapping("/edit/{id}") 
+		public ModelAndView showEditCourseForm(@PathVariable(name = "id") Long id) {
+			ModelAndView mav = new ModelAndView("edit_course");
+
+			Course course = service.get(id);
+			mav.addObject("course", course);
+
+			return mav;
+		}
 	 
 	
 	@RequestMapping("/delete/{id}")
