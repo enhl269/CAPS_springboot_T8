@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.StudentClass;
+import sg.edu.iss.security.exception.CustomException;
 import sg.edu.iss.security.repo.StudentClassRepository;
 
 @Service
@@ -26,7 +27,11 @@ public class StudentClassServiceImp implements StudentClassService {
 	@Override
 	public List<StudentClass> getStdClassByLecturer(Long id)
 	{
-		return screpo.findStudentClassByLecturerId(id);
+		List<StudentClass> sc = screpo.findStudentClassByLecturerId(id);
+		
+		if(sc.isEmpty()) throw new CustomException("No Student Class for this lecturer is available");
+		
+		return sc;
 	}
 	
 	@Override

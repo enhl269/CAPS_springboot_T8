@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.LecturerCanTeach;
 import sg.edu.iss.security.domain.User;
+import sg.edu.iss.security.exception.CustomException;
 import sg.edu.iss.security.repo.LecturerCanTeachRepository;
 import sg.edu.iss.security.repo.LecturerRepository;
 import sg.edu.iss.security.repo.UserRepository;
@@ -30,7 +31,11 @@ public class LecturerServiceImp implements LecturerService {
 	@Override
 	public List<User> findAllLecturers(String role)
 	{
-		return urepo.findByRoleType(role);
+		List<User> u = urepo.findByRoleType(role);
+		
+		if(u.isEmpty()) throw new CustomException("No lecturer is not available");
+		
+		return u;
 		
 	}
 	

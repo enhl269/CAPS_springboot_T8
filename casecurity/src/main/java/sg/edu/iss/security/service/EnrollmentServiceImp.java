@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.Enrollment;
 import sg.edu.iss.security.domain.StudentClass;
+import sg.edu.iss.security.exception.CustomException;
 import sg.edu.iss.security.repo.EnrollmentRepository;
 
 @Service
@@ -19,7 +20,7 @@ public class EnrollmentServiceImp implements EnrollmentService {
 	
 	@Override
 	public float getScore(Long cid, Long sid) {
-		
+		if(cid==null || sid ==null) throw new CustomException("Values is not valid");
 		Enrollment e = erepo.findEnrollmentByCourseIdandStdID(cid,sid);
 		return e.getScore();
 	}
@@ -31,11 +32,13 @@ public class EnrollmentServiceImp implements EnrollmentService {
 	
 	@Override
 	public void saveScore(float score, long id) {
+		if(score==0) throw new CustomException("score is not valid");
 		erepo.saveScore(score, id);
 	}
 	
 	@Override
 	public void saveStatus(String status, long id) {
+		if(status.isEmpty()) throw new CustomException("Status is not valid");
 		erepo.saveStatus(status, id);
 	}
 	
@@ -53,6 +56,7 @@ public class EnrollmentServiceImp implements EnrollmentService {
 	@Override
 	public StudentClass getStudentClass(long id) {
 		Enrollment e = erepo.findById(id).get();
+		if(e==null) throw new CustomException("Enrollment Class is not available");
 		return e.getStudentClass();
 	}
 	

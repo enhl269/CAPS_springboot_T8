@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.security.domain.Course;
+import sg.edu.iss.security.exception.CustomException;
 import sg.edu.iss.security.repo.CourseRepository;
 
 
