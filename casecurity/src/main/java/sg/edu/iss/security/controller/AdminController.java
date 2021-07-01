@@ -136,7 +136,7 @@ public class AdminController {
 	@RequestMapping(value = "/savelctassignment", method = RequestMethod.POST)
 	public String saveLCTAssignment(@ModelAttribute("lct") LecturerCanTeach lct) {
 		List<User> lecturers = uService.getLectures();
-		List<LecturerCanTeach> lectCT = lService.getAll();
+		List<LecturerCanTeach> lectCT = lService.findAllLCT(lct.getLecturer().getId());
 		
 		 for(int i = 0; i < lecturers.size(); i++) {
 			 if(lecturers.get(i).getId().equals(lct.getLecturer().getId())) {
@@ -146,7 +146,8 @@ public class AdminController {
 						 lService.save(lct);
 							return "redirect:/lecturers";
 						 }
-					 return "LectAssignError"; }
+					 }
+				  return "LectAssignError";		 
 		}
 			 }
 		return "LectErrorPage";
