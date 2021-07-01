@@ -52,17 +52,7 @@
                     	<a th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></a>
                     </div>
                     
-                    <!-- Contact Number -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
-                            </span>
-                        </div>
-                        <input id="contactNumber" th:field="contactNumber" type="contactNumber" name="contactNumber" placeholder="Contact Number" class="form-control bg-white border-left-0 border-md" required minlength="8" maxlength="8">
-                        <a th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></a>
-                    </div>
-
+                 
 				<!-- Phone  -->
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">

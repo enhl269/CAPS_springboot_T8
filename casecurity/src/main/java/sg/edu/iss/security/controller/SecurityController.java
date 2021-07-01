@@ -9,11 +9,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-<<<<<<< HEAD
+
 import javax.servlet.http.HttpSession;
-=======
+
 import javax.validation.Valid;
->>>>>>> integratedwithlxy
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
