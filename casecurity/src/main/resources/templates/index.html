@@ -5,14 +5,20 @@
 	<title>Welcome to CodeJava Home</title>
 	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container text-center">
+	<div class="container text-center" style="margin-top: 30px">
 		<h1>Welcome to Course Management System</h1>
-<!-- 		<h3><a th:href="@{/users}">List of Users</a></h3> -->
-		<h3><a th:href="@{/login}">Login</a></h3>
-		<h3><a th:href="@{/register}">Register</a></h3>
+		
+		<div style="margin-top: 100px">
+		<h3><a class="btn btn-primary" style="width: 200px;height: 40px;text-align: center;" th:href="@{/login}">Login</a></h3>
+		
+	
+		
+		<h3><a class="btn btn-primary"  style="width: 200px;height: 40px;text-align: center; margin-top: 20px" th:href="@{/register}">Register</a></h3>
+	</div>
 	</div>
 	
 </body>

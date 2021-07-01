@@ -102,7 +102,7 @@ public class SecurityController {
 		else if(role.equalsIgnoreCase("LECTURER"))
 			return "redirect:/studentClassList";
 		else if(role.equalsIgnoreCase("ADMIN"))
-			return "redirect:/adminview";
+			return "redirect:/users";
 		else
 			return "/index";
 	}

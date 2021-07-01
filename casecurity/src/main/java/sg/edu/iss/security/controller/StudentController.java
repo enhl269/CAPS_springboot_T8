@@ -34,6 +34,8 @@ import sg.edu.iss.security.domain.CourseViewModel;
 import sg.edu.iss.security.domain.Enrollment;
 import sg.edu.iss.security.domain.Student;
 import sg.edu.iss.security.domain.StudentClass;
+import sg.edu.iss.security.domain.Timetable;
+import sg.edu.iss.security.repo.TimetableRepository;
 import sg.edu.iss.security.repo.UserRepository;
 import sg.edu.iss.security.service.CourseService;
 import sg.edu.iss.security.service.EnrollmentService;
@@ -58,6 +60,9 @@ public class StudentController {
 	
 	@Autowired
 	private UserRepository urepo;
+	
+	@Autowired
+	private TimetableRepository trepo;
 	
 //	@Autowired
 //    private JavaMailSender javaMailSender;
@@ -235,6 +240,27 @@ public class StudentController {
 		
 		return "course_stdgrades";
 	}
+	@RequestMapping(value ="/studenttimetable",method = RequestMethod.GET)
+    public String showTimetable(Principal p) {
+		long id = urepo.findByEmail(p.getName()).getId();
+		List<Course> scList = service.getCourseStudentTakes(id);
+		
+		trepo.deleteAll();
+		for(Course course : scList ){
+			
+			StudentClass sClass = course.getStudentClass().get(0);
+					Timetable t = new Timetable();
+					t.setText(sClass.getCourse().getName());
+					t.setStart(sClass.getStartdate());
+					t.setEnd(sClass.getStartdate().plusDays(90));
+					t.setColor("blue");
+					trepo.save(t);
+				}
+			
+			
+		
+    	return "StdTimetable";
+    }
 
 }
 
