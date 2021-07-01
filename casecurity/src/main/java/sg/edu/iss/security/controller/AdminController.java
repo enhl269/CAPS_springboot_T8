@@ -172,7 +172,16 @@ public class AdminController {
 	}
 
 	@GetMapping("/users/delete/{id}")
-	public String deleteUser(Model model, @PathVariable("id") Long id, @ModelAttribute User userdetail) {
+	public String deleteUser(Model model, @PathVariable("id") Long id) {
+		User user = uService.get(id);
+		
+		if(user.getRoles().contains("LECTURER")) {
+			uService.delete(id);
+			return "redirect:/lecturers";
+		}else if(user.getRoles().contains("STUDENT")) {
+			uService.delete(id);
+			return "redirect:/students";
+		}
 			uService.delete(id);
 			return "redirect:/users";
 	}
