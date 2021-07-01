@@ -12,6 +12,19 @@ public class CourseViewModel {
 	private long stdid;
 	
 	
+	public CourseViewModel() {
+		super();
+	}
+
+	public CourseViewModel(long id, String name, String description, String type, Double credits) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.type = type;
+		this.credits = credits;
+	}
+
 	public Double getCredits() {
 		return credits;
 	}
@@ -76,4 +89,27 @@ public class CourseViewModel {
 		this.type = type;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CourseViewModel other = (CourseViewModel) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+	
 }

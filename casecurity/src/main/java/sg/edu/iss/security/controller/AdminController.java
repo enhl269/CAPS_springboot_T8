@@ -1,17 +1,7 @@
 package sg.edu.iss.security.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import sg.edu.iss.security.domain.Course;
 import sg.edu.iss.security.domain.CourseViewModel;
@@ -130,7 +119,7 @@ public class AdminController {
 		lService.save(lct);
 		return "redirect:/lecturers";}
 			 }
-		return "error";
+		return "LectErrorPage";
 	}
 	
 	@GetMapping("users/edit/{id}")
@@ -145,6 +134,7 @@ public class AdminController {
 		user.setFirstName(userDetail.getFirstName());
 		user.setLastName(userDetail.getLastName());
 		user.setEmail(userDetail.getEmail());
+		user.setContactNumber(userDetail.getContactNumber());
 		uService.save(user);
 		return "redirect:/users";
 	}
@@ -259,7 +249,7 @@ public class AdminController {
 				 scService.save(StdClass);
 				 return "redirect:/adminstudentClassList";
 			 }
-		 }return "error";
+		 }return "LectErrorPage";
 	}
 	
 	@GetMapping("/adminstudentClassList/edit/{id}")
@@ -311,17 +301,19 @@ public class AdminController {
 		}
 		
 		List<CourseViewModel> Course = new ArrayList<>(a);
+//		
+//		for(int i=0;i< Course.size();i++)
+//		{
+//			for(int j=0;j<b.size();j++)
+//			{
+//				if(Course.get(i).getId()==b.get(j).getId())
+//				{
+//					Course.remove(i);
+//				}
+//			}
+//		}
 		
-		for(int i=0;i< Course.size();i++)
-		{
-			for(int j=0;j<b.size();j++)
-			{
-				if(Course.get(i).getId()==b.get(j).getId())
-				{
-					Course.remove(i);
-				}
-			}
-		}
+		Course.removeAll(b);
 		model.addAttribute("Course",Course);
 		
 		return "adminenrollstudent";

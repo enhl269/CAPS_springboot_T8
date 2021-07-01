@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -32,6 +33,17 @@ public class User  {
 	@Column(name = "last_name", nullable = false, length = 20)
 	private String lastName;
 	
+	@Size(min=0,max=10)
+	private String contactNumber;
+	
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
 	//I used the enum role class to act as a global variable
 	//from there I convert it to string and assign to this variable
 	//Please feel free to suggest other methods to create this role 

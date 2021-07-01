@@ -18,7 +18,7 @@ public class Student extends User {
 //	
 	private float cGPA;
 	
-	private int contactNumber;
+	
 	
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private List<Enrollment> enrollmentList = new ArrayList<>();
@@ -38,10 +38,10 @@ public class Student extends User {
 //		this.enrollmentList = enrollmentList;
 //	}
 
-	public Student(float cGPA, int contactNumber) {
+	public Student(float cGPA) {
 		super();
 		this.cGPA = cGPA;
-		this.contactNumber = contactNumber;
+		
 	}
 
 
@@ -49,7 +49,6 @@ public class Student extends User {
 	public Student(float cGPA, int contactNumber, List<Enrollment> enrollmentList) {
 		super();
 		this.cGPA = cGPA;
-		this.contactNumber = contactNumber;
 		this.enrollmentList = enrollmentList;
 	}
 	
@@ -71,13 +70,6 @@ public class Student extends User {
 		this.cGPA = cGPA;
 	}
 
-	public int getContactNumber() {
-		return contactNumber;
-	}
-
-	public void setContactNumber(int contactNumber) {
-		this.contactNumber = contactNumber;
-	}
 
 	public List<Enrollment> getEnrollmentList() {
 		return enrollmentList;
@@ -89,7 +81,7 @@ public class Student extends User {
 
 	@Override
 	public String toString() {
-		return "Student [cGPA=" + cGPA + ", contactNumber=" + contactNumber + ", enrollmentList=" + enrollmentList
+		return "Student [cGPA=" + cGPA + ", enrollmentList=" + enrollmentList
 				+ ", getEmail()=" + getEmail() + ", getFirstName()=" + getFirstName() + ", getLastName()="
 				+ getLastName() + "]";
 	}

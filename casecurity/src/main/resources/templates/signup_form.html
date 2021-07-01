@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<<<<<<< HEAD
 	<!-- Navbar-->
 
         <!-- Registeration Form -->
@@ -95,5 +96,74 @@
     </div>
 </div>
 	
+=======
+	<div class="container text-center">
+		<div>
+			<h1>User Registration - Sign Up</h1>
+		</div>
+		<form th:action="@{/process_register}" th:object="${user}" 
+			method="post" style="max-width: 600px; margin: 0 auto;">
+		<div class="m-3">
+			<div class="form-group row">
+				<label class="col-4 col-form-label">E-mail: </label>
+				<div class="col-8">
+					<input type="email" th:field="*{email}" class="form-control" required />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-4 col-form-label">Password: </label>
+				<div class="col-8">
+					<input type="password" th:field="*{password}" class="form-control" 
+							required minlength="6" maxlength="10"/>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-4 col-form-label">First Name: </label>
+				<div class="col-8">
+					<input type="text" th:field="*{firstName}" class="form-control" 
+							required minlength="2" maxlength="20"/>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-4 col-form-label">Last Name: </label>
+				<div class="col-8">
+					<input type="text" th:field="*{lastName}" class="form-control" 
+							required minlength="2" maxlength="20" />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-4 col-form-label">Contact Number: </label>
+				<div class="col-8">
+					<input type="text" th:field="*{contactNumber}" class="form-control"
+						required minlength="8" maxlength="8" />
+				</div>
+			</div>
+
+				<div class="form-group row">
+				<label class="col-4 col-form-label">Roles: </label>
+				<div class="col-8">
+					<!-- <th:block th:each="role: ${listRoles}">
+					<option th:field="*{roles}" th:text = "${role}" th:value="${role}"class="m-2"></option>
+					<input type="checkbox"  th:field="*{roles}" th:text = "${role}" th:value="${role}"class="m-2" />
+						th:text="${role.name}" th:value="${role.id}" 
+					</th:block> -->
+					
+					<select class="form-control" th:field="*{roles}"  id="dropOperator">
+    					<option value="0">select role</option>
+    					<option th:each="role : ${listRoles}" th:value="${role}" th:text="${role}"></option>
+    				</select>
+				</div>
+			
+			<div>
+				<button type="submit" class="btn btn-primary">Sign Up</button> 
+			</div>
+		</div>
+		</form>
+	</div>
+>>>>>>> forintergrationwithestherzr
 </body>
 </html>
