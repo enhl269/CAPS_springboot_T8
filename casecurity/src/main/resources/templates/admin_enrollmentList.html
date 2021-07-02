@@ -131,7 +131,14 @@
 		<td th:text="${enrollment.studentName}">Student Name</td>
 		<td th:text="${enrollment.status}">Current Score</td>
 		<td><form th:action="@{/admin/enrollment/} + ${enrollment.enrollmentId}" method="POST">
-			<input type="text" name = 'status' style="width: 75px;" th:value="${status}" />
+			 <select id="status" name="status" >
+                            <option value="">Choose Status</option>
+                            <th:block th:each="statuses: ${listStatus}">
+                            <option th:value="${statuses}" th:text="${statuses}"></option>
+
+                            </th:block>
+                        </select>
+			
 			<button type="submit" style="width: 50px;text-align: center;padding: 3px;margin-top: -3px;"  class="btn btn-dark">Save</button>
 		</form></td>
 		<td><a th:href="@{'/admin/enrollment/delete/'} + ${enrollment.enrollmentId}">Delete Enrollment</a>			
