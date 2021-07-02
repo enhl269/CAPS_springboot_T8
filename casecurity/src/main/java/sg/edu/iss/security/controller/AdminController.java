@@ -182,6 +182,10 @@ public class AdminController {
 						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
 						                  e.getStatus()));
 		}
+		List<String> status = new ArrayList<>();
+		status.add("Reject");
+		status.add("Confirm");
+		model.addAttribute("listStatus",status);
 		model.addAttribute("enrollments",eiList);
 		return "admin_enrollmentList";
 		
@@ -199,6 +203,10 @@ public class AdminController {
 						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
 						                  e.getStatus()));
 		}
+		List<String> status = new ArrayList<>();
+		status.add("Reject");
+		status.add("Confirm");
+		model.addAttribute("listStatus",status);
 		model.addAttribute("enrollments",eiList);
 		return "admin_enrollmentList";
 		
@@ -222,8 +230,9 @@ public class AdminController {
 		List<String> status = new ArrayList<>();
 		status.add("Reject");
 		status.add("Confirm");
-		model.addAttribute("enrollments",eiList);
 		model.addAttribute("listStatus",status);
+		model.addAttribute("enrollments",eiList);
+		
 		return "admin_enrollmentList";
 		
 	}
@@ -264,14 +273,14 @@ public class AdminController {
 		
 		List<User> lecturers = uService.getLectures();
 		List<LecturerCanTeach> lectCT = lService.findAllLCT(StdClass.getLecturer().getId());
-		List<StudentClass> stdClassByDate = scService.findStudentClassByStartDate(StdClass.getStartdate());
+		List<StudentClass> stdClassByDate = scService.getAllStdCLass();
 		 for(int i = 0; i < lecturers.size(); i++) {
 			 if(lecturers.get(i).getId().equals(StdClass.getLecturer().getId())) {
 				 for(int j = 0; j < lectCT.size(); j++) {
 					 if(lectCT.get(j).getLecturer().getId() == StdClass.getLecturer().getId() &&
 							 lectCT.get(j).getCourse().getId() == StdClass.getCourse().getId()) {
 						 for(int k = 0; k < stdClassByDate.size(); k++) {
-							 if(!stdClassByDate.isEmpty() &&
+							 if(stdClassByDate.get(k).getStartdate().equals(StdClass.getStartdate()) &&
 									 stdClassByDate.get(k).getCourse().getId()==StdClass.getCourse().getId() &&
 									 stdClassByDate.get(k).getLecturer().getId()==StdClass.getLecturer().getId()) {
 								 return "class_duplicate";
