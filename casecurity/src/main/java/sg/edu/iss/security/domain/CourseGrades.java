@@ -8,6 +8,8 @@ public class CourseGrades {
 	private Double credits;
 	private String score="";
 	private String grade="";
+	private String status;
+	
 	
 	private float prelimscore;
 	
@@ -24,6 +26,13 @@ public class CourseGrades {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public String getDescription() {
 		return description;
@@ -95,6 +104,5 @@ public class CourseGrades {
 		this.grade = grade;
 
 	}
-	
 
 }

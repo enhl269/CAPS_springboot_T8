@@ -179,6 +179,7 @@ public class StudentController {
 			a.get(i).setType(stdcourses.get(i).getType());
 			a.get(i).setCredits(stdcourses.get(i).getCredits());
 			
+			
 			Long courseid = stdcourses.get(i).getId();
 			//check whether lecturer is scored or not 
 			float x = eservice.getScore(courseid,id);
@@ -186,6 +187,7 @@ public class StudentController {
 				a.get(i).setScore(x);
 				a.get(i).setGrade(x);
 			}
+			a.get(i).setStatus(eservice.getStatusByCourseAndSt(courseid, id));
 		}
 		
 		
