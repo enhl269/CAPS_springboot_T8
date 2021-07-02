@@ -2,11 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Error Page</title>
+
+
+
 </head>
 <body>
-<h1>Please return to the previous page</h1>
-<h1 th:text="${exception.message}"></h1>
-<a th:href="@{'/'}">Home</a>
+		<div style="margin-top: 200px; text-align:center" >
+			<h1>Error Page</h1>	
+			<h1 th:text="${exception.message}"></h1>
+			<a href="javascript:history.go(-1)"onMouseOver="self.status.referrer;return ture">Back to Previous Page</a>
+		</div>
+		
+
 </body>
 </html>
