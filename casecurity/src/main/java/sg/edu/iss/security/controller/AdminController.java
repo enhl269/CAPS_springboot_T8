@@ -181,7 +181,7 @@ public class AdminController {
 						                  e.getStudent().getId(),
 						                  (e.getStudent().getFirstName() + " " + e.getStudent().getLastName()),
 						                  e.getStatus()));
-		}
+		}//
 		List<String> status = new ArrayList<>();
 		status.add("Reject");
 		status.add("Confirm");
