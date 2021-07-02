@@ -69,7 +69,7 @@
 							<i class="fas fa-id-badge text-muted"></i>
                             </span>
                         </div>
-                        <select id="roles" th:field="*{roles}" name="roles" class="form-control custom-select bg-white border-left-0 border-md">
+                        <select id="roles" name="roles" class="form-control custom-select bg-white border-left-0 border-md">
                             <option value="">Choose your role</option>
                             <th:block th:each="role: ${listRoles}">
                             <option th:value="${role}" th:text="${role}"></option>

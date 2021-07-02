@@ -74,7 +74,8 @@ public class SecurityController {
 		}
 		
 		
-		  User userFromDb = us.getUserByEmail(user.getEmail()); if(userFromDb != null)
+		  User userFromDb = us.getUserByEmail(user.getEmail());
+		  if(userFromDb != null)
 		  return "email_duplicate";
 		 
 		us.registerDefaultUser(user);

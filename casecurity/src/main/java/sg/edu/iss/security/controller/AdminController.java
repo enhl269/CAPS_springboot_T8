@@ -223,7 +223,7 @@ public class AdminController {
 		status.add("Reject");
 		status.add("Confirm");
 		model.addAttribute("enrollments",eiList);
-		//model.addAttribute("status",status);
+		model.addAttribute("listStatus",status);
 		return "admin_enrollmentList";
 		
 	}
