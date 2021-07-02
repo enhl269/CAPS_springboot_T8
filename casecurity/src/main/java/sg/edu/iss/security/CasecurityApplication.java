@@ -250,7 +250,7 @@ public class CasecurityApplication {
 			screpo.save(sc4);
 			StudentClass sc5 = new StudentClass(dateStartSem2, 30, course.get(5), l.get(0));
 			screpo.save(sc5);
-			StudentClass sc6 = new StudentClass(dateStartSem2, 30, course.get(6), l.get(1));
+			StudentClass sc6 = new StudentClass(dateStartSem2, 8, course.get(6), l.get(1));
 			screpo.save(sc6);
 			StudentClass sc7 = new StudentClass(dateStartSem2, 30, course.get(7), l.get(2));
 			screpo.save(sc7);
