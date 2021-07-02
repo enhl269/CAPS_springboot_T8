@@ -295,8 +295,22 @@ public class AdminController {
 	
 	@RequestMapping(value = "/editCourse", method = RequestMethod.POST)
 	public String saveEditCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
-		scService.save(StdClass);
-		return "redirect:/adminstudentClassList";
+		List<User> lecturers = uService.getLectures();
+		List<LecturerCanTeach> lectCT = lService.getAllLCT();
+	
+		for(int i = 0; i < lecturers.size(); i++) {
+			 if(lecturers.get(i).getId().equals(StdClass.getLecturer().getId())) {
+				 for(int j = 0; j < lectCT.size(); j++) {
+					 if(lectCT.get(j).getLecturer().getId() == StdClass.getLecturer().getId() &&
+							 lectCT.get(j).getCourse().getId() == StdClass.getCourse().getId()) {
+						 scService.save(StdClass); return
+								 "redirect:/adminstudentClassList";
+						 
+						 }
+					 }return "LectAssignError";		
+		}
+			 }
+		return "LectErrorPage";
 	}
 	
 	@GetMapping("/adminstudentClassList/edit/{id}")
