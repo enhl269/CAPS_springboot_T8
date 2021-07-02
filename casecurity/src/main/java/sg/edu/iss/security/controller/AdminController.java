@@ -293,6 +293,12 @@ public class AdminController {
 		return "LectErrorPage";
 	}
 	
+	@RequestMapping(value = "/editCourse", method = RequestMethod.POST)
+	public String saveEditCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
+		scService.save(StdClass);
+		return "redirect:/adminstudentClassList";
+	}
+	
 	@GetMapping("/adminstudentClassList/edit/{id}")
 	public String showEditStudenClassForm(Model model,@PathVariable(name = "id") Long id) 
 	{ 	  
