@@ -268,7 +268,7 @@ public class AdminController {
 	public String saveCourse(@ModelAttribute("StdClass") StudentClass StdClass) {
 		
 		List<User> lecturers = uService.getLectures();
-		List<LecturerCanTeach> lectCT = lService.findAllLCT(StdClass.getLecturer().getId());
+		List<LecturerCanTeach> lectCT = lService.getAllLCT();
 		List<StudentClass> stdClassByDate = scService.getAllStdCLass();
 		 for(int i = 0; i < lecturers.size(); i++) {
 			 if(lecturers.get(i).getId().equals(StdClass.getLecturer().getId())) {
@@ -286,9 +286,9 @@ public class AdminController {
 						 scService.save(StdClass); return
 								 "redirect:/adminstudentClassList";
 						 
-						 }return "LectAssignError";		
-					 }
-		}//
+						 }
+					 }return "LectAssignError";		
+		}
 			 }
 		return "LectErrorPage";
 	}

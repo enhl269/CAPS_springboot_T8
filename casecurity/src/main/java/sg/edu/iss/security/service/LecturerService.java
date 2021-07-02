@@ -21,5 +21,7 @@ public interface LecturerService {
 	
 	 Page<Course> getPageLecture(Pageable pageable);
 
+	List<LecturerCanTeach> getAllLCT();
+
 }
 

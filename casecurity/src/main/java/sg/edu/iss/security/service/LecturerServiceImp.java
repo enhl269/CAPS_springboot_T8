@@ -46,6 +46,12 @@ public class LecturerServiceImp implements LecturerService {
 	}
 	
 	@Override
+	public List<LecturerCanTeach> getAllLCT()
+	{
+		return lctrepo.findAll();
+	}
+	
+	@Override
 	public void delete(Long id) {
 		lctrepo.deleteById(id);
 	}
