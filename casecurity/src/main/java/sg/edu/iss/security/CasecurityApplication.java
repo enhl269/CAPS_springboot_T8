@@ -250,7 +250,7 @@ public class CasecurityApplication {
 			screpo.save(sc4);
 			StudentClass sc5 = new StudentClass(dateStartSem2, 2, course.get(5), l.get(0));
 			screpo.save(sc5);
-			StudentClass sc6 = new StudentClass(dateStartSem2, 5, course.get(6), l.get(1));
+			StudentClass sc6 = new StudentClass(dateStartSem2, 30, course.get(6), l.get(1));
 			screpo.save(sc6);
 			StudentClass sc7 = new StudentClass(dateStartSem2, 30, course.get(7), l.get(2));
 			screpo.save(sc7);
@@ -300,16 +300,16 @@ public class CasecurityApplication {
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc3));	
 			
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc5));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("khant@gmail.com"), sc5));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangyu@gmail.com"), sc5));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc5));
+			//enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangyu@gmail.com"), sc5));
+			//enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc5));
 			
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("sizheng@gmail.com"), sc6));	
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangran@gmail.com"), sc6));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc6));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc6));	
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("estherNeoh@gmail.com"), sc6));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("khant@gmail.com"), sc6));
+			//enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("khant@gmail.com"), sc6));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangyu@gmail.com"), sc6));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc6));
 			
