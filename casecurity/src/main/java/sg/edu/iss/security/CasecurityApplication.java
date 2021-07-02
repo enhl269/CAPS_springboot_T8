@@ -283,35 +283,35 @@ public class CasecurityApplication {
 			
 			List<Enrollment> enrol = new ArrayList<>();
 			
-			enrol.add(new Enrollment(50f, "Pass", s.get(0), sc));		
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangran@gmail.com"), sc));		
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc));	
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("estherNeoh@gmail.com"), sc));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("sizheng@gmail.com"), sc));
+			enrol.add(new Enrollment(50f, "Graded", s.get(0), sc));		
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("zhangran@gmail.com"), sc));		
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("johnson@gmail.com"), sc));	
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("estherNeoh@gmail.com"), sc));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("sizheng@gmail.com"), sc));
 			
 			
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangran@gmail.com"), sc2));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc2));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc2));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("estherNeoh@gmail.com"), sc2));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("zhangran@gmail.com"), sc2));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("noel@gmail.com"), sc2));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("johnson@gmail.com"), sc2));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("estherNeoh@gmail.com"), sc2));
 			
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc3));		
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("google@gmail.com"), sc3));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc3));	
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("johnson@gmail.com"), sc3));		
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("google@gmail.com"), sc3));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("noel@gmail.com"), sc3));	
 			
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc5));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc5));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangyu@gmail.com"), sc5));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc5));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("johnson@gmail.com"), sc5));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("xinye@gmail.com"), sc5));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("zhangyu@gmail.com"), sc5));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("xinye@gmail.com"), sc5));
 			
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("sizheng@gmail.com"), sc6));	
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangran@gmail.com"), sc6));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc6));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc6));	
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("estherNeoh@gmail.com"), sc6));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("khant@gmail.com"), sc6));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangyu@gmail.com"), sc6));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc6));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("sizheng@gmail.com"), sc6));	
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("zhangran@gmail.com"), sc6));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("noel@gmail.com"), sc6));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("johnson@gmail.com"), sc6));	
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("estherNeoh@gmail.com"), sc6));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("khant@gmail.com"), sc6));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("zhangyu@gmail.com"), sc6));
+			enrol.add(new Enrollment(50f, "Graded", srepo.findStudentByEmail("xinye@gmail.com"), sc6));
 			
 			erepo.saveAll(enrol);
 

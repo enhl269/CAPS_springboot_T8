@@ -144,8 +144,8 @@ public class StudentController {
 		                    InternetAddress.parse("sizheng89@gmail.com,e0696698@u.nus.edu")
 		            );
 		            message.setSubject("You have been enrolled into class");
-		            message.setText("Dear Student,"
-		                    + "\n\n You have been enrolled into course!");
+		            message.setText("Dear " + s.getFirstName() + " " + s.getLastName() +","
+		                    + "\n\n You have been enrolled into Course Id " + sc.getCourse().getId() + ", " + sc.getCourse().getName() + "!" );
 
 		            Transport.send(message);
 
