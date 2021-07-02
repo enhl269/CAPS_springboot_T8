@@ -300,16 +300,16 @@ public class CasecurityApplication {
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc3));	
 			
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc5));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("khant@gmail.com"), sc5));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangyu@gmail.com"), sc5));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc5));
+			//enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangyu@gmail.com"), sc5));
+			//enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc5));
 			
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("sizheng@gmail.com"), sc6));	
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangran@gmail.com"), sc6));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("noel@gmail.com"), sc6));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("johnson@gmail.com"), sc6));	
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("estherNeoh@gmail.com"), sc6));
-			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("khant@gmail.com"), sc6));
+			//enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("khant@gmail.com"), sc6));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("zhangyu@gmail.com"), sc6));
 			enrol.add(new Enrollment(50f, "Pass", srepo.findStudentByEmail("xinye@gmail.com"), sc6));
 			
