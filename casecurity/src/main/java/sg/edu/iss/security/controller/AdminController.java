@@ -279,7 +279,7 @@ public class AdminController {
 						 
 						 }
 						 scService.save(StdClass); return
-								  "adminall_studentclasses";
+								 "redirect:/adminstudentClassList";
 						 
 						 }return "LectAssignError";		
 					 }

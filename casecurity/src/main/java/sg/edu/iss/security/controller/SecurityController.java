@@ -68,14 +68,15 @@ public class SecurityController {
 	}
 	
 	@PostMapping("/process_register")
-	public String processRegister(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+	public String processRegister(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "signup_form";
 		}
 		
-		User userFromDb = us.getUserByEmail(user.getEmail());
-		if(userFromDb != null)
-			return "email-duplicate";
+		
+		  User userFromDb = us.getUserByEmail(user.getEmail()); if(userFromDb != null)
+		  return "email_duplicate";
+		 
 		us.registerDefaultUser(user);
 		
 		return "register_success";
