@@ -90,7 +90,7 @@
 			<td th:text="${enrollment.studentName}">Student Name</td>
 			<td th:text="${enrollment.score}">Current Score</td>
 			<td colspan="3"><form style="width: 120px" th:action="@{/editScore/}+${enrollment.Studentclassid}+@{/}+${enrollment.enrollmentId}" method="POST">
-				<input style="width: 55px" type="number" name = 'attempt1' th:value="${enrollment.score}" min="0" max="100"/>	
+				<input style="width: 55px" type="number" name = 'attempt1' th:value="${enrollment.score}" min="0" max="100" required />	
 				<button type="submit" class="btn btn-dark" style="margin-top: -3px;width: 55px;text-align: center;padding: 2px;font-size: 12pt;">Save</button>
 			</form>
 			</td>
