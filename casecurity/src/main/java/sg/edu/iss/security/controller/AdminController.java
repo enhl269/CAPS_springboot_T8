@@ -371,7 +371,7 @@ public class AdminController {
 			  Enrollment e= new Enrollment("Pending",s,sc);
 			  eService.save(e);
 			  
-		  page = "students";
+		  page = "redirect:/students";
 		  
 		 } else { page = "class_full"; } 
 		  

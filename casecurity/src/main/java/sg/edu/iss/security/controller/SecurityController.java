@@ -53,6 +53,20 @@ public class SecurityController {
 		return "signup_form";
 	}
 	
+	@GetMapping("/addedit")
+	public String showAddEditForm(Model model) {
+		
+		List<String> roles = new ArrayList<>();
+		for(Role role:Role.values())
+			roles.add(role.toString());
+		
+		model.addAttribute("listRoles", roles);
+
+		model.addAttribute("user", new User());
+		
+		return "addedit_form";
+	}
+	
 	@PostMapping("/process_register")
 	public String processRegister(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
@@ -65,6 +79,17 @@ public class SecurityController {
 		us.registerDefaultUser(user);
 		
 		return "register_success";
+	}
+	
+	@PostMapping("/process_addedit")
+	public String processUserEdit(@ModelAttribute("user")  User user, Model model) {
+		
+		User userFromDb = us.getUserByEmail(user.getEmail());
+		if(userFromDb != null)
+			return "email-duplicate";
+		us.registerDefaultUser(user);
+		
+		return "redirect:/users";
 	}
 
 	@GetMapping("/users")

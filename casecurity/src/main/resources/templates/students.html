@@ -33,7 +33,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/lecturers">Manage Lecturer</a>
-          <a class="dropdown-item" href="/register">Create New Lecturer</a>
+          <a class="dropdown-item" href="/addedit">Create New Lecturer</a>
            <div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
            <a class="dropdown-item" href="/courses">Assign Lecturer</a>
            </div>
@@ -47,7 +47,7 @@
         <div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
           <a class="dropdown-item" href="/students">Manage Student</a>
           </div>
-          <a class="dropdown-item" href="/register">Create Student</a>
+          <a class="dropdown-item" href="/addedit">Create Student</a>
          
       </li>
       <li class="nav-item dropdown">
